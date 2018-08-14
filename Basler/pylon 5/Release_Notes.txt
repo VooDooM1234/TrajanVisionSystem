@@ -1,0 +1,1182 @@
+pylon 5 Camera Software Suite for Windows
+
+RELEASE NOTES
+
+Note: Intermediate versions for Windows OS are not released publicly.
+      All changes made in intermediate versions are included in the current
+      version of pylon.
+################################################################################
+
+
+RELEASE DATE:       2018-04-10
+
+VERSION:            5.0.12
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+Applications built with pylon 5.0.x are compatible with pylon 5.0.12.
+
+
+NEW FEATURES / CHANGES
+=========================
+
+* BPD: The Basler Product Documentation (offline and online) can be accessed directly from tools of the pylon Camera Software Suite.
+* pylon Viewer: [70359] Tooltips and feature descriptions have been localized into multiple languages. Updated the layout of the Feature Documentation pane. 
+* pylon Viewer: [64142] The pylon Viewer now displays chunk data provided by the camera.
+* pylon Viewer: [67994] The Bandwidth Manager will use 1500 as the lowest Packet Size parameter value. The Frame Transmission Delay parameter value has been optimized as well.
+* pylon Viewer: [66907] The user can pan the image window using the left mouse button and zoom into the image by pressing CTRL and using the mouse wheel.
+* pylon Viewer: [70341] The Basler Product documentation can be accessed from the pylon Camera Software Suite installation directory.
+* General: [70589] Added the legacy camera manuals.
+* General: [65039] Removed the desktop icons for the USB Configurator & IP Configurator tools. The tools can be accessed via the Start menu and the Tools menu in the pylon Viewer.
+* SDK: [64192] Added the GUI_Sample sample program, which demonstrates how to use pylon in a MFC Doc/View application.
+* SDK: [66609] The features of nodemaps provided by pylon objects can be made persistent.
+* SDK: [67658] Added the RAW format for saving images. 
+* pylon.NET: [68225] Implemented the GigE action commands feature in the .NET API.
+* pylon.NET: [68229] Added the Grab_UsingActionCommand sample program, which demonstrates how to use the .NET API to issue action commands.
+* pylon.NET: [68118] Handling of camera events is now supported by the pylon .NET API.
+* pylon.NET: [68228] Added the Grab_CameraEvents sample program, which demonstrates how to use the .NET API with camera events.
+* pylon.NET: [63945] Feature persistence (loading and saving of camera parameters from and to files) is now supported by the new pylon .NET API.
+* pylon.NET: [68227] Added the ParametrizeCamera_LoadAndSave sample program, which demonstrates how to use the .NET API to load and save camera parameters.
+* pylon.NET: [68117] Added the AviVideoWriter class to create and write AVI files.
+* pylon.NET: [68117] Added the Utility_GrabAvi sample program, which demonstrates how to create and write AVI files.
+* CamEmu: [71079] The camera emulation stream grabber loads images from directories sorted by file name in ascending order.
+
+
+CORRECTIONS
+=========================
+* General: [70591] Corrected release notes of pylon 5.0.11 regarding pylon .NET feature persistence [63945].
+* Setup: [71057] Fixed an issue where installing the GEV performance driver caused a rollback.
+* pylon Viewer: [67649] Fixed an issue where the pylon Viewer returns a wrong count of search results.
+* pylon Viewer: [67625] Rearranged options in Tools and Camera menus.
+* GigE Vision: [68676] Fixed scheduled action commands not working in Windows 64 bit.
+* GigE Vision: [70152] On Windows 10 operating systems, the WHQL signed performance driver is used.
+* GigE Vision: [69822] Fixed an issue where under certain conditions the stream grabber used a wrong port number.
+                This would eventually cause effects like devices being removed or streaming of other cameras being stopped.
+* GigE Vision: [70515] Fixed an issue where the stream grabber would crash when starting the grabbing failed.
+* SDK: [70066] Fixed an issue where IsMono() / IsColorImage() returned true for PixelType_Undefined.
+* SDK: [70363] Fixed the signature of the ConfigurationEventPrinter::OnGrabError method in the C++ sample code.
+* CamEmu: [70810] The behavior of the camera emulation devices and stream objects is equivalent to that of other transport layers.
+
+RESTRICTIONS
+=========================
+* USB: The Power Management used by the Intel USB host must be turned off since Basler U3V devices may get
+  desynchronized. If this is the case the Basler U3V devices may be not available after booting the system in some cases.
+  Disable LPM packages on the USB3 bus with the following steps:
+  1. Enable advanced settings by executing the following command: powercfg -attributes 2a737441-1930-4402-8d77-b2bebba308a3 d4e98f31-5ffe-4ce1-be31-1b38b384c009 -ATTRIB_HIDE
+  2. Change the LPM settings in the power options:
+     - Open the Power Options in the control panel.
+     - Click "Change plan settings" for the selected power plan.
+     - Click "Change advanced power settings".
+     - In the "Power Options" dialog on the "Advanced settings" tab, select "USB settings".
+     - Set "USB 3 Link Power Management" to "Off".
+* pylon Viewer: If the Polling option in the Features pane is enabled while displaying
+  a continuous image stream, there may be a stutter noticeable in the image stream.
+  Disable polling to avoid this effect.
+* GenTL: The GenTL producer for GigE Vision does not support action commands.
+* GenTL: The GenTL producer for GigE Vision does not support multicast configurations.
+* SDK: Using Visual Studio 2017, you may get the MSB4211 warning. To remove the warning,
+  specify the version of the Windows SDK in the Release and Debug project properties 
+  (Configuration Properties -> General -> Windows SDK Version).
+* SDK: The InstantCameraArray classes can acquire images from a maximum of 21 cameras.
+* pylon.NET: Some VB.NET API samples fail to compile on VB.NET 2015 when using
+  implicit cast operators of the API. As a workaround, the following syntax can be used:
+
+  ' Original sample using an enum parameter
+  camera.Parameters(PLCamera.TriggerSelector).GetValue()
+  ' Sample using an enum parameter with workaround
+  camera.Parameters(EnumName.op_Implicit(PLCamera.TriggerSelector)).GetValue()
+  
+* pylon.NET: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, enable the Managed Compatibility 
+  mode in the Visual Studio Debugger options.
+* General: If you run the GUI applications using the built-in Administrator account on Windows 10,
+  some Help/Support features may not work due to security restrictions.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8, Windows 8.1, and Windows 10.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support under Windows 8 and higher completely in upcoming pylon
+  releases. Basler strongly recommends NOT to use Firewire as a camera interface for applications running 
+  under Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8 and higher.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640 x 480, 1280 x 720, 
+      1280 x 960, and 1280 x 1024 may not work. In that case, adjust the image height or width slightly.
+    - It is recommended to use the Windows Media Player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC Media Player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC Media Player requires the image width to be a 
+      multiple of 4.
+    - The VLC Media Player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+* GigE Vision: The pylon performance driver will be replaced by the in-box Intel driver during an update of
+  the Microsoft Windows operating system. This happens because Windows will reinstall all drivers and
+  the in-box Intel driver will be regarded the best driver for Intel network adapters by the operating system.
+  There are multiple ways to change this. Choose the one that suits you best.
+  1. Start the setup executable again and execute the repair function of the pylon setup.
+  2. In the Windows driver properties dialog of the network adapter connected to a camera,
+     click the driver update button on the driver tab,
+     select manual search on the computer,
+     select to choose from a list of drivers installed on the computer and
+     then select "Basler GigE Vision Adapter" as driver.
+     Finally, click the continue button to complete.
+  3. Uninstall and then reinstall pylon.
+* BPD: The Basler Product Documentation requires advanced JavaScript support. Please use a modern browser, e.g., Internet Explorer 11, Edge or
+     Firefox 44 (or higher).
+* BPD: When opening the offline version of the Basler Product Documentation in Internet Explorer 11, the camera model filter always shows 
+       the default camera, not the camera actually connected to the computer. You have to manually select your camera model to view content specific to your camera model.
+
+
+
+################################################################################
+
+RELEASE DATE:       2017-11-06
+
+VERSION:            5.0.11
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+Applications built with pylon 5.0.0, 5.0.5, 5.0.9, or 5.0.10 are compatible with pylon 5.0.11.
+
+
+NEW FEATURES / CHANGES
+=========================
+* General: [31417] Added camera emulator to setup. See the programmer's guide on how to enable this.
+* General: [65744] Enabled jumbo frames for all applications in Performance Driver.
+* pylon Viewer: [64888] The Bandwidth Manager now supports GigE cameras.
+* pylon Viewer: [64822] Renamed "Transport Layer" to "Host Transport Layer".
+* pylon Viewer: [64819,64820,65008] Added links to pylon USB Configurator, pylon IP Configurator and pylon CL Configurator in the Tools menu.
+* pylon Viewer: [64818] Added links to C++ Programmer's Guide, C Programmer's Guide, C.NET Programmer's Guide,
+  .NET Programmer's Guide and pylon Deployment Guide in the help menu.
+* pylon Viewer: [64783] The Basler logo is now displayed in the image display area.
+* pylon Viewer: [55223] Images can now be saved in raw image format.
+* pylon Viewer: [64563] Added full-screen mode and multi-screen support.
+* pylon USB Configurator: [64816] Changed file extension of log files to .log.
+* SDK: [65683] Minor API documentation improvements of CInstantCamera and Pylon.NET Camera classes.
+* SDK: [55223] pylon API now allows saving images in raw image format.
+* Setup: [66011] Updated to latest vcredist.
+* Setup: [65660] Licenses and release notes are always installed now.
+* pylon.NET: [63945] Feature persistence (loading and saving of camera parameters from and to files) is now supported by the new pylon .NET API.
+
+CORRECTIONS
+=========================
+* GigE Vision: [66730] Fixed an issue where the GrabResult.GetErrorDescription() returned an empty string.
+* PylonCLSerTL: [66914] Fixed an issue where the TL allowed to deregister DeviceRemovalCallbacks after the device was closed and then opened again.
+* GenTL: [66676] Fixed an issue where the GEV Producer returned a wrong EventID in GCGetEventInfo when querying device events.
+* GenTL: The GenTL producer for GigEVision does now support the chunk mode.
+* GenTL: [65664] GEV producer returns GC_ERR_DATA_NOT_AVAILABLE instead of GC_ERR_SUCCESS with default values.
+* GenTL: The GenTL producer for GigEVision and U3V displays statistical values in stream and host transport layer node.
+* GenTL: [66760] The GenTL producer now supports paths with Chinese characters.
+* GenTL: [66722] Corrected the returned value of available events in the USB event interface.
+* GenTL: [67088] Added ExtendedDeviceControl node to u3v and gev device file.
+* GenTL: [67091] Removed firmware version and family name in device information and corrected the manufacturer info.
+* GenTL: [67093] StreamStartedFrameCount is now incremented every time a new buffer is started.
+* GenTL: [67179] In case of the GigE Performance Driver, the value of the Receive Windows Size parameter is now limited by the value of the Maximum Number of Buffers parameter.
+
+RESTRICTIONS
+=========================
+* pylon Viewer: If the Polling option in the Features pane is enabled while displaying
+  a continuous image stream, there may be a stutter noticeable in the image stream.
+  Disable polling to avoid this effect.
+* GenTL: The GenTL producer for GigE Vision does not support action commands.
+* SDK: Using Visual Studio 2017, you may get the MSB4211 warning. To remove the warning,
+  specify the version of the Windows SDK in the Release and Debug project properties 
+  (Configuration Properties -> General -> Windows SDK Version).
+* SDK: The InstantCameraArray classes can acquire images from a maximum of 21 cameras.
+* pylon.NET: Some VB.NET API samples fail to compile on VB.NET 2015 when using
+  implicit cast operators of the API. As a workaround, the following syntax can be used:
+
+  ' Original sample using an enum parameter
+  camera.Parameters(PLCamera.TriggerSelector).GetValue()
+  ' Sample using an enum parameter with workaround
+  camera.Parameters(EnumName.op_Implicit(PLCamera.TriggerSelector)).GetValue()
+  
+* pylon.NET: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, enable the Managed Compatibility 
+  mode in the Visual Studio Debugger options.
+* pylon.NET: Writing of AVI files is currently not supported by the new pylon .NET API.
+  You can work around this issue by using the AviWriter functions of the classic pylon C .NET API.
+* General: If you run the GUI applications using the built-in Administrator account on Windows 10,
+  some Help/Support features may not work due to security restrictions.
+* GigE Vision: Multicast is currently not supported when using the socket driver.
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, install the latest driver and firmware for your USB 3.0 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after having connected
+  or disconnected USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8, Windows 8.1, and Windows 10.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support under Windows 8 and higher completely in upcoming pylon
+  releases. Basler strongly recommends NOT to use Firewire as a camera interface for applications running 
+  under Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8 and higher.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640 x 480, 1280 x 720, 
+      1280 x 960, and 1280 x 1024 may not work. In that case, adjust the image height or width slightly.
+    - It is recommended to use the Windows Media Player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC Media Player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC Media Player requires the image width to be a 
+      multiple of 4.
+    - The VLC Media Player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+
+################################################################################
+
+RELEASE DATE:       2017-07-21
+
+VERSION:            5.0.10
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+Applications built with pylon 5.0.0, 5.0.5, or 5.0.9 are compatible with pylon 5.0.10.
+
+NEW FEATURES / CHANGES
+=========================
+* GigE Vision and USB3 Vision: A GenTL producer is now available that allows using
+  Basler cameras (GigE or USB 3.0) with applications supporting GenTL. The producer
+  is compliant with GenTL 1.5.
+
+CORRECTIONS
+=========================
+* General: [63606] Fixed a bug where pylon GUI tools tried to access the unavailable
+  system drive D.
+* pylon Viewer: [63564] Fixed a bug in the feature tree where a feature was invisible.
+
+RESTRICTIONS
+=========================
+* GenTL: The GenTL producer for GigE Vision does not support the chunk mode. The information
+  reported, e. g., the image size, may be incorrect if the chunk mode is enabled. As a consequence,
+  the image will not be displayed correctly.
+* GenTL: The GenTL producer for GigE Vision does not support streaming using the socket
+  driver implementation.
+* GenTL: The GenTL producer for GigE Vision does not support action commands.
+* GenTL: The GenTL producer for GigE Vision does not allow configuration of streaming parameters.
+* GenTL: The GenTL producer for USB Vision does not allow configuration of streaming parameters.
+* SDK: Using Visual Studio 2017, you may get the MSB4211 warning. To remove the warning,
+  specify the version of the Windows SDK in the Release and Debug project properties 
+  (Configuration Properties -> General -> Windows SDK Version).
+* SDK: The InstantCameraArray classes can acquire images from a maximum of 21 cameras.
+* pylon.NET: Some VB.NET API samples fail to compile on VB.NET 2015 when using
+  implicit cast operators of the API. As a workaround, the following syntax can be used:
+
+  ' Original sample using an enum parameter
+  camera.Parameters(PLCamera.TriggerSelector).GetValue()
+  ' Sample using an enum parameter with workaround
+  camera.Parameters(EnumName.op_Implicit(PLCamera.TriggerSelector)).GetValue()
+  
+* pylon.NET: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, enable the Managed Compatibility 
+  mode in the Visual Studio Debugger options.
+* pylon.NET: Writing of AVI files is currently not supported by the new pylon .NET API.
+  You can work around this issue by using the AviWriter functions of the classic pylon C .NET API.
+* pylon.NET: Handling of camera events is currently not supported by the new pylon .NET API.
+* pylon.NET: Feature persistence (loading and saving of camera parameters from and to files)
+  is currently not supported by the new pylon .NET API.
+* General: If you run the GUI applications using the built-in Administrator account on Windows 10,
+  some Help/Support features may not work due to security restrictions.
+* GigE Vision: Multicast is currently not supported when using the socket driver.
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, install the latest driver and firmware for your USB 3.0 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after having connected
+  or disconnected USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8, Windows 8.1, and Windows 10.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support under Windows 8 and higher completely in upcoming pylon
+  releases. Basler strongly recommends NOT to use Firewire as a camera interface for applications running 
+  under Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8 and higher.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640 x 480, 1280 x 720, 
+      1280 x 960, and 1280 x 1024 may not work. In that case, adjust the image height or width slightly.
+    - It is recommended to use the Windows Media Player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC Media Player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC Media Player requires the image width to be a 
+      multiple of 4.
+    - The VLC Media Player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+
+################################################################################
+
+RELEASE DATE:       2017-06-01
+
+VERSION:            5.0.9
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+Applications built with pylon 5.0.0 or 5.0.5 are compatible with pylon 5.0.9.
+
+
+NEW FEATURES / CHANGES
+=========================
+* General: Update to GenICam V3.0.1 and GenICam Firmware Update Standard Version 0.5 (SVN revision 4513).
+* General: The pylon Viewer GUI Tools have been updated to QT 5.6 including small improvements of the layout.
+* General: Enumerated devices are now sorted by device type (USB first, then GigE, CameraLink, 1394) and serial number.
+* pylon Viewer: The pylon Viewer feature tree now offers a search function.
+* Setup: The pylon 5 Runtime (1394).exe, pylon 5 Runtime (GEV).exe, and pylon 5 Runtime (USB).exe setups are not available anymore.
+  You can use the pylon 5 Runtime.exe command line interface options instead.
+* USB3: Changed the Grab_UsingSequencer sample because because after turning on the sequencer
+  when using newer camera models, the pixel format cannot be changed anymore.
+* USB3: Improved error message if opening the camera fails due to hardware problems.
+* pylon.NET: Fixed an internal issue regarding the encoding of non-ASCII strings.
+* pylonC: Added MinGW (Minimalist GNU for Windows) to the list of Windows OS compilers in GenApiCDefines.h.
+  pylonC has not been tested with MinGW, though.
+* DirectShow: Improved the display name when selecting camera devices.
+* SDK: Added Extend option to the InconvertibleEdgeHandling parameter of the CImageFormatConverter class.
+  With this option, rows and columns that cannot be converted are extrapolated for Bayer images.
+
+CORRECTIONS
+====================  
+* pylon Viewer: Fixed an issue where the feature tree in the Bandwidth Manager was initially not expanded.
+* pylon Viewer: Removed the help button where no help is available.
+* pylon Viewer: Fixed an issue where the camera was stopped after recording. The stream state is restored now.
+* pylon Viewer: Fixed an issue where the feature tree was not refreshed correctly.
+* pylon Viewer: Fixed an issue where the replay frame rate was not calculated correctly.
+* Setup: Fixed an issue where the IP Configurator was not installed after an upgrade installation.
+* Setup: Fixed an issue where the setup could fail to install into the Program Files folder on Windows 64-bit versions.
+* GigE Vision: Fixed an issue where the IP address and the port in the IP configuration settings of the
+  stream grabber were always zero initially.
+* GigE Vision: Fixed an issue where changing the heartbeat timeout did not work.
+* GigE Vision: Fixed an issue where errors were incorrectly classified, e.g., as information. Now, they are classified correctly as errors.
+* DirectShow: Fixed an issue that could cause the DirectShow source filter to not work under Windows 10 64-bit.
+* SDK: Fixed the format of lists in the CImageFormatConverter documentation.
+* SDK: Enabled building of pylon samples with MS Visual Studio 2017.
+* SDK: Fixed an issue in the Grab_UsingSequencer sample for cameras with the SequenceConfigurationMode feature.
+* pylon.NET: Fixed an issue in the sample solutions debug configuration.
+* pylon.NET: Fixed an issue where extension methods could not be used with VB.NET 2015.
+  
+RESTRICTIONS
+==================
+* SDK: Using Visual Studio 2017, you may get the MSB4211 warning. To remove the warning,
+  specify the version of the Windows SDK in the Release and Debug project properties 
+  (Configuration Properties -> General -> Windows SDK Version).
+* SDK: The InstantCameraArray classes can acquire images from a maximum of 21 cameras.
+* pylon.NET: Some VB.NET API samples fail to compile on VB.NET 2015 when using
+  implicit cast operators of the API. As a workaround the following syntax can be used:
+
+  ' Original sample using an enum parameter
+  camera.Parameters(PLCamera.TriggerSelector).GetValue()
+  ' Sample using an enum parameter with workaround
+  camera.Parameters(EnumName.op_Implicit(PLCamera.TriggerSelector)).GetValue()
+  
+* pylon.NET: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, enable the Managed Compatibility 
+  mode in the Visual Studio Debugger options.
+* pylon.NET: Writing of AVI files is currently not supported by the new pylon .NET API.
+  You can work around this issue by using the AviWriter functions of the classic pylon C .NET API.
+* pylon.NET: Handling of camera events is currently not supported by the new pylon .NET API.
+* pylon.NET: Feature persistence (loading and saving of camera parameters from and to files)
+  is currently not supported by the new pylon .NET API.
+* General: If you run the GUI applications using the built-in Administrator account on Windows 10,
+  some Help/Support features may not work due to security restrictions.
+* GigE Vision: Multicast is currently not supported when using the socket driver.
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, install the latest driver and firmware for your USB 3.0 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after having connected
+  or disconnected USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8, Windows 8.1, and Windows 10.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support under Windows 8 and higher completely in upcoming pylon
+  releases. Basler strongly recommends NOT to use Firewire as a camera interface for applications running 
+  under Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8 and higher.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640 x 480, 1280 x 720, 
+      1280 x 960, and 1280 x 1024 may not work. In that case, adjust the image height or width slightly.
+    - It is recommended to use the Windows Media Player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC Media Player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC Media Player requires the image width to be a 
+      multiple of 4.
+    - The VLC Media Player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+      
+      
+################################################################################
+
+RELEASE DATE:       2016-08-17
+
+VERSION:            5.0.5
+
+################################################################################
+
+
+BINARY COMPATIBLITY
+=========================
+Applications built with pylon 5.0.0 are compatible with pylon 5.0.5.
+
+
+NEW FEATURES / CHANGES
+=========================
+* General: Updated to GenICam version 3.0.1 (SVN revision 3890).
+* General: Improved processing performance of the GenICam description file. Improved processing performance when creating devices.
+* General: New license agreement for this pylon release (see pylon License.rtf)
+* pylon Viewer: When saving an image during image capture, the display will be frozen until the image has been saved.
+* pylon Viewer: The device list will now display a "No camera interface has been installed" message in case there are no interfaces/TLs available.
+* Setup: In case of an installation error all log files are now combined into one big file.
+* Setup: Setup now displays a warning if it is started without administrative rights.
+* Setup: Setup will now add a shortcut to the Basler website where you can download 3rd party USB host controller drivers.
+* Setup: The 'allowdowngrade' command line switch has been removed.
+* GigE Vision: New GEV filter driver supports all Windows versions from Windows 7 up to Windows 10 in 32 bit and 64 bit.
+* GigE Vision: The GigE socket driver is now available on all platforms.
+* pylon.NET: New pylon.NET SDK.
+* Twain: New TWAIN data source for 64-bit applications.
+
+  
+CORRECTIONS
+====================
+* pylon Viewer: Fixed an issue where the zoom feature did not work for some image sizes.
+* pylon Viewer: The zoom steps have been optimized.
+* pylon Viewer: From now on the "Set fixed playback speed" feature in the recording options will only be used when enabled.
+* pylon Viewer: Fixed an issue where the parameters of the pixel format converter could be modified without having any effect.
+* Setup: Fixed an issue where errors during setup could be ignored.
+* Setup: Fixed an issue where driver install/remove could fail when a user name contained spaces.
+* Setup: Fixed the location of the GeniCam cache folder.
+* Setup: Fixed an issue where msi packages from the pylon installer were not correctly added to the Windows package cache.
+* Setup: Fixed an issue where the filter driver couldn't be installed on systems where the maximum number of filter drivers had been exceeded.
+* Setup: Fixed an issue where the CLSERIALPATH environment variable was not set correctly.
+* Setup: Fixed several minor user interface issues.
+* USB3: Fixed an issue where a timeout occurred when the waiting time for an image or a camera event exceeded 10 minutes.
+* USB3: Fixed an issue in the USB Configurator where some newer ace models were mistakenly identified as USB2 devices.
+* SDK: pylon can now handle file names containing unicode characters.
+* SDK: Some entries in the Windows help index contained full paths instead of class names.
+* SDK: Corrected the documentation of the CInstantCamera::StartGrabbing method's maxImages parameter.
+* SDK: Corrected timeout message text that occurred when the 'GrabStrategy_UpcomingImage' grab strategy was used.
+* SDK: Fixed an issue where the parameters of the image format converter nodemap could be modified without having any effect.
+* SDK: Loading of additional pylon DLLs has been adjusted to simplify copy deployment.
+* SDK: Removed obsolete GENICAM_BUILD definition. GenICam will always try to link to the supplied release version.
+* SDK: Fixed an issue with VB sample build.
+* SDK: The VB6 TLB has been removed.
+* SDK: Fixed several minor issues.
+* GenICam: Fixed an issue that caused special characters to be escaped in XML output (issue 1583).
+* GenICam: The content of the <Extension> node is accessible (issue 1582).
+* GenICam: Removed 'void _LoadXMLFromFile(Vendor, Model);' excess method declaration (issue 1584).
+* GenICam: Eliminated exception that occurred when running GenICam without logging or caching (issue 1579).
+* GenICam: Removed duplicate definition of GetGenICamRoot (issue 1580).
+* pylon.NET: Fixed a race condition in Basler.Pylon.Camera.
+* pylon.NET: Added load methods to Basler.Pylon.ImagePersistence.
+* pylon.NET: Basler.Pylon.ImagePersistence.Save() now throws an ArgumentNullException instead of NullReferenceException when you pass null arguments.
+* pylon.NET: Added a new overload to Basler.Pylon.ImageWindow.DisplayImage to allow passing raw buffers.
+* pylon.NET: Added raw device access.
+* pylon.NET: Fixed documentation links.
+* Twain: Fixed an issue where the Twain driver always switched the pixel type to Mono8 on USB3 cameras.
+
+
+RESTRICTIONS
+==================
+
+* SDK: The InstantCameraArray classes cannot acquire images from more than 21 cameras.
+* pylon.NET: Some VB.NET API samples fail to compile on VB.NET 2015 when using extension methods or
+  implicit cast operators of the API.
+* pylon.NET: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, enable the Managed Compatibility 
+  mode in the Visual Studio Debugger options.
+* pylon.NET: Writing of AVI files is currently not supported by the new pylon .NET API.
+  You can work around this issue by using the AviWriter functions of the classic pylon C .NET API.
+* pylon.NET: Handling of camera events is currently not supported by the new pylon .NET API.
+* pylon.NET: Feature persistence (loading and saving of camera parameters from and to files)
+  is currently not supported by the new pylon .NET API.
+* General: If you run the GUI applications using the built-in Administrator account on Windows 10,
+  some Help/Support features may not work due to security restrictions.
+* GigE Vision: Multicast is currently not supported when using the socket driver.
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, install the latest driver and firmware for your USB 3.0 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after having attached
+  or detached USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8, Windows 8.1, and Windows 10.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support under Windows 8 and higher completely in upcoming pylon
+  releases. Basler strongly recommends NOT to use Firewire as a camera interface for applications running 
+  under Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8 and higher.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640 x 480, 1280 x 720, 
+      1280 x 960, and 1280 x 1024 may not work. In that case, slightly adjust the image height or width.
+    - It is recommended to use the Windows Media Player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC Media Player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC Media Player requires the image width to be a 
+      multiple of 4.
+    - The VLC Media Player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+
+
+################################################################################
+
+RELEASE DATE:       2015-10-31
+
+VERSION:            5.0.0
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 4.x.x are incompatible with pylon 5.0.0.
+Applications built with pylon 5.0.0 are incompatible with pylon 4.x.x. 
+
+
+NEW FEATURES / CHANGES
+=========================
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ATTENTION!
+pylon 5 introduces breaking changes regarding the C++ API. Existing code must be
+reviewed and changed where necessary even if it compiles without errors. Basler
+strongly recommends reading the Migration topic in the pylon C++ API
+documentation that gets installed with pylon to find out the exact nature of the
+changes.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+* pylon Camera Software Suite: Windows 10 is now supported.
+* pylon Camera Software Suite: Updated to the latest GenICam reference implementation v3.0,
+  introducing big improvements in performance and reduced memory footprint.
+* pylon Camera Software Suite: The config file registry is now optional and will not be installed
+  anymore. It is possible to add a folder named ConfigFileRegistry in the Runtime directory
+  for adding additional binding rule files if needed. The name of a binding rule file must start
+  with the prefix "Rules".
+* Setup: pylon is deployed using a new, easier to use installer.
+* Setup: The folder layout of the installation has changed to simplify copy deployment.
+* Setup: The environment variables PYLON_ROOT, PYLONC_ROOT, PYLON_GENICAM_VERSION,
+  and PYLON_GENICAM_ROOT are obsolete and no longer set by the Installer.
+  PYLON_DEV_DIR can be used instead when developing applications that use pylon.
+  The PATH environment variable is always extended by the installer.
+* SDK: pylon now supports copy deployment.
+  Any copy deployed pylon DLLs must not be reachable via the PATH environment variable.
+* SDK: Deprecated C++ header files have been removed.
+* SDK: The deprecated AlertableWaitObject C++ class has been removed.
+* SDK: C\C++ DLL names have changed, project settings need to be adjusted.
+* SDK: C++ Exceptions are no longer derived from std::exception.
+* SDK: PylonInitiallize() and PylonTerminate() C++ API functions are now reference counted.
+  Each call to PylonInitialize() must be balanced by a call to PylonTerminate().
+* SDK: The pylon Bootstrapper feature is obsolete and has been removed.
+* SDK: Added support for recent versions of Basler USB 3.0 and GigE cameras.
+* SDK: Added support for BayerGR10p, BayerGB10p, BayerRG10p, and BayerBG10p pixel formats.
+* SDK: CInstantCamera has been extended by the CanWaitForFrameTriggerReady() method for 
+  better support of dart and pulse camera models.
+* SDK: The C++ sample code has been improved for better support of dart and pulse
+  camera models.
+* SDK: The pylon .NET controls preview has been removed.
+  The new C#/VB.NET API preview is still available.
+* pylon Viewer: The Save Image dialog now remembers the selected image type.
+  Additionally, the image name is preset to a unique default each time you save an image.
+* pylon Viewer: The maximum settable playback speed for AVI recording has been increased to 999.  
+* USB3: Changed the default value for 'Maximum Transfer Size' for USB2 cameras to 64 kB.
+
+
+CORRECTIONS
+====================
+
+* pylon Viewer: Fixed an issue where stored AVI compression codec settings could not be applied
+  if the 32-bit and the 64-bit version of the pylon Viewer had been used on the same machine.
+* pylon Viewer: Fixed an issue with the Recording feature where image intervals of
+  more than 5 minutes did not work.
+* pylon Viewer: Fixed an issue where the pylon Viewer could crash when closing a camera.
+* IP Configurator: Fixed message text in Contact Support dialog.
+* USB Configurator: Fixed message text in Contact Support dialog.
+* USB3: Fixed an issue where accessing camera parameters could introduce lag to image streaming.
+* SDK: Fixed an issue that caused Visual Studio 2015 builds to fail because
+  of the new C++11 user-defined literal operator that is now supported by Visual Studio 2015.
+* GigE: Fixed an issue that caused the enumeration of the cameras to fail when using a very large
+  number of network adapters.
+
+
+RESTRICTIONS
+==================
+
+* SDK: The InstantCameraArray classes cannot acquire images from more than 21 cameras.
+* SDK: Some VB.NET API preview samples fail to compile on VB.NET 2015 when using extension methods.
+* pylon .NET APIs: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, enable the Managed Compatibility 
+  mode in the Visual Studio Debugger options.
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, make sure to install the latest driver and firmware for your USB 3.0 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after attaching
+  or detaching USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8, Windows 8.1, and Windows 10.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support under Windows 8 and higher completely in upcoming pylon
+  releases. Basler strongly recommends NOT to use Firewire as a camera interface for applications running 
+  under Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8 and higher.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640x480, 1280x720, 
+      1280x960, and 1280x1024 may not work. In that case, slightly adjust the image height or width.
+    - It is recommended to use the Windows media player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC media player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC media player requires the image width to be a 
+      multiple of 4.
+    - The VLC media player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+* Currently the GigE Filter Driver does not work on Windows 10.
+  pylon 5 supplies a socket-based alternative until the issue is resolved.
+
+
+################################################################################
+################################################################################
+################################################################################
+
+pylon 4 Camera Software Suite
+
+RELEASE NOTES
+
+################################################################################
+
+RELEASE DATE:       2015-07-10
+
+VERSION:        4.2.2
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 4.2.1 or 4.2.0 are compatible with pylon 4.2.2.
+Applications built with pylon 4.2.2 are compatible with pylon 4.2.1 if no API features introduced with pylon 4.2.2 are used.
+Applications built with pylon 4.2.2 are compatible with pylon 4.2.0 if no API features introduced with pylon 4.2.2 or 4.2.1 are used.
+
+
+NEW FEATURES / CHANGES
+=========================
+
+* USB3: Added driver and USB Configurator support for pulse camera devices.
+* pylon Viewer: Improved the Automatic Image Adjustment feature for dart and pulse camera devices.
+
+
+CORRECTIONS
+====================
+
+* pylon .NET Developer Preview: Fixed a stack corruption problem that caused 32-bit applications to 
+  unexpectedly abort with error code 0xC0000409.
+* SDK: Fixed missing entry for Mono10p pixel type in Pylon::CPixelTypeMapper class. Mono10p can
+  now be displayed by the pylon Viewer.     
+* USB Configurator: Fixed update driver feature for dart camera devices.
+* pylon Viewer: Fixed a problem that caused the pylon Viewer to generate additional
+  CPU load in idle state.
+   
+
+RESTRICTIONS
+==================
+
+* SDK: The InstantCameraArray classes cannot acquire images from more than 21 cameras.
+* pylon .NET APIs: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, you must enable the Managed Compatibility 
+  mode for the Visual Studio debugger.
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, make sure to install the latest driver and firmware for your USB 3.0 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after attaching
+  or detaching USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8 and Windows 8.1.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support Windows 8 and higher completely in upcoming pylon releases for
+  Basler strictly recommends NOT to use Firewire as a camera interface for applications running 
+  on Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640x480, 1280x720, 
+      1280x960, and 1280x1024 may not work. In that case, slightly adjust the image height or width.
+    - It is recommended to use the Windows media player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC media player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC media player requires the image width to be a 
+      multiple of 4.
+    - The VLC media player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+
+
+################################################################################
+
+RELEASE DATE:       2015-01-05
+
+VERSION:        4.2.1
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 4.2.0 are compatible with pylon 4.2.1.
+Applications built with pylon 4.2.1 are compatible with pylon 4.2.0 if no API features introduced with pylon 4.2.1 are used.
+
+
+NEW FEATURES / CHANGES
+=========================
+* pylon .NET Developer Preview: An alpha release of the new pylon Easy SDK which includes
+  - WPF user controls to easily design and build GUI based applications to work with Basler cameras
+  - an easy-to-use new .NET API. Some features, like an AVI writer, are not implemented yet
+    and will be added in the next versions.
+  The preview also contains a viewer example based on the new WPF controls including source code 
+  and a Visual Studio solution. Please note that the project must be built before the WPF designer 
+  can display the MainWindow's XAML.
+* pylon Viewer: Added the "Automatic Image Adjustment" feature to automatically make all settings 
+  necessary to get a good image under current conditions. This feature is available for ace
+  and dart cameras.
+* SDK: Added support for the latest Basler USB 3.0 cameras.
+ 
+
+CORRECTIONS
+====================
+
+* Installer: Fixed an issue where the installer locked up.
+* SDK: The SoftwareTrigger Configuration class did not work correctly with linescan cameras.
+* GigE: The device enumeration mechanism may have missed cameras if a certain number of connected 
+  cameras was exceeded.
+* USB3: Fixed a memory leak that occurred when IDeviceFactory::IsDeviceAccessible for USB 3.0 cameras 
+  was called.
+  
+
+RESTRICTIONS
+==================
+
+* SDK: The InstantCameraArray classes cannot acquire images from more than 21 cameras.
+* pylon .NET APIs: If native debugging is enabled for your .NET project and if your project is 
+  referencing pylon assemblies, the application may crash when running it under the Visual Studio 
+  2012 or Visual Studio 2013 debugger. To avoid this issue, you must enable the Managed Compatibility 
+  mode for the Visual Studio debugger.
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, make sure to install the latest driver and firmware for your USB 3.0 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after attaching
+  or detaching USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8 and Windows 8.1.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support Windows 8 and higher completely in upcoming pylon releases for
+  Basler strictly recommends NOT to use Firewire as a camera interface for applications running 
+  on Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640x480, 1280x720, 
+      1280x960, and 1280x1024 may not work. In that case, slightly adjust the image height or width.
+    - It is recommended to use the Windows media player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC media player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC media player requires the image width to be a 
+      multiple of 4.
+    - The VLC media player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+
+
+################################################################################
+
+RELEASE DATE:       2014-09-26
+
+VERSION:        4.2.0
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 4.1.x are incompatible with pylon 4.2.0.
+Applications built with pylon 4.2.0 are incompatible with pylon 4.1.x. 
+
+
+NEW FEATURES / CHANGES
+=========================
+* Support for the dart camera family.
+* pylon Viewer: Favorites: For faster access to frequently used features,
+  features can be placed in the "Favorites" category either by using the context menu or by using drag & 
+  drop.
+* pylon Viewer: Improved the fps display.
+* SDK: Added support for the latest Basler GigE and USB cameras.
+* SDK: Added support and samples for the sequencer feature of USB cameras.
+
+ 
+CORRECTIONS
+====================
+
+* SDK: ITransportLayer::ReleaseTl() did not always free the resources allocated by a transport layer.
+  This fix may affect applications accidentally calling ReleaseTl() too often. Ensure
+  that for every call of CTlFactory::CreateTl() there is only one ReleaseTl() call.
+* SDK: Fixed thread-safety issues with the CTlFactory class.
+* pylon Viewer: No camera features were shown if a device could only be opened at second attempt. 
+* pylon Viewer: Fixed problems occurring when enabling the Line Pitch camera feature.
+* pylon Viewer: The "Copy Camera Features" menu entry only became available after the first image had
+  been grabbed.
+* USB3: Exception may have been thrown when closing the camera.
+* USB3: Fixed problems occurring when enabling the Line Pitch camera feature.
+* USB3: Statistics: Incomplete frames were counted as 'missed frames'.
+* GigE: Fixed resource leak that occurred when using action commands.
+* AviWriter: Fixed problem that occurred when frame insertion rate was less then one per second.
+* Direct Show: When selecting the YCbCr422 pixel format, no images were displayed.
+
+  
+RESTRICTIONS
+==================
+
+* USB3: Currently, pylon has been tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance, make sure to install the latest driver and firmware for your USB 3 
+  host controller.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* USB3: The USB Configurator may crash when pressing the refresh button immediately after attaching
+  or detaching USB devices.
+* Limited Firewire (IEEE1394) support under Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been tested successfully with the 64-bit versions of Windows 8 and Windows 8.1.
+  However, as newer Windows versions (8 and higher) no longer explicitly support Firewire, Basler 
+  may decide to discontinue Firewire support Windows 8 and higher completely in upcoming pylon releases for
+  Basler strictly recommends NOT to use Firewire as a camera interface for applications running 
+  on Windows 8 or higher.
+  There is no support for Firewire cameras on the 32-bit versions of Windows 8.
+* AVI video recording:
+    - When compression is enabled for AVI recording, some codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640x480, 1280x720, 
+      1280x960, and 1280x1024 may not work. In that case, slightly adjust the image height or width.
+    - It is recommended to use the Windows media player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC media player may not play the recorded videos correctly. 
+    - For rendering uncompressed video files, the VLC media player requires the image width to be a 
+      multiple of 4.
+    - The VLC media player may not render a video if the recording speed is less than
+      5 frames per second. 
+      As a workaround, navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+
+
+      
+################################################################################
+
+RELEASE DATE:       2014-04-14
+
+VERSION:        4.1.0
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 4.0.x are incompatible with pylon 4.1.0.
+Applications built with pylon 4.1.0 are incompatible with pylon 4.0.x. 
+
+
+NEW FEATURES / CHANGES
+=========================
+* Windows XP is no longer supported.
+* Windows 8.1 is supported.
+* pylon Viewer: Throughput and bandwidth values are now consistently depicted in MB/s 
+  (1,000,0000 Byte/s) instead of MiB/s (1,048,576  Byte/s).
+* pylon Viewer: Added context menus to the entries in the "Devices" pane.
+* pylon Viewer: Cameras can be explicitly opened and closed. Please note that a camera is no longer 
+  opened automatically by a single click. To open a camera, double-click the desired entry in the 
+  "Devices" group, or select the desired entry and open the camera via the context menu or toolbar 
+  button.
+* pylon Viewer: Added a message log window informing the user about notes, warnings, and errors.
+* pylon Viewer: Added a bandwidth manager for USB cameras. The Bandwidth Manager serves as an easy-
+  to-use tool for adjusting and measuring the throughput of (multiple) USB cameras.
+* plon Viewer: By default, the viewer now displays incompletely grabbed or corrupted frames. The 
+  number of successfully grabbed and corrupted frames is shown in the status bar of the image windows.
+* USB Configurator: A warning is shown if there are multiple direct transfer cameras connected to 
+  a single root hub. Connecting multiple direct transfer cameras may result in incomplete frames.
+* USB Configurator: A warning is shown if the bandwidth consumption of connected cameras might
+  exceed the bandwidth provided by USB host controllers.
+* USB3: Added error message texts to the statistics parameters provided by the pylon USB Transport Layer 
+  and Stream Grabber objects.
+* GigE Vision: The Basler GigE performance driver supports the Intel Springville i210 series GigE network 
+  adapters.
+* GigE Vision: The Stream Grabber's statistic data remains readable after the grabbing has stopped.
+* SDK: Added the equivalents to the GenApi::ISelector interface methods to the pylon C & .Net APIs.
+* SDK: "Legacy" samples have been added illustrating how to add USB 3.0 support to applications still
+  using the pylon low-level API.
+* SDK: Added a feature called "migration mode" to simplify the transition of existing applications 
+  to USB 3.0.
+* SDK: Added documentation and sample that illustrate the Buffer Factory. The Buffer Factory enables 
+  the Instant Camera classes to use memory provided by the application.
+* SDK: The pylon SDK for Visual Basic 6 is no longer included.
+* SDK: Visual Studio 6.0 is no longer supported by the pylon C API.
+* SDK: The API for the action command feature has been reworked. C and C# samples demonstrating the 
+  usage of action commands have been added.
+
+
+CORRECTIONS
+====================
+* USB3: Fixed a bug in the device enumeration which may have caused an incomplete USB 3.0 device list.
+* USB3: Implemented a solution for a bug in Intel's USB host controller driver which may cause an 
+  application to block while it is stopping to grab images.
+* USB3: Fixed a bug in the pylon Twain driver affecting USB cameras.
+* pylon Viewer: Fixed an issue which might cause the pylon Viewer to block in case of transmission 
+  errors caused by the usage of inappropriate USB cables.
+* GigE Vision: Fixed a bug which prevents devices to be enumerated when the PC is not connected to a network.
+* SDK: Fixed a memory leak that occurred when device-specific event handlers were registered.
+* SDK: Fixed a potential crash in the pylon Image Window.
+* SDK: Improved Instant Camera chunk data support. Instant Camera objects now can deal with an image 
+  stream consisting of both, frames with and frames without chunk data.
+
+
+RESTRICTIONS
+==================
+
+* USB3: Currently pylon is tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may 
+  work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance make sure to install the latest driver and firmware for your USB 3 
+  host controller.
+* USB3: pylon only supports USB 3 host controllers. Cameras connected to a USB 2 port will not be 
+  detected/supported. You can use the USB Configurator to diagnose connection problems.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* Limited Firewire (IEEE1394) support for Windows 8 and higher: The pylon drivers for IEEE1394 have 
+  been successfully tested with Windows 8 and Windows 8.1. However, as newer Windows versions (8 and
+  higher) no longer explicitly support Firewire, Basler may decide to discontinue Firewire 
+  support completely in upcoming pylon releases for Windows 8 and higher. We strictly recommend NOT to use 
+  Firewire as camera interface for applications running with Windows 8 or higher.
+* AVI video recording:
+    - When compression is enabled for AVI recording, different codecs may have certain restrictions
+      with respect to the camera pixel format and image size. 
+      Example: When selecting the Xvid codec, the use of image resolutions like 640x480, 1280x720, 
+      1280x960, and 1280x1024 might not work. In that case, slightly adjust the image height or width.
+    - It is recommended to use the Windows media player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the 
+      VLC media player might not play the recorded videos correctly. 
+    - For rendering uncompressed video files the VLC media player requires the image width to be a 
+      multiple of 4.
+    - The VLC media player might not render a video if the recording speed is less than about 
+      5 frames per second. 
+      As a workaround navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" 
+      dialog and increase the value for the "File caching (ms)" setting.
+
+
+################################################################################
+
+RELEASE DATE:       2013-12-20
+
+VERSION:        4.0.2
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 4.0.1 or 4.0.0 are compatible with pylon 4.0.2.
+Applications built with pylon 4.0.2 are compatible with pylon 4.0.1 if no API features introduced with pylon 4.0.2 are used.
+Applications built with pylon 4.0.2 are compatible with pylon 4.0.0 if no API features introduced with pylon 4.0.2 or 4.0.1 are used.
+
+
+NEW FEATURES / CHANGES
+=========================
+
+* pylon Viewer: Added recording feature. The feature allows the recording of video files (.avi) and image sequences.
+* GigE Vision: Added support for action commands and scheduled action commands allowing to trigger multiple cameras simultaneously.
+* SDK: Added support for recent versions of Basler USB 3.0 and GigE cameras.
+* SDK: Visual Studio 2013 is supported now.
+
+CORRECTIONS
+====================
+* pylon Viewer: Fixed an issue which may have caused the viewer to hang or crash when removing a USB camera.
+* USB3: Fixed an issue that could cause a deadlock when removing a USB camera.
+* USB Configurator: Fixed an issue causing the USB Configurator not to list USB devices.
+* USB Configurator: Fixed a problem with unicode characters in the support information dialog.
+* IP Configurator: The IP Configurator now refuses IP addresses from the reserved address range 0.0.0.0/8.
+* Direct Show: Fixed an issue with the pylon Direct Show source filter on Windows 8 systems.
+* SDK: Increased too short timeouts in VB & .NET samples.
+
+RESTRICTIONS
+==================
+
+* USB3: Currently pylon is tested with Renesas and Intel Ivy Bridge USB3 host controllers. pylon may work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance make sure to install the latest driver and firmware for your USB 3 host controller.
+* USB3: pylon only supports USB 3 host controllers. Cameras connected to a USB 2 port will not be detected/supported. You can use the USB Configurator to diagnose connection problems.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* FireWire: FireWire is not supported on Windows 8 or higher operating system versions. The setup will not install FireWire components on Windows 8 or higher versions. You can still install FireWire components on Windows 7 and XP-based systems.
+* VB6: The pylon VB6 interface will be discontinued. It will still be included as is for backward compatibility. There are not going to be any new features, and the support will be discontinued.
+* AVI video recording:
+    - When compression is enabled for AVI recording, different codecs may have certain restrictions with respect to the camera pixel format and 
+      image size. 
+      Example: When selecting the Xvid codec, using image resolutions like 640x480, 1280x720, 1280x960, and 1280x1024 might not work. In that case,
+      slightly adjust the image height or width.
+    - It is recommended to use the Windows media player for viewing the AVI files.
+    - Depending on the camera's pixel format, image size, and the codec used for compression, the VLC media player might not play the recorded 
+      videos correctly. 
+    - For rendering uncompressed video files the VLC media player requires the image width to be a multiple of 4.
+    - The VLC media player might not render a video if the recording speed is less than about 5 frames per second. 
+      As a workaround navigate to the "Input Codecs" section in the VLC's "Advanced Preferences" dialog and increase the value for the 
+      "File caching (ms)" setting.
+
+
+################################################################################
+
+RELEASE DATE:       2013-08-30
+
+VERSION:        4.0.1
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 4.0.0 are compatible with pylon 4.0.1.
+Applications built with pylon 4.0.1 are compatible with pylon 4.0.0 if no API features introduced with pylon 4.0.1 are used.
+
+
+NEW FEATURES / CHANGES
+=========================
+
+* USB3: Added support for recent versions of Basler USB 3.0 cameras.
+* USB3: Added/improved samples demonstrating event handling.
+* pylon Viewer: Added online help.
+* IP Configurator: Added facilities for providing user feedback and contacting Basler support by email.
+* Documentation: Updated migration guide.
+* PylonC/pylonC.NET: Extended the list of supported device info keys.
+
+CORRECTIONS
+====================
+* General: Administrative privileges were required for accessing the caching directory where downloaded camera XML files are cached.
+* pylon Viewer: Viewer now shows error message when contacting Basler support fails because no email client is installed. 
+* pylon Viewer: Fixed an issue where the parameters of the pixel format converter could be modified without having an effect.
+* pylon Viewer: The viewer now suggests appropriate directories for saving feature settings and images.
+* pylon Viewer: Fixed a bug causing the viewer to terminate prematurely. 
+* pylon Viewer: Fixed a bug that might have led to an endless sequence of error message boxes.
+* USB Configurator: Fixed an issue causing the USB Configurator to display certain root hubs as USB 2 instead of USB 3 devices.
+* USB Configurator: Fixed detection of USB 3 devices for several non-Intel and non-Renesas USB controller chipsets.
+* CL Configurator: Fixed a bug causing the Camera Link Configurator to prompt for multiple user confirmations at program exit.
+* USB3: Fixed off-by-one error in stream grabber statistics.
+* Direct Show: Fixed a bug causing Direct Show applications not to find a USB 3 camera.
+* SDK: Fixed spelling in pixel type mapper strings.
+* SDK: Added missing chunk image sample for USB 3.
+* Setup: Fixed an issue causing overlapping text rendering on the first installer wizard page.
+
+RESTRICTIONS
+==================
+
+* USB3: Currently pylon is tested with Renesas and Intel Ivy Bridge USB 3 host controllers. pylon may work with other controllers, but some functionalities may not work as expected.
+* USB3: For optimum performance make sure to install the latest driver and firmware for your USB 3 host controller.
+* USB3: pylon only supports USB 3 host controllers. Cameras connected to a USB 2 port will not be detected/supported. You can use the USB Configurator to diagnose connection problems.
+* USB3: NEC USB 3.0 host controllers are not supported.
+* FireWire: FireWire is not supported on Windows 8 or higher operating system versions. The setup will not install FireWire components on Windows 8 or higher versions. You can still install FireWire components on Windows 7 and XP-based systems.
+* VB6: The pylon VB6 interface will be discontinued. It will still be included as is for backward compatibility. There are not going to be any new features, and the support will be discontinued.
+* DirectShow: The DirectShow source filter for Basler cameras might not work correctly under Windows 8.
+
+
+################################################################################
+
+RELEASE DATE:       2013-07-22
+
+VERSION:        4.0.0
+
+################################################################################
+
+BINARY COMPATIBLITY
+=========================
+
+Applications built with pylon 3.x.x are incompatible with pylon 4.0.0.
+Applications built with pylon 4.0.0 are incompatible with pylon 3.x.x. 
+
+
+NEW FEATURES / CHANGES
+=========================
+
+* General: The software has been renamed to "pylon 4 Camera Software Suite".
+* General: Starting with this version pylon officially supports Windows 8. Note: FireWire is not supported under Windows 8 (see restrictions below).
+* pylon Viewer: Added a new "Submit feedback" command to the Help menu.
+* pylon Viewer: Added a new "Contact support" command to the Help menu.
+* pylon Viewer: Added a slider and spin buttons for float values in the feature tree.
+* USB3: Starting with this version pylon supports Basler's new USB 3 Vision cameras.
+* USB3: Added a new application, the USB Configurator. The USB Configurator is an easy to use tool to improve USB performance and diagnose possible problems using USB cameras and controllers.
+* GigE Vision: Since pylon 3.2.3 an updated pylon Performance GigE driver is included. In addition to the currently supported chipsets the newer Intel chipsets I340 and I350 are now supported.
+* SDK: Visual Studio 2012 is now officially supported.
+* SDK: Added a new GetSfncVersion() function to determine the SNFC version of a device. This aids when determining which camera features are available.
+* SDK: CPixelTypeMapper::GetnameByPixelType can be passed a SNFC Version to perform the mapping. If none is specified, the behaviour of pylon 3.x is used.
+* SDK: The GrabResultData has an additional function, the GetBufferContext(), to access the buffer context, which can be specified when using custom buffer factories.
+* pylonC/pylonC.NET: Added a new function, the GenApiNodeGetAlias(), to retrieve the alias node of a float node.
+* pylonC: Fixed const correctness of pBuffer parameter in PylonImagePersistenceSave(), PylonAviWriterAdd(), PylonImageWindowSetImage() and PylonImageWindowDisplayImage().
+
+
+CORRECTIONS
+====================
+
+* pylon Viewer: Corrected an issue which may have led to read-only features in the feature tree, not beeing selectable anymore.
+* pylon Viewer: The viewer now correctly displays images with varying dimensions during a continuous grab, i.E when using the sequencer feature on the camera.
+* pylon Viewer: Corrected an issue where the window layout of the pylon Viewer could be changed without user action when there was an error during camera access.
+* Setup: A shortcut to the "pylon Viewer (Multicast Monitor)" will only be created, if the user installs GigE support.
+* Setup: Prevented the black command windows from being briefly displayed during installation.
+* GigE Vision: Corrected an issue in the IP Configurator which prevented the successful configuration of some older cameras.
+* pylonC.NET: Corrected a possible NullReferenceException when using the AviWriter with the compression options dialog.
+* pylonC.NET: Corrected an issue where an ArgumentException: "Key already exits" could be thrown when registering a removal callback for two or more cameras simultaneously.
+
+
+RESTRICTIONS
+==================
+
+* USB3: Currently pylon is tested with Renesas and Intel Ivy Bridge USB 3 host controllers. pylon may work with other controllers, but some functionality may not work as expected.
+* USB3: For optimal performance you should make sure to install the latest driver and firmware for your USB 3 host controller.
+* USB3: pylon only supports USB 3 host controllers. Cameras connected to a USB 2 port will not be detected/supported. You can use the USB Configurator to diagnose connection problems.
+* USB3: If you do not use an Reneasas or Intel Ivy Bridge host controller, the USB Configurator may report incorrectly that a USB 2 controller has been detected.
+* FireWire: FireWire is not supported on Windows 8 or higher operating system versions. The setup will not install FireWire components on Windows 8 or higher versions. You can still install FireWire components on Windows 7 and XP-based systems.
+* VB6: The pylon VB6 interface will be discontinued. It will still be included as is for backward compatibility. There are not going to be any new features, and the support will be discontinued.
+* DirectShow: The DirectShow source filter for Basler cameras might not work correctly under Windows 8.

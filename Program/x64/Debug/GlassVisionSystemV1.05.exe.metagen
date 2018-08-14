@@ -1,0 +1,70 @@
+  GlassVisionSystemV105.CameraForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.ChuteSettingsForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.ImageSettingsForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.InformationForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.LogForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.MyForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.PasswordForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.ProductSettingsForm.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly GlassVisionSystemV1.05, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.DirectoryServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class GlassVisionSystemV105.CameraForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class GlassVisionSystemV105.ChuteSettingsForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ChuteSpecs(ChuteSpecifications*): PrivateScope, Public, HideBySig
+    GetDestination(): PrivateScope, Public, HideBySig
+    SetFormVariables(ChuteSpecifications): PrivateScope, Public, HideBySig
+Class GlassVisionSystemV105.ImageSettingsForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    loadImageSettingsForm(): PrivateScope, Public, HideBySig
+Class GlassVisionSystemV105.LogForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class GlassVisionSystemV105.PasswordForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class GlassVisionSystemV105.ProductSettingsForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.TextBox tbxPartNumber : Public
+    System.Windows.Forms.TextBox tbxDescription : Public
+    System.Windows.Forms.NumericUpDown nudNumChutes : Public
+    System.Windows.Forms.DataGridView dgvDefects : Public
+    System.Windows.Forms.NumericUpDown nudOD : Public
+    System.Windows.Forms.NumericUpDown nudID : Public
+  Methods:
+    getnumChutes(): PrivateScope, Public, HideBySig
+Class GlassVisionSystemV105.InformationForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    resetToolTips(): PrivateScope, Public, HideBySig
+    updateToolTips(): PrivateScope, Public, HideBySig
+    FormUpdate(): PrivateScope, Public, HideBySig
+Class GlassVisionSystemV105.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Collections.Generic.List`1[GlassVisionSystemV105.ChuteSettingsForm] lstChuteSettingForms : Public
