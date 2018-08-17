@@ -9,9 +9,12 @@
 #include <windows.h>
 
 #include "opencv2/imgproc.hpp"
-#include "pylon/PylonGUI.h"
-#include "pylon/PylonIncludes.h"
+//#include <pylon/PylonGUI.h>
+#include <pylon/PylonIncludes.h>
 
+
+#include <pylon/usb/BaslerUsbInstantCamera.h>
+using namespace Basler_UsbCameraParams;
 using namespace Pylon;
 
 std::string sysStringtoStd(System::String^ Str);
@@ -116,7 +119,9 @@ typedef struct {
 	std::string camName;
 	bool multiConcentricCircleDetected = false;
 
-	Pylon::CInstantCamera *camera;
+	Pylon::CBaslerUsbInstantCamera *camera;
+	Pylon::CBaslerUsbDeviceInfo baslerInfo;
+
 }ImageInformation;
 
 typedef struct {

@@ -16,35 +16,82 @@ using namespace std;
 Imageanalysis CameraA;
 Imageanalysis CameraB;
 
-void Imageanalysis::CameraInitialization(int camNumber, string CamName) {
+void Imageanalysis::CameraInitialization(int camNumber, string camName) {
+	////attempt to open camera for capturing image
+	//IMGInfo.ImageCapture.open(camNumber);
+	//IMGInfo.camNumber = camNumber;
+	//IMGInfo.camName = CamName;
+
+	//if (!IMGInfo.ImageCapture.isOpened()) { //Show Error if Failed to Open
+	//	cerr << "Failed to open Camera A\n" << endl;
+	//	currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method Failed, Attempting to open camera using Pylon Class Method";
+	//	SaveLog(currentLog);
+
+	//	//if attempt failed try to open via Pylon Method
+	//	Imageanalysis::PylonInitialization(camNumber, CamName);
+	//}
+	//else {
+
+	//	IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448/2);
+	//	IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048/2);
+	//	Imageanalysis::PylonInitialization(camNumber, CamName);
+
+	//	currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
+	//	SaveLog(currentLog);
+	//}
+	PylonInitialization(camNumber, camName);
+	if (IMGInfo.camera != nullptr) {
+		if (IMGInfo.camera->IsOpen() == false) {
+			OpenCVCamInitialization(camNumber, camName);
+		}
+	}
+	else {
+		OpenCVCamInitialization(camNumber, camName);
+	}
+
+}
+void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
 	//attempt to open camera for capturing image
 	IMGInfo.ImageCapture.open(camNumber);
 	IMGInfo.camNumber = camNumber;
-	IMGInfo.camName = CamName;
+	IMGInfo.camName = camName;
 
 	if (!IMGInfo.ImageCapture.isOpened()) { //Show Error if Failed to Open
 		cerr << "Failed to open Camera A\n" << endl;
-		currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method Failed, Attempting to open camera using Pylon Class Method";
+		currentLog.result = "Opening Camera: " + camName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method Failed";
 		SaveLog(currentLog);
 
 		//if attempt failed try to open via Pylon Method
-		Imageanalysis::PylonInitialization(camNumber, CamName);
+		//Imageanalysis::PylonInitialization(camNumber, camName);
 	}
 	else {
-		currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
+
+		/*IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448 / 2);
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048 / 2);*/
+		//Imageanalysis::PylonInitialization(camNumber, camName);
+
+		currentLog.result = "Opening Camera: " + camName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
 		SaveLog(currentLog);
 	}
 }
+
 
 void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 	Pylon::PylonAutoInitTerm();
 	Pylon::PylonInitialize();
 	try
 	{
-		CInstantCamera camera(CTlFactory::GetInstance().CreateFirstDevice());
-		IMGInfo.camera = &camera;
-		cout << "Using Device:" << camera.GetDeviceInfo().GetModelName() << endl;
-		camera.Open();
+		//CBaslerUsbInstantCamera camera(CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
+		//IMGInfo.camera = &camera;
+
+		IMGInfo.baslerInfo.SetDeviceClass(CBaslerUsbInstantCamera::DeviceClass());
+		IPylonDevice* device = Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo);
+		IMGInfo.camera->Attach(device); //<-- CODY THIS COMPILES FOR ME SEE IF IT WORKS LOADING THE CAMERA
+										//IMGInfo.camera = new CBaslerUsbInstantCamera(device);//<--- IM HAVING THE ISSUE WITH THIS CODY, SEE IF U CAN GET IT TO WORK 
+										//IMGInfo.camera = new Pylon::CBaslerUsbInstantCamera(Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
+		cout << "Using Device:" << IMGInfo.camera->GetDeviceInfo().GetModelName() << endl;
+		IMGInfo.camera->Open();
+		//camera.AutoBacklightCompensation();
 	}
 	catch (const GenericException &e) {
 		currentLog.result = "Failed Loading " + camName + ": " + std::string(e.GetDescription());
@@ -56,7 +103,11 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 void Imageanalysis::ProcessImage()
 {
 	//Store original Image display the oridinal image
-	IMGInfo.ImageCapture >> IMGInfo.original;
+	if (IMGInfo.ImageCapture.isOpened())
+		IMGInfo.ImageCapture >> IMGInfo.original;
+	else {
+		ProcessPylonImage();
+	}
 	try
 	{
 		//process image data
@@ -64,8 +115,9 @@ void Imageanalysis::ProcessImage()
 	}
 	catch (const std::exception&)
 	{
-
 		IMGInfo.ImageCapture.release();
+		if (IMGInfo.camera != nullptr)
+			IMGInfo.camera->Close();
 	}
 	//Imageanalysis::generateManipulated();
 }
@@ -78,6 +130,7 @@ void Imageanalysis::ProcessPylonImage() {
 	CGrabResultPtr PtrGrabResult;
 	IMGInfo.camera->GrabOne(500, PtrGrabResult);
 	if (PtrGrabResult->GrabSucceeded()) {
+
 		PylonToCVFormatConverter.Convert(PylonImage, PtrGrabResult);
 		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer());
 

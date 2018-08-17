@@ -374,13 +374,15 @@ namespace GlassVisionSystemV105 {
 		}
 
 		//run the vision data analysis on cameras A & B
-		if (CameraA.IMGInfo.ImageCapture.isOpened()) {
-			CameraA.ProcessImage();
+		if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera != nullptr) {
+			if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen())
+				CameraA.ProcessImage();
 		}
 
 
-		if (CameraB.IMGInfo.ImageCapture.isOpened()) {
-			CameraB.ProcessImage();
+		if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera != nullptr) {
+			if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera->IsOpen())
+				CameraB.ProcessImage();
 		}
 
 		infoForm->FormUpdate();
