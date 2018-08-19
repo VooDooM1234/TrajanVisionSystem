@@ -1,4 +1,8 @@
 #pragma once
+#include "Structs.h"
+#include "SaveLoadSettings.h"
+#include "LogPreviewForm.h"
+
 
 namespace GlassVisionSystemV105 {
 
@@ -21,6 +25,16 @@ namespace GlassVisionSystemV105 {
 			//
 			//TODO: Add the constructor code here
 			//
+			// Set the Format type and the CustomFormat string.
+			this->dateTimePicker1->Format = DateTimePickerFormat::Custom;
+			this->dateTimePicker1->CustomFormat = "MMMM yyyy";
+			this->dateTimePicker1->MaxDate = DateTime::Now;
+
+			dateTimePicker1->ShowUpDown = true;
+			logList = LoadLog();
+			this->dateTimePicker1->Value = this->dateTimePicker1->MaxDate;
+
+			//PopulateList();
 		}
 
 	protected:
@@ -41,10 +55,13 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::RadioButton^  radioButton1;
 	private: System::Windows::Forms::Button^  btnReturn;
 	private: System::Windows::Forms::GroupBox^  groupBox2;
-	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::DateTimePicker^  dateTimePicker2;
-	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::ListBox^  listBox1;
+
+
+
+	private: System::Windows::Forms::ListBox^  lstItems;
+
+	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::CheckBox^  cbxMonthFilter;
 	protected:
 
 	private:
@@ -61,25 +78,25 @@ namespace GlassVisionSystemV105 {
 		void InitializeComponent(void)
 		{
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->btnReturn = (gcnew System::Windows::Forms::Button());
-			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
-			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
-			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
-			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->lstItems = (gcnew System::Windows::Forms::ListBox());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->dateTimePicker2 = (gcnew System::Windows::Forms::DateTimePicker());
-			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->cbxMonthFilter = (gcnew System::Windows::Forms::CheckBox());
+			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
+			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
+			this->btnReturn = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
-			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
+			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			this->panel1->Controls->Add(this->listBox1);
+			this->panel1->Controls->Add(this->button1);
+			this->panel1->Controls->Add(this->lstItems);
 			this->panel1->Controls->Add(this->groupBox2);
 			this->panel1->Controls->Add(this->groupBox1);
 			this->panel1->Controls->Add(this->btnReturn);
@@ -88,6 +105,100 @@ namespace GlassVisionSystemV105 {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(420, 500);
 			this->panel1->TabIndex = 0;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(331, 115);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 7;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// lstItems
+			// 
+			this->lstItems->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lstItems->FormattingEnabled = true;
+			this->lstItems->ItemHeight = 20;
+			this->lstItems->Location = System::Drawing::Point(3, 149);
+			this->lstItems->Name = L"lstItems";
+			this->lstItems->Size = System::Drawing::Size(410, 344);
+			this->lstItems->TabIndex = 6;
+			this->lstItems->SelectedIndexChanged += gcnew System::EventHandler(this, &LogForm::lstItems_SelectedIndexChanged);
+			// 
+			// groupBox2
+			// 
+			this->groupBox2->Controls->Add(this->cbxMonthFilter);
+			this->groupBox2->Controls->Add(this->dateTimePicker1);
+			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupBox2->Location = System::Drawing::Point(91, 3);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(322, 92);
+			this->groupBox2->TabIndex = 5;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"Filter:";
+			// 
+			// cbxMonthFilter
+			// 
+			this->cbxMonthFilter->AutoSize = true;
+			this->cbxMonthFilter->Location = System::Drawing::Point(6, 21);
+			this->cbxMonthFilter->Name = L"cbxMonthFilter";
+			this->cbxMonthFilter->Size = System::Drawing::Size(66, 20);
+			this->cbxMonthFilter->TabIndex = 5;
+			this->cbxMonthFilter->Text = L"Month:";
+			this->cbxMonthFilter->UseVisualStyleBackColor = true;
+			this->cbxMonthFilter->CheckedChanged += gcnew System::EventHandler(this, &LogForm::cbxMonthFilter_CheckedChanged);
+			// 
+			// dateTimePicker1
+			// 
+			this->dateTimePicker1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->dateTimePicker1->Location = System::Drawing::Point(96, 19);
+			this->dateTimePicker1->Name = L"dateTimePicker1";
+			this->dateTimePicker1->Size = System::Drawing::Size(172, 22);
+			this->dateTimePicker1->TabIndex = 2;
+			this->dateTimePicker1->Value = System::DateTime(2018, 8, 13, 0, 0, 0, 0);
+			this->dateTimePicker1->ValueChanged += gcnew System::EventHandler(this, &LogForm::dateTimePicker1_ValueChanged);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->radioButton2);
+			this->groupBox1->Controls->Add(this->radioButton1);
+			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupBox1->Location = System::Drawing::Point(3, 101);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(291, 42);
+			this->groupBox1->TabIndex = 1;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"View";
+			// 
+			// radioButton2
+			// 
+			this->radioButton2->AutoSize = true;
+			this->radioButton2->Location = System::Drawing::Point(96, 17);
+			this->radioButton2->Name = L"radioButton2";
+			this->radioButton2->Size = System::Drawing::Size(104, 20);
+			this->radioButton2->TabIndex = 1;
+			this->radioButton2->TabStop = true;
+			this->radioButton2->Text = L"System Logs";
+			this->radioButton2->UseVisualStyleBackColor = true;
+			this->radioButton2->CheckedChanged += gcnew System::EventHandler(this, &LogForm::radioButton2_CheckedChanged);
+			// 
+			// radioButton1
+			// 
+			this->radioButton1->AutoSize = true;
+			this->radioButton1->Checked = true;
+			this->radioButton1->Location = System::Drawing::Point(6, 17);
+			this->radioButton1->Name = L"radioButton1";
+			this->radioButton1->Size = System::Drawing::Size(84, 20);
+			this->radioButton1->TabIndex = 0;
+			this->radioButton1->TabStop = true;
+			this->radioButton1->Text = L"Batch Info";
+			this->radioButton1->UseVisualStyleBackColor = true;
+			this->radioButton1->CheckedChanged += gcnew System::EventHandler(this, &LogForm::radioButton1_CheckedChanged);
 			// 
 			// btnReturn
 			// 
@@ -100,111 +211,6 @@ namespace GlassVisionSystemV105 {
 			this->btnReturn->Text = L"Return";
 			this->btnReturn->UseVisualStyleBackColor = true;
 			// 
-			// groupBox1
-			// 
-			this->groupBox1->Controls->Add(this->radioButton2);
-			this->groupBox1->Controls->Add(this->radioButton1);
-			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->groupBox1->Location = System::Drawing::Point(12, 78);
-			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(112, 73);
-			this->groupBox1->TabIndex = 1;
-			this->groupBox1->TabStop = false;
-			this->groupBox1->Text = L"View";
-			// 
-			// radioButton1
-			// 
-			this->radioButton1->AutoSize = true;
-			this->radioButton1->Checked = true;
-			this->radioButton1->Location = System::Drawing::Point(6, 21);
-			this->radioButton1->Name = L"radioButton1";
-			this->radioButton1->Size = System::Drawing::Size(84, 20);
-			this->radioButton1->TabIndex = 0;
-			this->radioButton1->TabStop = true;
-			this->radioButton1->Text = L"Batch Info";
-			this->radioButton1->UseVisualStyleBackColor = true;
-			// 
-			// radioButton2
-			// 
-			this->radioButton2->AutoSize = true;
-			this->radioButton2->Location = System::Drawing::Point(6, 47);
-			this->radioButton2->Name = L"radioButton2";
-			this->radioButton2->Size = System::Drawing::Size(104, 20);
-			this->radioButton2->TabIndex = 1;
-			this->radioButton2->TabStop = true;
-			this->radioButton2->Text = L"System Logs";
-			this->radioButton2->UseVisualStyleBackColor = true;
-			// 
-			// dateTimePicker1
-			// 
-			this->dateTimePicker1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->dateTimePicker1->Location = System::Drawing::Point(80, 13);
-			this->dateTimePicker1->Name = L"dateTimePicker1";
-			this->dateTimePicker1->Size = System::Drawing::Size(232, 22);
-			this->dateTimePicker1->TabIndex = 2;
-			this->dateTimePicker1->Value = System::DateTime(2018, 8, 13, 0, 0, 0, 0);
-			this->dateTimePicker1->ValueChanged += gcnew System::EventHandler(this, &LogForm::dateTimePicker1_ValueChanged);
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(7, 18);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(70, 16);
-			this->label1->TabIndex = 4;
-			this->label1->Text = L"Start Date:";
-			// 
-			// groupBox2
-			// 
-			this->groupBox2->Controls->Add(this->label2);
-			this->groupBox2->Controls->Add(this->dateTimePicker2);
-			this->groupBox2->Controls->Add(this->label1);
-			this->groupBox2->Controls->Add(this->dateTimePicker1);
-			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->groupBox2->Location = System::Drawing::Point(91, 3);
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(322, 69);
-			this->groupBox2->TabIndex = 5;
-			this->groupBox2->TabStop = false;
-			this->groupBox2->Text = L"Search";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(7, 45);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(67, 16);
-			this->label2->TabIndex = 6;
-			this->label2->Text = L"End Date:";
-			// 
-			// dateTimePicker2
-			// 
-			this->dateTimePicker2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->dateTimePicker2->Location = System::Drawing::Point(80, 41);
-			this->dateTimePicker2->Name = L"dateTimePicker2";
-			this->dateTimePicker2->Size = System::Drawing::Size(232, 22);
-			this->dateTimePicker2->TabIndex = 5;
-			this->dateTimePicker2->Value = System::DateTime(2018, 8, 13, 0, 0, 0, 0);
-			// 
-			// listBox1
-			// 
-			this->listBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->listBox1->FormattingEnabled = true;
-			this->listBox1->ItemHeight = 20;
-			this->listBox1->Location = System::Drawing::Point(3, 169);
-			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(410, 324);
-			this->listBox1->TabIndex = 6;
-			// 
 			// LogForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -215,15 +221,43 @@ namespace GlassVisionSystemV105 {
 			this->Name = L"LogForm";
 			this->Text = L"LogForm";
 			this->panel1->ResumeLayout(false);
-			this->groupBox1->ResumeLayout(false);
-			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	private: System::Void dateTimePicker1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	private: void PopulateList() {
+		lstItems->Items->Clear();
+
+		for(int i = 0; i < logList.size(); i++)
+		{
+			DateTime^ dtDate;
+			if ((logList[i].date->tm_year + 1900 == dateTimePicker1->Value.Year && logList[i].date->tm_mon + 1 == dateTimePicker1->Value.Month)
+				|| cbxMonthFilter->Checked == false) {
+				dtDate = gcnew DateTime(logList[i].date->tm_year + 1900, logList[i].date->tm_mon + 1, logList[i].date->tm_mday);
+				String^ s = dtDate->ToString("dddd - dd, MMMM, yyyy");
+				 logList[i].displayString = sysStringtoStd(s);
+				if (!lstItems->Items->Contains(s))
+					lstItems->Items->Add(s);
+			}
+		}
 	}
-};
+	private: System::Void dateTimePicker1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		PopulateList();
+	}
+	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void radioButton2_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void cbxMonthFilter_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		PopulateList();
+	}
+
+	private: System::Void lstItems_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+	};
 }

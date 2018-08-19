@@ -36,14 +36,16 @@ enum SelectedInfoPanelAForm {
 	InfoForm,
 	Debug,
 	ProductSelection,
-	ProductCreation
+	ProductCreation,
+	LogSelection
 };
 
 extern SelectedInfoPanelAForm CurrentPannelA;
 
 enum SelectedInfoPanelBForm {
 	cameraForm,
-	chuteForm
+	chuteForm,
+	LogView
 };
 
 extern SelectedInfoPanelBForm CurrentPannelB;
@@ -51,7 +53,7 @@ extern SelectedInfoPanelBForm CurrentPannelB;
 typedef struct {
 	std::vector<cv::Point, std::allocator <cv::Point>> contour; //contour its self
 	cv::Point2f center = { 0,0 }; //contour center point
-	float radius = 0; //contour estimated radius
+	double radius = 0; //contour estimated radius
 	bool isCircle = false; //true if contour is a circle
 	int concGroup = 0; //grouping of concentric circles within 2 pixels, 0 = group not assigned
 	cv::RotatedRect rect; //minimum area rectangle of contour
@@ -70,14 +72,14 @@ extern ImageSettings currentImageSettings; //loaded values to specify current ca
 
 typedef struct {
 	int defectCount = 0;
-	float totalDefectArea = 0, largestDefectArea = 0;
-	float totalPointsCount = 0, largestPointCount = 0;
+	double totalDefectArea = 0, largestDefectArea = 0;
+	int totalPointsCount = 0, largestPointCount = 0;
 }DefectParameters;
 
 typedef struct {
 	Chute chutetype;
 
-	float IDTolerance = 0, ODTolerance = 0;
+	double IDTolerance = 0, ODTolerance = 0;
 	bool reject = false, chip = false, crack = false;
 	bool noDefects = false, defectsWithinRange = false, defectsOutOfRange = false;
 	bool IDGood = false, IDLower = false, IDHigher = false;
@@ -90,7 +92,7 @@ typedef struct {
 	std::string partNumber = "";
 	int numChutes = 1;
 	std::string Description = "";
-	float targetID = 0, targetOD = 1;
+	double targetID = 0, targetOD = 1;
 
 	std::vector<ChuteSpecifications> listOfChuteSpecs;
 	std::vector<DefectParameters> listOfDefects;
@@ -105,15 +107,17 @@ typedef struct {
 	std::string execution = "";
 	std::string result = "";
 	std::string user = "";
+	std::string displayString = "";
 } LogInfo;
 
 extern LogInfo currentLog;
+extern std::vector<LogInfo> logList;
 
 typedef struct {
 	cv::VideoCapture ImageCapture;
 
 	cv::Mat original, grayscale, canny, manipulated;
-	float ID, OD, IDVariance, ODVariance;
+	double ID, OD, IDVariance, ODVariance;
 	std::vector<std::vector<cv::Point>> defects;
 	int defectCount, camNumber;
 	std::string camName;

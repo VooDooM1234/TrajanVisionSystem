@@ -6,5 +6,6 @@ void SaveProductSettings(ProductSettings settings);
 void SaveProductSettings(ProductSettings settings, std::string folderLocation);
 
 ProductSettings LoadProductSettings(std::string filename);
+std::vector<LogInfo> LoadLog();
 void SaveLog(LogInfo log);
 

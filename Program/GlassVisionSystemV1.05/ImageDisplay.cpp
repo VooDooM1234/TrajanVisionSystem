@@ -279,15 +279,15 @@ bool Imageanalysis::pointInEllipse(cv::Point point, cv::RotatedRect ellipse) {
 }
 
 contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour) {
-	float height = cv::minAreaRect(contour).size.height;
-	float width = cv::minAreaRect(contour).size.width;
+	double height = cv::minAreaRect(contour).size.height;
+	double width = cv::minAreaRect(contour).size.width;
 
 	cv::Point2f center;
 	float radius = 0;
 	minEnclosingCircle(contour, center, radius); //enclose the individual contour lines within a circle
 
-	float circleCheck = fabs(radius - height / 2); //gets the absolute value of the measured circle area difference
-	float circleCheck2 = fabs(radius - width / 2);
+	double circleCheck = fabs(radius - height / 2); //gets the absolute value of the measured circle area difference
+	double circleCheck2 = fabs(radius - width / 2);
 
 	contourInfo info;
 	info.center = center;
@@ -339,8 +339,8 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 	// sort the returned value of the concentric circles to determine the ID and OD
 
 	for (int i = 0; i < int(concentricCircles.size()); i++) {
-		float ID = (float)999999999;
-		float OD = 0;
+		double ID = (float)999999999;
+		double OD = 0;
 		for (int j = 0; j < int(concentricCircles[i].group.size()); j++) {
 			if (ID > (concentricCircles[i].group[j].radius * 2)) {
 				ID = (concentricCircles[i].group[j].radius * 2);

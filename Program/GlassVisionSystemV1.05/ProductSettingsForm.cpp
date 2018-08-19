@@ -49,10 +49,10 @@ namespace GlassVisionSystemV105 {
 						defectDataGrid->Rows[i]->Cells[j]->Value = 0;
 				}
 				tempParameters.defectCount = Int32::Parse(defectDataGrid->Rows[i]->Cells[0]->Value->ToString());
-				tempParameters.totalDefectArea = Int32::Parse(defectDataGrid->Rows[i]->Cells[1]->Value->ToString());
-				tempParameters.largestDefectArea = Int32::Parse(defectDataGrid->Rows[i]->Cells[2]->Value->ToString());
-				tempParameters.totalPointsCount = Int32::Parse(defectDataGrid->Rows[i]->Cells[3]->Value->ToString());
-				tempParameters.largestPointCount = Int32::Parse(defectDataGrid->Rows[i]->Cells[4]->Value->ToString());
+				tempParameters.totalDefectArea = float::Parse(defectDataGrid->Rows[i]->Cells[1]->Value->ToString());
+				tempParameters.largestDefectArea = float::Parse(defectDataGrid->Rows[i]->Cells[2]->Value->ToString());
+				tempParameters.totalPointsCount = int::Parse(defectDataGrid->Rows[i]->Cells[3]->Value->ToString());
+				tempParameters.largestPointCount = int::Parse(defectDataGrid->Rows[i]->Cells[4]->Value->ToString());
 				savedSettings.listOfDefects.push_back(tempParameters);
 			}
 

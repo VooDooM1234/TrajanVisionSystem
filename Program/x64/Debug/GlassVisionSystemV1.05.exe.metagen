@@ -3,6 +3,7 @@
   GlassVisionSystemV105.ImageSettingsForm.resources - Embedded, ContainedInManifestFile, 
   GlassVisionSystemV105.InformationForm.resources - Embedded, ContainedInManifestFile, 
   GlassVisionSystemV105.LogForm.resources - Embedded, ContainedInManifestFile, 
+  GlassVisionSystemV105.LogPreviewForm.resources - Embedded, ContainedInManifestFile, 
   GlassVisionSystemV105.MyForm.resources - Embedded, ContainedInManifestFile, 
   GlassVisionSystemV105.PasswordForm.resources - Embedded, ContainedInManifestFile, 
   GlassVisionSystemV105.ProductSettingsForm.resources - Embedded, ContainedInManifestFile, 
@@ -38,12 +39,21 @@ Class GlassVisionSystemV105.ImageSettingsForm: AutoLayout, AnsiClass, Class, Pub
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     loadImageSettingsForm(): PrivateScope, Public, HideBySig
+Class GlassVisionSystemV105.LogPreviewForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    UpdateDisplay(vector<LogInfo\,std::allocator<LogInfo> >*): PrivateScope, Public, HideBySig
 Class GlassVisionSystemV105.LogForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-Class GlassVisionSystemV105.PasswordForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+Class GlassVisionSystemV105.InformationForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    resetToolTips(): PrivateScope, Public, HideBySig
+    updateToolTips(): PrivateScope, Public, HideBySig
+    FormUpdate(): PrivateScope, Public, HideBySig
 Class GlassVisionSystemV105.ProductSettingsForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -56,15 +66,12 @@ Class GlassVisionSystemV105.ProductSettingsForm: AutoLayout, AnsiClass, Class, P
     System.Windows.Forms.NumericUpDown nudID : Public
   Methods:
     getnumChutes(): PrivateScope, Public, HideBySig
-Class GlassVisionSystemV105.InformationForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+Class GlassVisionSystemV105.PasswordForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Methods:
-    resetToolTips(): PrivateScope, Public, HideBySig
-    updateToolTips(): PrivateScope, Public, HideBySig
-    FormUpdate(): PrivateScope, Public, HideBySig
 Class GlassVisionSystemV105.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    GlassVisionSystemV105.LogPreviewForm LPForm : Public
     System.Collections.Generic.List`1[GlassVisionSystemV105.ChuteSettingsForm] lstChuteSettingForms : Public

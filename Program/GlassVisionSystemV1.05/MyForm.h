@@ -7,6 +7,7 @@
 #include "ProductSettingsForm.h"
 #include "PasswordForm.h"
 #include "LogForm.h"
+#include "LogPreviewForm.h"
 
 //Pannel B Forms
 #include "CameraForm.h"
@@ -73,8 +74,11 @@ namespace GlassVisionSystemV105 {
 			 ProductSettingsForm^ prodSettingForm;
 			 PasswordForm^ passForm;
 			 LogForm^ logSelectionForm;
+	public: LogPreviewForm^ LPForm;
+			 
 
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
+	private: System::Windows::Forms::ToolStripMenuItem^  infoToolStripMenuItem;
 	public:
 		List< ChuteSettingsForm^>^ lstChuteSettingForms;
 
@@ -105,6 +109,8 @@ namespace GlassVisionSystemV105 {
 				lstChuteSettingForms->Add(gcnew ChuteSettingsForm());
 				lstChuteSettingForms[i]->TopLevel = false;
 			}
+			LPForm = gcnew LogPreviewForm();
+			LPForm->TopLevel = false;
 
 			//other
 			passForm = gcnew PasswordForm();
@@ -170,6 +176,7 @@ namespace GlassVisionSystemV105 {
 			this->debugToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->InfoPanelB = (gcnew System::Windows::Forms::Panel());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->infoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -188,9 +195,9 @@ namespace GlassVisionSystemV105 {
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->optionsToolStripMenuItem,
-					this->settingsToolStripMenuItem
+					this->settingsToolStripMenuItem, this->infoToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -258,6 +265,13 @@ namespace GlassVisionSystemV105 {
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
+			// infoToolStripMenuItem
+			// 
+			this->infoToolStripMenuItem->Name = L"infoToolStripMenuItem";
+			this->infoToolStripMenuItem->Size = System::Drawing::Size(100, 20);
+			this->infoToolStripMenuItem->Text = L"Logs/BatchInfo";
+			this->infoToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::infoToolStripMenuItem_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -271,13 +285,12 @@ namespace GlassVisionSystemV105 {
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
 			this->Text = L"Trajan Glass Barrel Inspection System";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
-			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 
 		}
 #pragma endregion
@@ -311,6 +324,8 @@ namespace GlassVisionSystemV105 {
 			//remove other forms
 			InfoPanelA->Controls->Remove(CamSettingsForm);
 			InfoPanelA->Controls->Remove(prodSettingForm);
+			InfoPanelA->Controls->Remove(logSelectionForm);
+
 
 			break;
 		case Debug:
@@ -321,6 +336,8 @@ namespace GlassVisionSystemV105 {
 			//remove other forms
 			InfoPanelA->Controls->Remove(infoForm);
 			InfoPanelA->Controls->Remove(prodSettingForm);
+			InfoPanelA->Controls->Remove(logSelectionForm);
+
 			break;
 		case ProductSelection:
 			break;
@@ -331,7 +348,18 @@ namespace GlassVisionSystemV105 {
 			//remove other forms
 			InfoPanelA->Controls->Remove(infoForm);
 			InfoPanelA->Controls->Remove(CamSettingsForm);
+			InfoPanelA->Controls->Remove(logSelectionForm);
+
 			break;
+		case LogSelection:
+			InfoPanelA->Controls->Add(logSelectionForm);
+			logSelectionForm->Show();
+
+			//remove other forms
+			InfoPanelA->Controls->Remove(infoForm);
+			InfoPanelA->Controls->Remove(CamSettingsForm);
+			InfoPanelA->Controls->Remove(prodSettingForm);
+
 		default:
 			break;
 		}
@@ -343,6 +371,7 @@ namespace GlassVisionSystemV105 {
 				CamForm->Show();
 			}
 			//remove other forms
+			InfoPanelB->Controls->Remove(LPForm);
 			for (int i = 0; i < 5; i++) {
 				InfoPanelB->Controls->Remove(lstChuteSettingForms[i]);
 			}
@@ -359,6 +388,8 @@ namespace GlassVisionSystemV105 {
 				}
 			}
 			//remove other forms
+			InfoPanelB->Controls->Remove(LPForm);
+
 			if (InfoPanelB->Controls->Contains(CamForm)) {
 				InfoPanelB->Controls->Remove(CamForm);
 			}
@@ -368,7 +399,16 @@ namespace GlassVisionSystemV105 {
 			}
 
 			break;
-
+		case LogView:
+			InfoPanelB->Controls->Add(LPForm);
+			LPForm->Show();
+			//remove other forms
+			if (InfoPanelB->Controls->Contains(CamForm)) {
+				InfoPanelB->Controls->Remove(CamForm);
+			}
+			for (int i = 0; i < 5; i++) {
+				InfoPanelB->Controls->Remove(lstChuteSettingForms[i]);
+			}
 		default:
 			break;
 		}
@@ -454,5 +494,9 @@ namespace GlassVisionSystemV105 {
 		currentLog.result = "Form Shutting Down";
 		SaveLog(currentLog);
 	}
-	};
+	private: System::Void infoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		CurrentPannelA = LogSelection;
+		CurrentPannelB = LogView;
+	}
+};
 }

@@ -90,10 +90,10 @@ ProductSettings LoadProductSettings(string filename) {
 	result.numChutes = atoi(line.c_str());
 
 	getline(myfile, line);
-	result.targetID = atoi(line.c_str());
+	result.targetID = atof(line.c_str());
 
 	getline(myfile, line);
-	result.targetOD = atoi(line.c_str());
+	result.targetOD = atof(line.c_str());
 	result.listOfChuteSpecs.resize(5);
 	getline(myfile, line);
 
@@ -101,10 +101,10 @@ ProductSettings LoadProductSettings(string filename) {
 		result.listOfChuteSpecs[i].chutetype = (Chute)atoi(line.c_str());
 
 		getline(myfile, line);
-		result.listOfChuteSpecs[i].IDTolerance = atoi(line.c_str());
+		result.listOfChuteSpecs[i].IDTolerance = atof(line.c_str());
 
 		getline(myfile, line);
-		result.listOfChuteSpecs[i].ODTolerance = atoi(line.c_str());
+		result.listOfChuteSpecs[i].ODTolerance = atof(line.c_str());
 
 		getline(myfile, line);
 		result.listOfChuteSpecs[i].chip = (bool)atoi(line.c_str());
@@ -153,10 +153,10 @@ ProductSettings LoadProductSettings(string filename) {
 		result.listOfDefects[a].defectCount = atoi(line.c_str());
 
 		getline(myfile, line);
-		result.listOfDefects[a].totalDefectArea = atoi(line.c_str());
+		result.listOfDefects[a].totalDefectArea = atof(line.c_str());
 
 		getline(myfile, line);
-		result.listOfDefects[a].largestDefectArea = atoi(line.c_str());
+		result.listOfDefects[a].largestDefectArea = atof(line.c_str());
 
 		getline(myfile, line);
 		result.listOfDefects[a].totalPointsCount = atoi(line.c_str());
@@ -292,6 +292,59 @@ void SaveProductSettings(ProductSettings settings, std::string folderLocation) {
 
 }
 
+std::vector<LogInfo> LoadLog() {
+	std::vector<LogInfo> result;
+	string line;
+	ifstream myfile("LOG.log");
+	if (!myfile.is_open()) {
+			currentLog.result = "No System Logs Exist, Log File Cannot be found.";
+			SaveLog(currentLog);
+			return result;
+		}
+	
+while (!myfile.eof())
+{
+	//get line of single log and split it at first ;
+	getline(myfile, line,  ';');
+	if (line == "") {
+		break;
+	}
+	LogInfo newInfo;
+
+	istringstream f(line);
+	std::string s;
+	//time_t _tm = time(NULL);
+	tm logTime;
+
+	getline(f, s, ',');
+	logTime.tm_year = stoi(s);
+	getline(f, s, ',');
+	logTime.tm_mon = stoi(s);
+	getline(f, s, ',');
+	logTime.tm_mday = stoi(s);
+	getline(f, s, ',');
+	logTime.tm_hour = stoi(s);
+	getline(f, s, ',');
+	logTime.tm_min = stoi(s);
+	getline(f, s, ',');
+	logTime.tm_sec = stoi(s);
+	getline(f, s, ',');
+	logTime.tm_wday = stoi(s);
+	newInfo.date = new tm(logTime);
+
+	getline(myfile, line, ';');
+	newInfo.user = line;
+
+	getline(myfile, line, ';');
+	newInfo.execution = line;
+
+	getline(myfile, line, '\n');
+	newInfo.result = line;
+
+	result.push_back(newInfo);
+}
+	return result;
+}
 
 
 void SaveLog(LogInfo log) {
@@ -325,6 +378,9 @@ void SaveLog(LogInfo log) {
 	str += "," + std::to_string(log.date->tm_hour);
 	str += "," + std::to_string(log.date->tm_min);
 	str += "," + std::to_string(log.date->tm_sec);
+	str += "," + std::to_string(log.date->tm_wday);
+
+	str = str + ";" + log.user;
 
 	str = str + ";" + log.execution;
 	str = str + ";" + log.result;

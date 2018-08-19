@@ -6,6 +6,7 @@ SelectedInfoPanelBForm CurrentPannelB = cameraForm;
 
 ProductSettings currentProductSettings;
 ImageSettings currentImageSettings;
+std::vector<LogInfo> logList;
 LogInfo currentLog;
 
 
