@@ -210,6 +210,7 @@ namespace GlassVisionSystemV105 {
 			this->btnReturn->TabIndex = 0;
 			this->btnReturn->Text = L"Return";
 			this->btnReturn->UseVisualStyleBackColor = true;
+			this->btnReturn->Click += gcnew System::EventHandler(this, &LogForm::btnReturn_Click);
 			// 
 			// LogForm
 			// 
@@ -259,5 +260,9 @@ namespace GlassVisionSystemV105 {
 	}
 
 	private: System::Void lstItems_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
-	};
+	private: System::Void btnReturn_Click(System::Object^  sender, System::EventArgs^  e) {
+		CurrentPannelA = InfoForm;
+		CurrentPannelB = cameraForm;
+	}
+};
 }
