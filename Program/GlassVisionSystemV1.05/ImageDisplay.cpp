@@ -39,7 +39,8 @@ void Imageanalysis::CameraInitialization(int camNumber, string camName) {
 	//	currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
 	//	SaveLog(currentLog);
 	//}
-	PylonInitialization(camNumber, camName);
+	OpenCVCamInitialization(camNumber, camName);
+	/*PylonInitialization(camNumber, camName);
 	if (IMGInfo.camera != nullptr) {
 		if (IMGInfo.camera->IsOpen() == false) {
 			OpenCVCamInitialization(camNumber, camName);
@@ -47,7 +48,7 @@ void Imageanalysis::CameraInitialization(int camNumber, string camName) {
 	}
 	else {
 		OpenCVCamInitialization(camNumber, camName);
-	}
+	}*/
 
 }
 void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
@@ -66,8 +67,8 @@ void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
 	}
 	else {
 
-		/*IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448 / 2);
-		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048 / 2);*/
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448);
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048);
 		//Imageanalysis::PylonInitialization(camNumber, camName);
 
 		currentLog.result = "Opening Camera: " + camName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
@@ -86,7 +87,7 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 
 		IMGInfo.baslerInfo.SetDeviceClass(CBaslerUsbInstantCamera::DeviceClass());
 		IPylonDevice* device = Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo);
-		IMGInfo.camera->Attach(device); //<-- CODY THIS COMPILES FOR ME SEE IF IT WORKS LOADING THE CAMERA
+		//IMGInfo.camera->Attach(device); //<-- CODY THIS COMPILES FOR ME SEE IF IT WORKS LOADING THE CAMERA
 										//IMGInfo.camera = new CBaslerUsbInstantCamera(device);//<--- IM HAVING THE ISSUE WITH THIS CODY, SEE IF U CAN GET IT TO WORK 
 										//IMGInfo.camera = new Pylon::CBaslerUsbInstantCamera(Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
 		cout << "Using Device:" << IMGInfo.camera->GetDeviceInfo().GetModelName() << endl;
@@ -103,8 +104,15 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 void Imageanalysis::ProcessImage()
 {
 	//Store original Image display the oridinal image
-	if (IMGInfo.ImageCapture.isOpened())
+	if (IMGInfo.ImageCapture.isOpened()) {
 		IMGInfo.ImageCapture >> IMGInfo.original;
+		//original width 2448
+		//original height 2048
+		//IMGInfo.original.adjustROI(2448 / 100, 2048 / 100, 2448 / 100, 2048 / 100);
+		//resize(IMGInfo.original, IMGInfo.original, IMGInfo.original.size(), 0.5, 0.5);
+		//IMGInfo.original.resize();
+
+	}
 	else {
 		ProcessPylonImage();
 	}
