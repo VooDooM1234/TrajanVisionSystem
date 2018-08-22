@@ -67,8 +67,8 @@ void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
 	}
 	else {
 
-		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448);
-		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048);
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448/2);
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048/2);
 		//Imageanalysis::PylonInitialization(camNumber, camName);
 
 		currentLog.result = "Opening Camera: " + camName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
@@ -87,6 +87,8 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 
 		IMGInfo.baslerInfo.SetDeviceClass(CBaslerUsbInstantCamera::DeviceClass());
 		IPylonDevice* device = Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo);
+		//CInstantCamera* cam = new CInstantCamera(device);
+
 		//IMGInfo.camera->Attach(device); //<-- CODY THIS COMPILES FOR ME SEE IF IT WORKS LOADING THE CAMERA
 										//IMGInfo.camera = new CBaslerUsbInstantCamera(device);//<--- IM HAVING THE ISSUE WITH THIS CODY, SEE IF U CAN GET IT TO WORK 
 										//IMGInfo.camera = new Pylon::CBaslerUsbInstantCamera(Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
@@ -108,6 +110,11 @@ void Imageanalysis::ProcessImage()
 		IMGInfo.ImageCapture >> IMGInfo.original;
 		//original width 2448
 		//original height 2048
+		//cv::Size rect(2448 / 4, 2048 / 4);//(2448 / 8, 2048 / 8, 2448 / 4, 2048 / 4);
+		////cv::Mat croppedImage = IMGInfo.original(rect);
+		//cv::imshow("test", IMGInfo.original);
+		//cv::resizeWindow("test", rect);//,0.5,0.5, cv::INTER_LINEAR);
+
 		//IMGInfo.original.adjustROI(2448 / 100, 2048 / 100, 2448 / 100, 2048 / 100);
 		//resize(IMGInfo.original, IMGInfo.original, IMGInfo.original.size(), 0.5, 0.5);
 		//IMGInfo.original.resize();
@@ -151,28 +158,40 @@ void Imageanalysis::generateManipulated() {
 
 	//blurs the image to remove sharp edges, helps canny processing method
 	cv::blur(IMGInfo.grayscale, IMGInfo.grayscale, cv::Size(3, 3));
+	cv::threshold(IMGInfo.grayscale, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
+	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
+	//cv::imshow("XXX", IMGInfo.binaryThreshold);
+	//cv::resizeWindow("XXX", cv::Size(2448 / 4, 2048 / 4));
+	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, /*currentImageSettings.CannyThresholdA*/100, currentImageSettings.CannyThresholdB, 3);
+	int dilationSize = 2;
+	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2 * dilationSize + 1, 2 * dilationSize + 1), cv::Point(dilationSize, dilationSize));
+	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
+	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
+	////Hough Circle Method
+	//vector<cv::Vec3f> circles;
+	////vector<Vec3f> circles;
+	////HoughCircles(gray, circles, HOUGH_GRADIENT, 1,
+	////	gray.rows / 16,  // change this value to detect circles with different distances to each other
+	////	100, 30, 1, 30 // change the last two parameters
+ ////  // (min_radius & max_radius) to detect larger circles
+	//cv::HoughCircles(IMGInfo.canny,circles, cv::HOUGH_GRADIENT, 1, 150, 20, 20, 50, 900); // minRange, maxRange to be change (last two)
+	//for (size_t i = 0; i < circles.size(); i++)
+	//{
+	//	cv::Vec3i c = circles[i];
+	//	cv::Point center = cv::Point(c[0], c[1]);	
+	//	// circle center
+	//	circle(IMGInfo.original, center, 1, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
+	//	// circle outline
+	//	int radius = c[2];
+	//	circle(IMGInfo.original, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
+	//}
+	////end of Hough
 
-	cv::Canny(IMGInfo.grayscale, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, 3);
-	
-	//Hough Circle Method
-	vector<cv::Vec3f> circles;
-	//vector<Vec3f> circles;
-	//HoughCircles(gray, circles, HOUGH_GRADIENT, 1,
-	//	gray.rows / 16,  // change this value to detect circles with different distances to each other
-	//	100, 30, 1, 30 // change the last two parameters
- //  // (min_radius & max_radius) to detect larger circles
-	cv::HoughCircles(IMGInfo.canny,circles, cv::HOUGH_GRADIENT, 1, 20, 50, 30, 0, 100); // minRange, maxRange to be change (last two)
-	for (size_t i = 0; i < circles.size(); i++)
-	{
-		cv::Vec3i c = circles[i];
-		cv::Point center = cv::Point(c[0], c[1]);
-		// circle center
-		circle(IMGInfo.original, center, 1, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
-		// circle outline
-		int radius = c[2];
-		circle(IMGInfo.original, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
-	}
-	//end of Hough
+	CustomIDODDetection();
+}
+
+
+void Imageanalysis::CustomIDODDetection() {
 	/// Find contours using canny method
 	vector<vector<cv::Point> > contours;
 	vector<cv::Vec4i> hierarchy;
@@ -187,7 +206,7 @@ void Imageanalysis::generateManipulated() {
 
 	for (int i = 0; i < int(contours.size()); i++)
 	{
-		contourInfo continfo = IsContourCircle(contours[i]);
+		contourInfo continfo = IsContourCircle(contours[i], 20);
 		//for every contour found, if it is a circle, add it to a new array of circles
 		if (continfo.isCircle == true) {
 			int j = int(Circles.size());
@@ -217,7 +236,7 @@ void Imageanalysis::generateManipulated() {
 	//checks if there are any found 'otherPoints' within the regions of the concentric circles
 	defects = DefectCheck(concCircles, otherPoints);
 
-	IMGInfo.manipulated = IMGInfo.original;
+	IMGInfo.manipulated = IMGInfo.original.clone();
 
 	//determines the ID and OD of the Concentric Circles (used for ID/OD of the syringe)
 	for (int i = 0; i < int(concCircles.size()); i++)
@@ -247,6 +266,9 @@ void Imageanalysis::generateManipulated() {
 			IMGInfo.IDVariance = tolleranceID;
 			IMGInfo.ODVariance = tolleranceOD;
 			IMGInfo.multiConcentricCircleDetected = false;
+			cv::circle(IMGInfo.manipulated, concCircles[0].IDCenter, ID / 2, cv::Scalar(255,255,255), 1, 8, 0);
+			cv::circle(IMGInfo.manipulated, concCircles[0].ODCenter, OD / 2, cv::Scalar(255, 255, 255), 1, 8, 0);
+
 		}
 		else
 		{
@@ -304,7 +326,7 @@ bool Imageanalysis::pointInEllipse(cv::Point point, cv::RotatedRect ellipse) {
 	return (result);
 }
 
-contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour) {
+contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour, int SmallestRadius) {
 	double height = cv::minAreaRect(contour).size.height;
 	double width = cv::minAreaRect(contour).size.width;
 
@@ -322,7 +344,8 @@ contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour) {
 
 	//if the difference of the circle area is within the tollerance range then the contour is a circle
 	if (circleCheck < (radius / currentImageSettings.CircleTolerance) && circleCheck2 < (radius / currentImageSettings.CircleTolerance)) {
-		info.isCircle = true;
+		if (radius >= SmallestRadius)
+			info.isCircle = true;
 	}
 
 	return (info);//return contourinfo
@@ -345,12 +368,13 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 		//for every second circle inside the data array
 		for (int j = i + 1; j < int(circleInfo.size()); j++) {
 			//if two circles have the same center point within a tollerance of +/- 2 pixels assign the circles to the same group
-			if (fabs(circleInfo[i].center.x - circleInfo[j].center.x) < 10 && fabs(circleInfo[i].center.x - circleInfo[j].center.x) < 10) {
+			if ((fabs(circleInfo[i].center.x - circleInfo[j].center.x) < 20 && fabs(circleInfo[i].center.x - circleInfo[j].center.x) < 20) ||
+				(circleInfo[i].center.x == circleInfo[j].center.x && circleInfo[i].center.y == circleInfo[j].center.y)) {
 
 				circleInfo[j].concGroup = circleInfo[i].concGroup; //mark the circle to hage the same concentric grouping as what it is compared to
 																   //concentricCircles.resize(concentricCircles.size() + 1);
 				concentricCircles[concentricCircles.size() - 1].group.resize(concentricCircles[concentricCircles.size() - 1].group.size() + 1);
-				concentricCircles[concentricCircles.size() - 1].group[concentricCircles[concentricCircles.size() - 1].group.size() - 1] = circleInfo[i];
+				concentricCircles[concentricCircles.size() - 1].group[concentricCircles[concentricCircles.size() - 1].group.size() - 1] = circleInfo[j];
 			}
 			//assign the last circle in the array to a new group if it is a unique concentric circle
 			else if (j == int(circleInfo.size()) - 1) {
@@ -358,7 +382,7 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 				circleInfo[i].concGroup = concGroupPos;
 				concentricCircles.resize(concentricCircles.size() + 1);
 				concentricCircles[concentricCircles.size() - 1].group.resize(concentricCircles[concentricCircles.size() - 1].group.size() + 1);
-				concentricCircles[concentricCircles.size() - 1].group[concentricCircles[concentricCircles.size() - 1].group.size() - 1] = circleInfo[i];
+				concentricCircles[concentricCircles.size() - 1].group[concentricCircles[concentricCircles.size() - 1].group.size() - 1] = circleInfo[j];
 			}
 		}
 	}
@@ -371,10 +395,13 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 			if (ID > (concentricCircles[i].group[j].radius * 2)) {
 				ID = (concentricCircles[i].group[j].radius * 2);
 				concentricCircles[i].IDrect = concentricCircles[i].group[j].rect;
+				concentricCircles[i].IDCenter = concentricCircles[i].group[j].center;
 			}
 			if (OD < (concentricCircles[i].group[j].radius * 2)) {
 				OD = (concentricCircles[i].group[j].radius * 2);
 				concentricCircles[i].ODrect = concentricCircles[i].group[j].rect;
+				concentricCircles[i].ODCenter = concentricCircles[i].group[j].center;
+
 			}
 		}
 	}

@@ -11,9 +11,9 @@
 #include "opencv2/imgproc.hpp"
 //#include <pylon/PylonGUI.h>
 #include <pylon/PylonIncludes.h>
+#include <pylon\usb\PylonUsbIncludes.h>
 
-
-#include <pylon/usb/BaslerUsbInstantCamera.h>
+//5#include <pylon/usb/BaslerUsbInstantCamera.h>
 using namespace Basler_UsbCameraParams;
 using namespace Pylon;
 
@@ -116,7 +116,7 @@ extern std::vector<LogInfo> logList;
 typedef struct {
 	cv::VideoCapture ImageCapture;
 
-	cv::Mat original, grayscale, canny, manipulated;
+	cv::Mat original, grayscale, canny, binaryThreshold, manipulated;
 	double ID, OD, IDVariance, ODVariance;
 	std::vector<std::vector<cv::Point>> defects;
 	int defectCount, camNumber;
@@ -131,4 +131,6 @@ typedef struct {
 typedef struct {
 	std::vector<contourInfo> group;
 	cv::RotatedRect IDrect, ODrect;
+	cv::Point2f IDCenter = cv::Point2f(0,0), ODCenter = cv::Point2f(0,0);
+
 } ConcCircles;
