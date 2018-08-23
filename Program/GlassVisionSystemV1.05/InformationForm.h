@@ -759,6 +759,16 @@ private: System::Void tmrtooltip_Tick(System::Object^  sender, System::EventArgs
 private: System::Void lblRunMode_Click(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void BtnStartStopBatch_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (currentProductSettings.partNumber != "") {
+		if (RunTimeTimer->Enabled){
+			BtnStartStopBatch->Text = "Start Batch";
+			RunTimeTimer->Enabled == false;
+		}
+		else {
+			BtnStartStopBatch->Text = "Stop Batch";
+			RunTimeTimer->Enabled == true;
+		}
+	}
 }
 private: System::Void lblTol_Click(System::Object^  sender, System::EventArgs^  e) {
 }

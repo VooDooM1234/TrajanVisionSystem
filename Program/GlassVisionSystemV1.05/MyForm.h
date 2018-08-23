@@ -104,6 +104,7 @@ namespace GlassVisionSystemV105 {
 			//Pannel B Forms
 			CamForm = gcnew CameraForm();
 			CamForm->TopLevel = false;
+
 			lstChuteSettingForms = gcnew List< ChuteSettingsForm^>();
 			for (int i = 0; i < 5; i++) {
 				lstChuteSettingForms->Add(gcnew ChuteSettingsForm());

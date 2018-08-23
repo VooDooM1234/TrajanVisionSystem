@@ -87,7 +87,7 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 		cout << "OffsetX          : " << IMGInfo.camera->OffsetX.GetValue() << endl;
 		cout << "OffsetY          : " << IMGInfo.camera->OffsetY.GetValue() << endl;
 
-		IMGInfo.camera->ExposureTime.SetValue(25000);
+		IMGInfo.camera->ExposureTime.SetValue(currentImageSettings.ExposureTime);
 		IMGInfo.camera->AcquisitionFrameRate.SetValue(60);
 
 		camWidth = IMGInfo.camera->Width();
@@ -108,6 +108,7 @@ void Imageanalysis::ProcessImage()
 
 	}
 	else {
+		IMGInfo.camera->ExposureTime.SetValue(currentImageSettings.ExposureTime);
 		ProcessPylonImage();
 	}
 	try

@@ -2,7 +2,7 @@
 
 #include "Structs.h"
 
-class Imageanalysis {
+public class Imageanalysis {
 
 public:
 	ImageInformation IMGInfo;

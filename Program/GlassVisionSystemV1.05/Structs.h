@@ -69,7 +69,7 @@ typedef struct {
 
 typedef struct {
 	int CannyThresholdA = 0, CannyThresholdB = 0;
-	int CircleTolerance = 0;
+	int CircleTolerance = 0, ExposureTime = 100;
 
 }ImageSettings;
 

@@ -25,6 +25,7 @@ void LoadImageSettingsFromFile(string filename) {
 			temp.CannyThresholdA = 10;
 			temp.CannyThresholdB = 20;
 			temp.CircleTolerance = 10;
+			temp.ExposureTime = 100000;
 
 			SaveImageSettings(temp, "CurrentSettings");
 			myfile.open("ImageSettings/CurrentSettings.txt");
@@ -39,6 +40,9 @@ void LoadImageSettingsFromFile(string filename) {
 
 	getline(myfile, line);
 	result.CircleTolerance = atoi(line.c_str());
+
+	getline(myfile, line);
+	result.ExposureTime = atoi(line.c_str());
 
 	myfile.close();
 	currentImageSettings = result;
@@ -62,6 +66,8 @@ void SaveImageSettings(ImageSettings settings, string filename) {
 	myfile << settings.CannyThresholdA << std::endl;
 	myfile << settings.CannyThresholdB << std::endl;
 	myfile << settings.CircleTolerance << std::endl;
+	myfile << settings.ExposureTime << std::endl;
+
 	myfile.close();
 }
 ProductSettings LoadProductSettings(string filename) {

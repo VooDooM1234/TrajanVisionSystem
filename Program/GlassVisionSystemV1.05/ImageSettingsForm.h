@@ -23,7 +23,13 @@ namespace GlassVisionSystemV105 {
 	{
 		//SelectedInfoPanelForm currentForm;
 	private:
-		int PCA, PCB, PCT;
+		//
+		int PCA, PCB, PCT, ExpTime;
+	private: System::Windows::Forms::GroupBox^  groupBox4;
+	private: System::Windows::Forms::NumericUpDown^  numExposureTime;
+
+
+	private: System::Windows::Forms::HScrollBar^  hScrollBar4;
 
 	public:
 		//ImageSettingsForm(SelectedInfoPanelForm& selectedForm) {
@@ -95,6 +101,9 @@ namespace GlassVisionSystemV105 {
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(ImageSettingsForm::typeid));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			this->numExposureTime = (gcnew System::Windows::Forms::NumericUpDown());
+			this->hScrollBar4 = (gcnew System::Windows::Forms::HScrollBar());
 			this->btnReset = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button3 = (gcnew System::Windows::Forms::Button());
@@ -111,6 +120,8 @@ namespace GlassVisionSystemV105 {
 			this->hScrollBar1 = (gcnew System::Windows::Forms::HScrollBar());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->panel1->SuspendLayout();
+			this->groupBox4->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numExposureTime))->BeginInit();
 			this->groupBox3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numCircleTolerance))->BeginInit();
 			this->groupBox2->SuspendLayout();
@@ -122,6 +133,7 @@ namespace GlassVisionSystemV105 {
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->panel1->Controls->Add(this->groupBox4);
 			this->panel1->Controls->Add(this->btnReset);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Controls->Add(this->button3);
@@ -137,6 +149,44 @@ namespace GlassVisionSystemV105 {
 			this->panel1->TabIndex = 0;
 			this->panel1->Tag = L"";
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &ImageSettingsForm::panel1_Paint);
+			// 
+			// groupBox4
+			// 
+			this->groupBox4->Controls->Add(this->numExposureTime);
+			this->groupBox4->Controls->Add(this->hScrollBar4);
+			this->groupBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupBox4->Location = System::Drawing::Point(10, 318);
+			this->groupBox4->Name = L"groupBox4";
+			this->groupBox4->Size = System::Drawing::Size(178, 59);
+			this->groupBox4->TabIndex = 14;
+			this->groupBox4->TabStop = false;
+			this->groupBox4->Text = L"Exposure Time";
+			// 
+			// numExposureTime
+			// 
+			this->numExposureTime->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->numExposureTime->Location = System::Drawing::Point(107, 35);
+			this->numExposureTime->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2500, 0, 0, 0 });
+			this->numExposureTime->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->numExposureTime->Name = L"numExposureTime";
+			this->numExposureTime->Size = System::Drawing::Size(65, 22);
+			this->numExposureTime->TabIndex = 2;
+			this->numExposureTime->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->numExposureTime->ValueChanged += gcnew System::EventHandler(this, &ImageSettingsForm::nudExposureTime_ValueChanged);
+			// 
+			// hScrollBar4
+			// 
+			this->hScrollBar4->Dock = System::Windows::Forms::DockStyle::Top;
+			this->hScrollBar4->Location = System::Drawing::Point(3, 18);
+			this->hScrollBar4->Maximum = 2500;
+			this->hScrollBar4->Minimum = 1;
+			this->hScrollBar4->Name = L"hScrollBar4";
+			this->hScrollBar4->Size = System::Drawing::Size(172, 16);
+			this->hScrollBar4->TabIndex = 0;
+			this->hScrollBar4->Value = 1;
+			this->hScrollBar4->Scroll += gcnew System::Windows::Forms::ScrollEventHandler(this, &ImageSettingsForm::hScrollBar4_Scroll);
 			// 
 			// btnReset
 			// 
@@ -326,6 +376,8 @@ namespace GlassVisionSystemV105 {
 			this->Text = L"DebugForm";
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			this->groupBox4->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numExposureTime))->EndInit();
 			this->groupBox3->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numCircleTolerance))->EndInit();
 			this->groupBox2->ResumeLayout(false);
@@ -367,6 +419,7 @@ namespace GlassVisionSystemV105 {
 			PCA = currentImageSettings.CannyThresholdA;
 			PCB = currentImageSettings.CannyThresholdB;
 			PCT = currentImageSettings.CircleTolerance;
+			ExpTime = currentImageSettings.ExposureTime/1000;
 			updateDisplayNumbers();
 		}
 
@@ -376,6 +429,7 @@ namespace GlassVisionSystemV105 {
 		tempSettings.CannyThresholdA = (int)numCannyTolA->Value;
 		tempSettings.CannyThresholdB = (int)numCannyTolB->Value;
 		tempSettings.CircleTolerance = (int)numCircleTolerance->Value;
+		tempSettings.ExposureTime = (int)numExposureTime->Value * 1000;
 
 		SaveImageSettings(tempSettings, "CurrentSettings");
 
@@ -391,17 +445,23 @@ namespace GlassVisionSystemV105 {
 		numCannyTolA->Value = currentImageSettings.CannyThresholdA;
 		numCannyTolB->Value = currentImageSettings.CannyThresholdB;
 		numCircleTolerance->Value = currentImageSettings.CircleTolerance;
+		numExposureTime->Value = currentImageSettings.ExposureTime/1000;
+
 	}
 	private:
 		void updateSettingPreview() {
 			currentImageSettings.CannyThresholdA = (int)numCannyTolA->Value;
 			currentImageSettings.CannyThresholdB = (int)numCannyTolB->Value;
 			currentImageSettings.CircleTolerance = (int)numCircleTolerance->Value;
+			currentImageSettings.ExposureTime = (int)numExposureTime->Value * 1000;
+
 		}
 		void RevertSettings() {
 			currentImageSettings.CannyThresholdA = PCA;
 			currentImageSettings.CannyThresholdB = PCB;
 			currentImageSettings.CircleTolerance = PCT;
+			currentImageSettings.ExposureTime = ExpTime;
+
 		}
 
 
@@ -436,5 +496,13 @@ private: System::Void groupBox1_Enter(System::Object^  sender, System::EventArgs
 	}
 private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 	}
+private: System::Void nudExposureTime_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	hScrollBar4->Value = (int)numExposureTime->Value;
+	currentImageSettings.ExposureTime = (int)numExposureTime->Value * 1000;
+}
+private: System::Void hScrollBar4_Scroll(System::Object^  sender, System::Windows::Forms::ScrollEventArgs^  e) {
+	numExposureTime->Value = hScrollBar4->Value;
+
+}
 };
 }

@@ -1,6 +1,26 @@
-﻿  ImageDisplay.cpp
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(93): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(94): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(267): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(268): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  GlassVisionSystemV1.05.vcxproj -> E:\Users\Documents\TrajanGVS\Program\x64\Debug\GlassVisionSystemV1.05.exe
+﻿  ImageSettingsForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(437): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: see declaration of 'localtime'
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(438): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  LogForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(437): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: see declaration of 'localtime'
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(438): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  MyForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(437): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: see declaration of 'localtime'
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(438): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  ProductSettingsForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(437): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: see declaration of 'localtime'
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(438): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\productsettingsform.cpp(49): warning C4965: implicit box of integer 0; use nullptr or explicit cast
+  Generating Code...
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\logpreviewform.h(108): warning C4700: uninitialized local variable 'lastTime' used
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\logpreviewform.h(108): warning C4700: uninitialized local variable 'lastTime' used
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\logpreviewform.h(108): warning C4700: uninitialized local variable 'lastTime' used
+  GlassVisionSystemV1.05.vcxproj -> D:\Visual Studio\TrajanGVS\Program\x64\Debug\GlassVisionSystemV1.05.exe
