@@ -22,3 +22,7 @@
 118,7,23,15,5,22,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
 118,7,23,15,8,40,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
 118,7,23,15,8,40,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,15,25,36,4;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,23,15,25,36,4;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,23,15,25,37,4;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,23,15,25,37,4;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed

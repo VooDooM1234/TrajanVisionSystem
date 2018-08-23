@@ -14,30 +14,12 @@ using namespace std;
 Imageanalysis CameraA;
 Imageanalysis CameraB;
 
+int camWidth = 10000;
+int camHeight = 10000;
+
+
 void Imageanalysis::CameraInitialization(int camNumber, string camName) {
-	////attempt to open camera for capturing image
-	//IMGInfo.ImageCapture.open(camNumber);
-	//IMGInfo.camNumber = camNumber;
-	//IMGInfo.camName = CamName;
-
-	//if (!IMGInfo.ImageCapture.isOpened()) { //Show Error if Failed to Open
-	//	cerr << "Failed to open Camera A\n" << endl;
-	//	currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method Failed, Attempting to open camera using Pylon Class Method";
-	//	SaveLog(currentLog);
-
-	//	//if attempt failed try to open via Pylon Method
-	//	Imageanalysis::PylonInitialization(camNumber, CamName);
-	//}
-	//else {
-
-	//	IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448/2);
-	//	IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048/2);
-	//	Imageanalysis::PylonInitialization(camNumber, CamName);
-
-	//	currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
-	//	SaveLog(currentLog);
-	//}
-	//OpenCVCamInitialization(camNumber, camName);
+	
 	PylonInitialization(camNumber, camName);
 	if (IMGInfo.camera != nullptr) {
 		if (IMGInfo.camera->IsOpen() == false) {
@@ -65,8 +47,14 @@ void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
 	}
 	else {
 
-		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, 2448/2);
-		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, 2048/2);
+		//sets the camera to the correct resolution for inspection
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, camWidth);
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, camHeight);
+		camWidth = int(IMGInfo.ImageCapture.get(cv::CAP_PROP_FRAME_WIDTH));
+		camHeight = int(IMGInfo.ImageCapture.get(cv::CAP_PROP_FRAME_HEIGHT));
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, camWidth);
+		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, camHeight);
+
 		//Imageanalysis::PylonInitialization(camNumber, camName);
 
 		currentLog.result = "Opening Camera: " + camName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
@@ -80,17 +68,10 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 	try
 	{
 		CDeviceInfo info;
-		//CBaslerUsbInstantCamera camera(CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
-		//IMGInfo.camera = &camera;
 
 		info.SetDeviceClass(CBaslerUsbInstantCamera::DeviceClass());
-		//Pylon::IPylonDevice *device = CTlFactory::GetInstance().CreateFirstDevice(info);
-		//CInstantCamera* cam = new CInstantCamera(device);
-
-		//IMGInfo.camera->Attach(device); //<-- CODY THIS COMPILES FOR ME SEE IF IT WORKS LOADING THE CAMERA
-		//MGInfo.camera = new CBaslerUsbInstantCamera(device);//<--- IM HAVING THE ISSUE WITH THIS CODY, SEE IF U CAN GET IT TO WORK 
+		
 		IMGInfo.camera = new CBaslerUsbInstantCamera(CTlFactory::GetInstance().CreateFirstDevice());
-		//IMGInfo.camera = new Pylon::CBaslerUsbInstantCamera(Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
 		IMGInfo.camera->Open();
 		cout << "Using Device:" << IMGInfo.camera->GetDeviceInfo().GetModelName() << endl;
 		if (IsWritable(IMGInfo.camera->OffsetX))
@@ -103,6 +84,10 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 		}
 		cout << "OffsetX          : " << IMGInfo.camera->OffsetX.GetValue() << endl;
 		cout << "OffsetY          : " << IMGInfo.camera->OffsetY.GetValue() << endl;
+
+		camWidth = IMGInfo.camera->Width();
+		camHeight = IMGInfo.camera->Height();
+
 
 		//camera.AutoBacklightCompensation();
 	}
@@ -118,16 +103,6 @@ void Imageanalysis::ProcessImage()
 	//Store original Image display the oridinal image
 	if (IMGInfo.ImageCapture.isOpened()) {
 		IMGInfo.ImageCapture >> IMGInfo.original;
-		//original width 2448
-		//original height 2048
-		//cv::Size rect(2448 / 4, 2048 / 4);//(2448 / 8, 2048 / 8, 2448 / 4, 2048 / 4);
-		////cv::Mat croppedImage = IMGInfo.original(rect);
-		//cv::imshow("test", IMGInfo.original);
-		//cv::resizeWindow("test", rect);//,0.5,0.5, cv::INTER_LINEAR);
-
-		//IMGInfo.original.adjustROI(2448 / 100, 2048 / 100, 2448 / 100, 2048 / 100);
-		//resize(IMGInfo.original, IMGInfo.original, IMGInfo.original.size(), 0.5, 0.5);
-		//IMGInfo.original.resize();
 
 	}
 	else {
@@ -135,6 +110,10 @@ void Imageanalysis::ProcessImage()
 	}
 	try
 	{
+		//reduce camera size by 1/2 the original image
+		cv::Rect rect(camWidth / 4, camHeight / 4, camWidth / 2, camHeight / 2);
+		IMGInfo.original = IMGInfo.original(rect).clone();
+
 		//process image data
 		Imageanalysis::generateManipulated();
 	}
