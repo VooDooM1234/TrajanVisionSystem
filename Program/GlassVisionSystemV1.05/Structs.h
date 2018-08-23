@@ -1,17 +1,22 @@
 #pragma once
+#pragma unmanaged
 #include "opencv2/highgui/highgui.hpp"
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include "opencv2/imgproc.hpp"
 #include <opencv2/core/core.hpp>
+#pragma managed
 #include <iostream>
 #include <vector>
 #include <stdio.h>
 #include <windows.h>
 
-#include "opencv2/imgproc.hpp"
 //#include <pylon/PylonGUI.h>
+#pragma unmanaged
 #include <pylon/PylonIncludes.h>
-#include <pylon\usb\PylonUsbIncludes.h>
+#include <pylon/usb/PylonUsbIncludes.h>
+#include <pylon/usb/BaslerUsbInstantCamera.h>
+#pragma managed
 
 //5#include <pylon/usb/BaslerUsbInstantCamera.h>
 using namespace Basler_UsbCameraParams;
@@ -123,9 +128,7 @@ typedef struct {
 	std::string camName;
 	bool multiConcentricCircleDetected = false;
 
-	Pylon::CBaslerUsbInstantCamera *camera;
-	Pylon::CBaslerUsbDeviceInfo baslerInfo;
-
+	CBaslerUsbInstantCamera *camera;
 }ImageInformation;
 
 typedef struct {

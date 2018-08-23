@@ -1,10 +1,8 @@
-#include "opencv2/highgui/highgui.hpp"
 #include <iostream>
 #include <vector>
 #include <stdio.h>
 #include <math.h>
 //#include "RobotComms.h"
-#include "opencv2/imgproc.hpp"
 #include "ImageDisplay.h"
 #include <memory>
 #include "Structs.h"
@@ -39,8 +37,8 @@ void Imageanalysis::CameraInitialization(int camNumber, string camName) {
 	//	currentLog.result = "Opening Camera: " + CamName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
 	//	SaveLog(currentLog);
 	//}
-	OpenCVCamInitialization(camNumber, camName);
-	/*PylonInitialization(camNumber, camName);
+	//OpenCVCamInitialization(camNumber, camName);
+	PylonInitialization(camNumber, camName);
 	if (IMGInfo.camera != nullptr) {
 		if (IMGInfo.camera->IsOpen() == false) {
 			OpenCVCamInitialization(camNumber, camName);
@@ -48,7 +46,7 @@ void Imageanalysis::CameraInitialization(int camNumber, string camName) {
 	}
 	else {
 		OpenCVCamInitialization(camNumber, camName);
-	}*/
+	}
 
 }
 void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
@@ -78,22 +76,34 @@ void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
 
 
 void Imageanalysis::PylonInitialization(int camNumber, string camName) {
-	Pylon::PylonAutoInitTerm();
 	Pylon::PylonInitialize();
 	try
 	{
+		CDeviceInfo info;
 		//CBaslerUsbInstantCamera camera(CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
 		//IMGInfo.camera = &camera;
 
-		IMGInfo.baslerInfo.SetDeviceClass(CBaslerUsbInstantCamera::DeviceClass());
-		IPylonDevice* device = Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo);
+		info.SetDeviceClass(CBaslerUsbInstantCamera::DeviceClass());
+		//Pylon::IPylonDevice *device = CTlFactory::GetInstance().CreateFirstDevice(info);
 		//CInstantCamera* cam = new CInstantCamera(device);
 
 		//IMGInfo.camera->Attach(device); //<-- CODY THIS COMPILES FOR ME SEE IF IT WORKS LOADING THE CAMERA
-										//IMGInfo.camera = new CBaslerUsbInstantCamera(device);//<--- IM HAVING THE ISSUE WITH THIS CODY, SEE IF U CAN GET IT TO WORK 
-										//IMGInfo.camera = new Pylon::CBaslerUsbInstantCamera(Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
-		cout << "Using Device:" << IMGInfo.camera->GetDeviceInfo().GetModelName() << endl;
+		//MGInfo.camera = new CBaslerUsbInstantCamera(device);//<--- IM HAVING THE ISSUE WITH THIS CODY, SEE IF U CAN GET IT TO WORK 
+		IMGInfo.camera = new CBaslerUsbInstantCamera(CTlFactory::GetInstance().CreateFirstDevice());
+		//IMGInfo.camera = new Pylon::CBaslerUsbInstantCamera(Pylon::CTlFactory::GetInstance().CreateFirstDevice(IMGInfo.baslerInfo));
 		IMGInfo.camera->Open();
+		cout << "Using Device:" << IMGInfo.camera->GetDeviceInfo().GetModelName() << endl;
+		if (IsWritable(IMGInfo.camera->OffsetX))
+		{
+			IMGInfo.camera->OffsetX.SetValue(IMGInfo.camera->OffsetX.GetMin());
+		}
+		if (IsWritable(IMGInfo.camera->OffsetY))
+		{
+			IMGInfo.camera->OffsetY.SetValue(IMGInfo.camera->OffsetY.GetMin());
+		}
+		cout << "OffsetX          : " << IMGInfo.camera->OffsetX.GetValue() << endl;
+		cout << "OffsetY          : " << IMGInfo.camera->OffsetY.GetValue() << endl;
+
 		//camera.AutoBacklightCompensation();
 	}
 	catch (const GenericException &e) {
@@ -145,10 +155,8 @@ void Imageanalysis::ProcessPylonImage() {
 	CGrabResultPtr PtrGrabResult;
 	IMGInfo.camera->GrabOne(500, PtrGrabResult);
 	if (PtrGrabResult->GrabSucceeded()) {
-
 		PylonToCVFormatConverter.Convert(PylonImage, PtrGrabResult);
 		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer());
-
 	}
 }
 

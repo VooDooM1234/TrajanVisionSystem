@@ -1,0 +1,24 @@
+118,7,23,4,21,7,4;Owner;System Launched by Owner;No System Logs Exist, Log File Cannot be found.
+118,7,23,4,21,14,4;Owner;System Launched by Owner;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,23,4,21,14,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,4,21,58,4;Owner;Owner Exiting Application;Form Shutting Down
+118,7,23,6,41,51,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,6,41,51,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,7,4,33,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,7,4,33,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,7,14,47,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,7,14,47,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,7,31,10,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,7,31,10,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,14,57,38,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,14,57,38,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,14,58,13,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,14,58,13,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,14,59,0,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,14,59,0,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,15,1,41,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,15,1,41,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,15,5,22,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,15,5,22,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,23,15,8,40,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,23,15,8,40,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
