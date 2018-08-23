@@ -616,9 +616,8 @@ namespace GlassVisionSystemV105 {
 				System::Drawing::RectangleF rect((float)0, (float)0, (float)PicBox->Width, (float)PicBox->Height);
 				System::Drawing::Graphics^ graphics = PicBox->CreateGraphics();
 				//cv::imshow("Original", CamInfo.original);
-				if (bitmap == nullptr || !CamInfo.ImageCapture.isOpened()) {
+				if (bitmap == nullptr || (!CamInfo.ImageCapture.isOpened() && !CamInfo.camera->IsOpen())) {
 					//pictureBox1->Text = "test";
-
 					//System::String message = new System::String( "error";
 					graphics->Clear(System::Drawing::Color::Gray);
 					graphics->DrawString("Camera Is Not Connected!", gcnew System::Drawing::Font("Arial", 24, FontStyle::Bold), SystemBrushes::WindowText, rect/*new Point(100, 250)*/);

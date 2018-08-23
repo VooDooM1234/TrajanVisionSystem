@@ -1,6 +1,6 @@
 ﻿  ImageDisplay.cpp
-d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(88): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(89): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(256): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(257): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  GlassVisionSystemV1.05.vcxproj -> D:\Visual Studio\TrajanGVS\Program\x64\Debug\GlassVisionSystemV1.05.exe
+e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(93): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(94): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(267): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(268): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  GlassVisionSystemV1.05.vcxproj -> E:\Users\Documents\TrajanGVS\Program\x64\Debug\GlassVisionSystemV1.05.exe

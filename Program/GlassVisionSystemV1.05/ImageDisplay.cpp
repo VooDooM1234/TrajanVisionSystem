@@ -74,6 +74,8 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 		IMGInfo.camera = new CBaslerUsbInstantCamera(CTlFactory::GetInstance().CreateFirstDevice());
 		IMGInfo.camera->Open();
 		cout << "Using Device:" << IMGInfo.camera->GetDeviceInfo().GetModelName() << endl;
+		IMGInfo.camName = IMGInfo.camera->GetDeviceInfo().GetModelName();
+		IMGInfo.camNumber = camNumber;
 		if (IsWritable(IMGInfo.camera->OffsetX))
 		{
 			IMGInfo.camera->OffsetX.SetValue(IMGInfo.camera->OffsetX.GetMin());
@@ -85,11 +87,11 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 		cout << "OffsetX          : " << IMGInfo.camera->OffsetX.GetValue() << endl;
 		cout << "OffsetY          : " << IMGInfo.camera->OffsetY.GetValue() << endl;
 
+		IMGInfo.camera->ExposureTime.SetValue(25000);
+		IMGInfo.camera->AcquisitionFrameRate.SetValue(60);
+
 		camWidth = IMGInfo.camera->Width();
 		camHeight = IMGInfo.camera->Height();
-
-
-		//camera.AutoBacklightCompensation();
 	}
 	catch (const GenericException &e) {
 		currentLog.result = "Failed Loading " + camName + ": " + std::string(e.GetDescription());
@@ -135,7 +137,16 @@ void Imageanalysis::ProcessPylonImage() {
 	IMGInfo.camera->GrabOne(500, PtrGrabResult);
 	if (PtrGrabResult->GrabSucceeded()) {
 		PylonToCVFormatConverter.Convert(PylonImage, PtrGrabResult);
-		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer());
+		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer()).clone();
+		/*memcpy(IMGInfo.original.ptr(), PylonImage.GetBuffer(), camWidth*camHeight);*/
+		// edit: cvImage stores it's rows aligned on a 4byte boundary
+		// so if the source data isn't aligned you will have to do
+		/*uint8_t *pImageBuffer = (uint8_t *)PylonImage.GetBuffer();
+		for (int i = 0; i < camHeight; i++) {
+			for (int j = 0; j < camWidth; j++) {
+				IMGInfo.original.at<uchar>(i, j) = (uint32_t)pImageBuffer[i*camWidth + j];
+			}
+		}*/
 	}
 }
 
@@ -154,25 +165,6 @@ void Imageanalysis::generateManipulated() {
 	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2 * dilationSize + 1, 2 * dilationSize + 1), cv::Point(dilationSize, dilationSize));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
 	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
-	////Hough Circle Method
-	//vector<cv::Vec3f> circles;
-	////vector<Vec3f> circles;
-	////HoughCircles(gray, circles, HOUGH_GRADIENT, 1,
-	////	gray.rows / 16,  // change this value to detect circles with different distances to each other
-	////	100, 30, 1, 30 // change the last two parameters
- ////  // (min_radius & max_radius) to detect larger circles
-	//cv::HoughCircles(IMGInfo.canny,circles, cv::HOUGH_GRADIENT, 1, 150, 20, 20, 50, 900); // minRange, maxRange to be change (last two)
-	//for (size_t i = 0; i < circles.size(); i++)
-	//{
-	//	cv::Vec3i c = circles[i];
-	//	cv::Point center = cv::Point(c[0], c[1]);	
-	//	// circle center
-	//	circle(IMGInfo.original, center, 1, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
-	//	// circle outline
-	//	int radius = c[2];
-	//	circle(IMGInfo.original, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
-	//}
-	////end of Hough
 
 	CustomIDODDetection();
 }
@@ -275,6 +267,7 @@ void Imageanalysis::CustomIDODDetection() {
 
 }
 
+//checks that for every point inside a defect it is somewhere within the concentric circle
 vector<vector<cv::Point>> Imageanalysis::DefectCheck(vector<ConcCircles> concCircles, vector<vector<cv::Point>> defects) {
 	vector<vector<cv::Point>> result(0);
 
