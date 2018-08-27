@@ -98,6 +98,7 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::Label^  lblTusCount;
 	private: System::Windows::Forms::Label^  label11;
 	private: System::Windows::Forms::Timer^  tmrtooltip;
+	private: System::Windows::Forms::Button^  button1;
 
 
 
@@ -118,11 +119,9 @@ namespace GlassVisionSystemV105 {
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->lblRunMode = (gcnew System::Windows::Forms::Label());
 			this->BtnStartStopBatch = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->lblDescription = (gcnew System::Windows::Forms::Label());
-			this->lblPN = (gcnew System::Windows::Forms::Label());
 			this->gbChuteInformation = (gcnew System::Windows::Forms::GroupBox());
 			this->gbD = (gcnew System::Windows::Forms::GroupBox());
 			this->lblDCount = (gcnew System::Windows::Forms::Label());
@@ -139,7 +138,6 @@ namespace GlassVisionSystemV105 {
 			this->gbTuscos = (gcnew System::Windows::Forms::GroupBox());
 			this->lblTusCount = (gcnew System::Windows::Forms::Label());
 			this->label11 = (gcnew System::Windows::Forms::Label());
-			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
 			this->lblRunTime = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
@@ -152,8 +150,12 @@ namespace GlassVisionSystemV105 {
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->lblOD = (gcnew System::Windows::Forms::Label());
 			this->lblID = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->lblDescription = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->lblPN = (gcnew System::Windows::Forms::Label());
+			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->RunTimeTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
 			this->tmrtooltip = (gcnew System::Windows::Forms::Timer(this->components));
@@ -170,6 +172,7 @@ namespace GlassVisionSystemV105 {
 			// 
 			// groupBox2
 			// 
+			this->groupBox2->Controls->Add(this->button1);
 			this->groupBox2->Controls->Add(this->lblRunMode);
 			this->groupBox2->Controls->Add(this->BtnStartStopBatch);
 			this->groupBox2->Controls->Add(this->gbChuteInformation);
@@ -185,52 +188,35 @@ namespace GlassVisionSystemV105 {
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Information:";
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(291, 126);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(117, 29);
+			this->button1->TabIndex = 31;
+			this->button1->Text = L"Glass Inspection";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &InformationForm::button1_Click);
+			// 
 			// lblRunMode
 			// 
 			this->lblRunMode->AutoSize = true;
-			this->lblRunMode->Location = System::Drawing::Point(217, 139);
+			this->lblRunMode->Location = System::Drawing::Point(132, 132);
 			this->lblRunMode->Name = L"lblRunMode";
-			this->lblRunMode->Size = System::Drawing::Size(94, 16);
+			this->lblRunMode->Size = System::Drawing::Size(118, 16);
 			this->lblRunMode->TabIndex = 30;
-			this->lblRunMode->Text = L"Batch Running";
+			this->lblRunMode->Text = L"Batch Not Running";
 			this->lblRunMode->Click += gcnew System::EventHandler(this, &InformationForm::lblRunMode_Click);
 			// 
 			// BtnStartStopBatch
 			// 
-			this->BtnStartStopBatch->Location = System::Drawing::Point(12, 132);
+			this->BtnStartStopBatch->Location = System::Drawing::Point(12, 126);
 			this->BtnStartStopBatch->Name = L"BtnStartStopBatch";
-			this->BtnStartStopBatch->Size = System::Drawing::Size(105, 23);
+			this->BtnStartStopBatch->Size = System::Drawing::Size(105, 29);
 			this->BtnStartStopBatch->TabIndex = 27;
 			this->BtnStartStopBatch->Text = L"Start Batch";
 			this->BtnStartStopBatch->UseVisualStyleBackColor = true;
 			this->BtnStartStopBatch->Click += gcnew System::EventHandler(this, &InformationForm::BtnStartStopBatch_Click);
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(187, 18);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(79, 16);
-			this->label1->TabIndex = 26;
-			this->label1->Text = L"Description:";
-			// 
-			// lblDescription
-			// 
-			this->lblDescription->AutoSize = true;
-			this->lblDescription->Location = System::Drawing::Point(282, 18);
-			this->lblDescription->Name = L"lblDescription";
-			this->lblDescription->Size = System::Drawing::Size(80, 16);
-			this->lblDescription->TabIndex = 25;
-			this->lblDescription->Text = L"XXXXXXXXX";
-			// 
-			// lblPN
-			// 
-			this->lblPN->AutoSize = true;
-			this->lblPN->Location = System::Drawing::Point(101, 18);
-			this->lblPN->Name = L"lblPN";
-			this->lblPN->Size = System::Drawing::Size(80, 16);
-			this->lblPN->TabIndex = 24;
-			this->lblPN->Text = L"XXXXXXXXX";
 			// 
 			// gbChuteInformation
 			// 
@@ -392,15 +378,6 @@ namespace GlassVisionSystemV105 {
 			this->label11->TabIndex = 30;
 			this->label11->Text = L"Count:";
 			// 
-			// label10
-			// 
-			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(6, 18);
-			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(89, 16);
-			this->label10->TabIndex = 22;
-			this->label10->Text = L"Part Number: ";
-			// 
 			// groupBox4
 			// 
 			this->groupBox4->Controls->Add(this->lblRunTime);
@@ -527,6 +504,24 @@ namespace GlassVisionSystemV105 {
 			this->lblID->Text = L"XXXXXXXXX";
 			this->lblID->Click += gcnew System::EventHandler(this, &InformationForm::lblID_Click);
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(187, 18);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(79, 16);
+			this->label1->TabIndex = 26;
+			this->label1->Text = L"Description:";
+			// 
+			// lblDescription
+			// 
+			this->lblDescription->AutoSize = true;
+			this->lblDescription->Location = System::Drawing::Point(282, 18);
+			this->lblDescription->Name = L"lblDescription";
+			this->lblDescription->Size = System::Drawing::Size(80, 16);
+			this->lblDescription->TabIndex = 25;
+			this->lblDescription->Text = L"XXXXXXXXX";
+			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
@@ -546,6 +541,28 @@ namespace GlassVisionSystemV105 {
 			this->label7->TabIndex = 17;
 			this->label7->Text = L"ID:";
 			this->label7->Click += gcnew System::EventHandler(this, &InformationForm::label7_Click);
+			// 
+			// lblPN
+			// 
+			this->lblPN->AutoSize = true;
+			this->lblPN->Location = System::Drawing::Point(101, 18);
+			this->lblPN->Name = L"lblPN";
+			this->lblPN->Size = System::Drawing::Size(80, 16);
+			this->lblPN->TabIndex = 24;
+			this->lblPN->Text = L"XXXXXXXXX";
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->Location = System::Drawing::Point(6, 18);
+			this->label10->Name = L"label10";
+			this->label10->Size = System::Drawing::Size(89, 16);
+			this->label10->TabIndex = 22;
+			this->label10->Text = L"Part Number: ";
+			// 
+			// RunTimeTimer
+			// 
+			this->RunTimeTimer->Tick += gcnew System::EventHandler(this, &InformationForm::RunTimeTimer_Tick);
 			// 
 			// toolTip1
 			// 
@@ -587,200 +604,245 @@ namespace GlassVisionSystemV105 {
 
 		}
 #pragma endregion
-		public:
-			void resetToolTips() {
-				for each (Object^ var in gbChuteInformation->Controls)
-				{
-					this->toolTip1->SetToolTip((Control^)var, "");
-					for each (Object^ var in ((GroupBox^)var)->Controls)
-					{
-						this->toolTip1->SetToolTip((Control^)var, "");
-					}
-				}
-				/*this->toolTip1->SetToolTip(this->gbTuscos, "");
-				this->toolTip1->SetToolTip(this->gbA, "");
-				this->toolTip1->SetToolTip(this->gbB, "");
-				this->toolTip1->SetToolTip(this->gbC, "");
-				this->toolTip1->SetToolTip(this->gbD, "");
-				for each (Object^ var in gbTuscos->Controls)
+	public:
+		void resetToolTips() {
+			for each (Object^ var in gbChuteInformation->Controls)
+			{
+				this->toolTip1->SetToolTip((Control^)var, "");
+				for each (Object^ var in ((GroupBox^)var)->Controls)
 				{
 					this->toolTip1->SetToolTip((Control^)var, "");
 				}
-				for each (Object^ var in gbA->Controls)
-				{
-					this->toolTip1->SetToolTip((Control^)var, "");
-				}
-				for each (Object^ var in gbB->Controls)
-				{
-					this->toolTip1->SetToolTip((Control^)var, "");
-				}
-				for each (Object^ var in gbC->Controls)
-				{
-					this->toolTip1->SetToolTip((Control^)var, "");
-				}
-				for each (Object^ var in gbD->Controls)
-				{
-					this->toolTip1->SetToolTip((Control^)var, "");
-				}*/
 			}
-			void updateToolTips() {
-				List<String^> ToolTips;
-				ToolTips.Clear();
-			
-					
+			/*this->toolTip1->SetToolTip(this->gbTuscos, "");
+			this->toolTip1->SetToolTip(this->gbA, "");
+			this->toolTip1->SetToolTip(this->gbB, "");
+			this->toolTip1->SetToolTip(this->gbC, "");
+			this->toolTip1->SetToolTip(this->gbD, "");
+			for each (Object^ var in gbTuscos->Controls)
+			{
+				this->toolTip1->SetToolTip((Control^)var, "");
+			}
+			for each (Object^ var in gbA->Controls)
+			{
+				this->toolTip1->SetToolTip((Control^)var, "");
+			}
+			for each (Object^ var in gbB->Controls)
+			{
+				this->toolTip1->SetToolTip((Control^)var, "");
+			}
+			for each (Object^ var in gbC->Controls)
+			{
+				this->toolTip1->SetToolTip((Control^)var, "");
+			}
+			for each (Object^ var in gbD->Controls)
+			{
+				this->toolTip1->SetToolTip((Control^)var, "");
+			}*/
+		}
+		void updateToolTips() {
+			List<String^> ToolTips;
+			ToolTips.Clear();
 
-				for (int i = 0; i < 5; i++) {
-					ToolTips.Add(L"");
 
-				}
-				try {
-					for (int i = 0; i < currentProductSettings.numChutes; i++) {
-						ToolTips[i] += L"Chute Settings for " + getChuteString(currentProductSettings.listOfChuteSpecs[i].chutetype) + L":" + Environment::NewLine;
 
-						ToolTips[i] += L"-----Defect Settings-----" + Environment::NewLine;
-						if (currentProductSettings.listOfChuteSpecs[i].noDefects == true) {
-							ToolTips[i] += L"No Defects" + Environment::NewLine;
+			for (int i = 0; i < 5; i++) {
+				ToolTips.Add(L"");
+
+			}
+			try {
+				for (int i = 0; i < currentProductSettings.numChutes; i++) {
+					ToolTips[i] += L"Chute Settings for " + getChuteString(currentProductSettings.listOfChuteSpecs[i].chutetype) + L":" + Environment::NewLine;
+
+					ToolTips[i] += L"-----Defect Settings-----" + Environment::NewLine;
+					if (currentProductSettings.listOfChuteSpecs[i].noDefects == true) {
+						ToolTips[i] += L"No Defects" + Environment::NewLine;
+					}
+					else {
+						ToolTips[i] += L"Chips:" + currentProductSettings.listOfChuteSpecs[i].chip.ToString() + Environment::NewLine;
+						ToolTips[i] += L"Cracks:" + currentProductSettings.listOfChuteSpecs[i].chip.ToString() + Environment::NewLine;
+						if (currentProductSettings.listOfChuteSpecs[i].defectsOutOfRange == true) {
+							ToolTips[i] += L"Defects Exceeding Limit" + Environment::NewLine;
+						}
+						else if (currentProductSettings.listOfChuteSpecs[i].defectsWithinRange == true) {
+							ToolTips[i] += L"Defects Within Limit Range" + Environment::NewLine;
 						}
 						else {
-							ToolTips[i] += L"Chips:" + currentProductSettings.listOfChuteSpecs[i].chip.ToString() + Environment::NewLine;
-							ToolTips[i] += L"Cracks:" + currentProductSettings.listOfChuteSpecs[i].chip.ToString() + Environment::NewLine;
-							if (currentProductSettings.listOfChuteSpecs[i].defectsOutOfRange == true) {
-								ToolTips[i] += L"Defects Exceeding Limit" + Environment::NewLine;
-							}
-							else if (currentProductSettings.listOfChuteSpecs[i].defectsWithinRange == true) {
-								ToolTips[i] += L"Defects Within Limit Range" + Environment::NewLine;
-							}
-							else {
-								ToolTips[i] += L"ERROR" + Environment::NewLine;
+							ToolTips[i] += L"ERROR" + Environment::NewLine;
 
-							}
 						}
-
-						ToolTips[i] += L"-----ID Settings-----" + Environment::NewLine;
-						ToolTips[i] += L"ID Tolerance:" + currentProductSettings.listOfChuteSpecs[i].IDTolerance.ToString() + Environment::NewLine;
-						if (currentProductSettings.listOfChuteSpecs[i].IDHigher == true)
-						{
-							ToolTips[i] += L"ID Higher Than:" + (currentProductSettings.targetID + (currentProductSettings.targetID * (currentProductSettings.listOfChuteSpecs[i].IDTolerance/100))).ToString()  + Environment::NewLine;
-						}
-						if (currentProductSettings.listOfChuteSpecs[i].IDLower == true)
-						{
-							ToolTips[i] += L"ID Lower Than:" + (currentProductSettings.targetID - (currentProductSettings.targetID *( currentProductSettings.listOfChuteSpecs[i].IDTolerance / 100))).ToString() + Environment::NewLine;
-						}
-						if (currentProductSettings.listOfChuteSpecs[i].IDGood == true)
-						{
-							ToolTips[i] += L"ID Between" + (currentProductSettings.targetID - (currentProductSettings.targetID *( currentProductSettings.listOfChuteSpecs[i].IDTolerance /100))).ToString() +
-								L" And "+(currentProductSettings.targetID + (currentProductSettings.targetID *( currentProductSettings.listOfChuteSpecs[i].IDTolerance/100))).ToString() + Environment::NewLine;
-						}
-					
-						ToolTips[i] += L"-----OD Settings-----" + Environment::NewLine;
-						ToolTips[i] += L"OD Tolerance:" + currentProductSettings.listOfChuteSpecs[i].ODTolerance.ToString() + Environment::NewLine;
-						if (currentProductSettings.listOfChuteSpecs[i].IDHigher == true)
-						{
-							ToolTips[i] += L"OD Higher Than:" + (currentProductSettings.targetOD + (currentProductSettings.targetOD * (currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() + Environment::NewLine;
-						}
-						if (currentProductSettings.listOfChuteSpecs[i].IDLower == true)
-						{
-							ToolTips[i] += L"OD Lower Than:" + (currentProductSettings.targetOD - (currentProductSettings.targetOD *(currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() + Environment::NewLine;
-						}
-						if (currentProductSettings.listOfChuteSpecs[i].IDGood == true)
-						{
-							ToolTips[i] += L"OD Between" + (currentProductSettings.targetOD - (currentProductSettings.targetOD *(currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() +
-								L" And " + (currentProductSettings.targetOD + (currentProductSettings.targetOD *(currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() + Environment::NewLine;
-						}
-
-
-						switch (currentProductSettings.listOfChuteSpecs[i].chutetype)
-						{
-						case Tuscos:
-							this->toolTip1->SetToolTip(this->gbTuscos, ToolTips[i]);
-							for each (Object^ var in gbTuscos->Controls)
-							{
-								this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
-							}
-							break;
-						case A:
-							this->toolTip1->SetToolTip(this->gbA, ToolTips[i]);
-							for each (Object^ var in gbA->Controls)
-							{
-								this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
-							}
-							break;
-						case B:
-							this->toolTip1->SetToolTip(this->gbB, ToolTips[i]);
-							for each (Object^ var in gbB->Controls)
-							{
-								this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
-							}
-							break;
-						case C:
-							this->toolTip1->SetToolTip(this->gbC, ToolTips[i]);
-							for each (Object^ var in gbC->Controls)
-							{
-								this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
-							}
-							break;
-						case D:
-							this->toolTip1->SetToolTip(this->gbD, ToolTips[i]);
-							for each (Object^ var in gbD->Controls)
-							{
-								this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
-							}
-							break;
-						default:
-							break;
-						}
-
-						
 					}
-				}
-				catch (...) {
+
+					ToolTips[i] += L"-----ID Settings-----" + Environment::NewLine;
+					ToolTips[i] += L"ID Tolerance:" + currentProductSettings.listOfChuteSpecs[i].IDTolerance.ToString() + Environment::NewLine;
+					if (currentProductSettings.listOfChuteSpecs[i].IDHigher == true)
+					{
+						ToolTips[i] += L"ID Higher Than:" + (currentProductSettings.targetID + (currentProductSettings.targetID * (currentProductSettings.listOfChuteSpecs[i].IDTolerance / 100))).ToString() + Environment::NewLine;
+					}
+					if (currentProductSettings.listOfChuteSpecs[i].IDLower == true)
+					{
+						ToolTips[i] += L"ID Lower Than:" + (currentProductSettings.targetID - (currentProductSettings.targetID *(currentProductSettings.listOfChuteSpecs[i].IDTolerance / 100))).ToString() + Environment::NewLine;
+					}
+					if (currentProductSettings.listOfChuteSpecs[i].IDGood == true)
+					{
+						ToolTips[i] += L"ID Between" + (currentProductSettings.targetID - (currentProductSettings.targetID *(currentProductSettings.listOfChuteSpecs[i].IDTolerance / 100))).ToString() +
+							L" And " + (currentProductSettings.targetID + (currentProductSettings.targetID *(currentProductSettings.listOfChuteSpecs[i].IDTolerance / 100))).ToString() + Environment::NewLine;
+					}
+
+					ToolTips[i] += L"-----OD Settings-----" + Environment::NewLine;
+					ToolTips[i] += L"OD Tolerance:" + currentProductSettings.listOfChuteSpecs[i].ODTolerance.ToString() + Environment::NewLine;
+					if (currentProductSettings.listOfChuteSpecs[i].IDHigher == true)
+					{
+						ToolTips[i] += L"OD Higher Than:" + (currentProductSettings.targetOD + (currentProductSettings.targetOD * (currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() + Environment::NewLine;
+					}
+					if (currentProductSettings.listOfChuteSpecs[i].IDLower == true)
+					{
+						ToolTips[i] += L"OD Lower Than:" + (currentProductSettings.targetOD - (currentProductSettings.targetOD *(currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() + Environment::NewLine;
+					}
+					if (currentProductSettings.listOfChuteSpecs[i].IDGood == true)
+					{
+						ToolTips[i] += L"OD Between" + (currentProductSettings.targetOD - (currentProductSettings.targetOD *(currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() +
+							L" And " + (currentProductSettings.targetOD + (currentProductSettings.targetOD *(currentProductSettings.listOfChuteSpecs[i].ODTolerance / 100))).ToString() + Environment::NewLine;
+					}
+
+
+					switch (currentProductSettings.listOfChuteSpecs[i].chutetype)
+					{
+					case Tuscos:
+						this->toolTip1->SetToolTip(this->gbTuscos, ToolTips[i]);
+						for each (Object^ var in gbTuscos->Controls)
+						{
+							this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
+						}
+						break;
+					case A:
+						this->toolTip1->SetToolTip(this->gbA, ToolTips[i]);
+						for each (Object^ var in gbA->Controls)
+						{
+							this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
+						}
+						break;
+					case B:
+						this->toolTip1->SetToolTip(this->gbB, ToolTips[i]);
+						for each (Object^ var in gbB->Controls)
+						{
+							this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
+						}
+						break;
+					case C:
+						this->toolTip1->SetToolTip(this->gbC, ToolTips[i]);
+						for each (Object^ var in gbC->Controls)
+						{
+							this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
+						}
+						break;
+					case D:
+						this->toolTip1->SetToolTip(this->gbD, ToolTips[i]);
+						for each (Object^ var in gbD->Controls)
+						{
+							this->toolTip1->SetToolTip((Control^)var, ToolTips[i]);
+						}
+						break;
+					default:
+						break;
+					}
+
 
 				}
 			}
-
-		public:
-			void FormUpdate() {
-				lblPN->Text = gcnew String(currentProductSettings.partNumber.c_str());
-				lblDescription->Text = gcnew String(currentProductSettings.Description.c_str());
-				lblID->Text = currentProductSettings.targetID.ToString();
-				lblOD->Text = currentProductSettings.targetOD.ToString();
-
-				//updateToolTips();
-				//String^ tuscosToolTip = gcnew String("Chute Settings Info:" + Environment::NewLine);
-				//tuscosToolTip += gcnew String(currentProductSettings..c_str());
-				//this->toolTip1->SetToolTip(this->groupBox1, tuscosToolTip);
-
+			catch (...) {
 
 			}
-	
-private: System::Void tmrtooltip_Tick(System::Object^  sender, System::EventArgs^  e) {
-	updateToolTips();
-}
-private: System::Void lblRunMode_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void BtnStartStopBatch_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (currentProductSettings.partNumber != "") {
-		if (RunTimeTimer->Enabled){
-			BtnStartStopBatch->Text = "Start Batch";
-			RunTimeTimer->Enabled == false;
+		}
+
+	public:
+		void FormUpdate() {
+			lblPN->Text = gcnew String(currentProductSettings.partNumber.c_str());
+			lblDescription->Text = gcnew String(currentProductSettings.Description.c_str());
+			lblID->Text = currentProductSettings.targetID.ToString();
+			lblOD->Text = currentProductSettings.targetOD.ToString();
+
+			//updateToolTips();
+			//String^ tuscosToolTip = gcnew String("Chute Settings Info:" + Environment::NewLine);
+			//tuscosToolTip += gcnew String(currentProductSettings..c_str());
+			//this->toolTip1->SetToolTip(this->groupBox1, tuscosToolTip);
+
+
+		}
+
+	private: System::Void tmrtooltip_Tick(System::Object^  sender, System::EventArgs^  e) {
+		updateToolTips();
+	}
+	private: System::Void lblRunMode_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void BtnStartStopBatch_Click(System::Object^  sender, System::EventArgs^  e) {
+		//if product has been selected
+		if (currentProductSettings.partNumber != "") {
+			//if batch is currently running
+			if (BatchRunning) {
+				System::Windows::Forms::DialogResult dialogResult = System::Windows::Forms::MessageBox::Show("Batch Inspection In Progress", "Are you sure you wish to stop the current batch?", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+				if (dialogResult == Windows::Forms::DialogResult::Yes) {
+
+					BtnStartStopBatch->Text = "Start Batch";
+					lblRunMode->Text = "Batch Not Running";
+					lblRunMode->ForeColor = Color::Red;
+					RunTimeTimer->Enabled = false;
+					BatchRunning = false;
+				}
+			}
+			//if batch is not currently running
+			else {
+				BatchRunning = true;
+				BtnStartStopBatch->Text = "Stop Batch";
+				lblRunMode->Text = "Batch Running";
+				lblRunMode->ForeColor = Color::Green;
+				RunTimeTimer->Enabled = true;
+
+			}
 		}
 		else {
-			BtnStartStopBatch->Text = "Stop Batch";
-			RunTimeTimer->Enabled == true;
+			System::Windows::Forms::DialogResult dialogResult = System::Windows::Forms::MessageBox::Show("Please Select a Recipe", "No Recipe Selected", MessageBoxButtons::OK, MessageBoxIcon::Error);
+
 		}
 	}
-}
-private: System::Void lblTol_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void label5_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void label8_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void lblOD_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void lblID_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-};
+	private: System::Void lblTol_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void label5_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void label8_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void lblOD_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void lblID_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+			 void ResetBatchLabels() {
+
+			 }
+			 int timerCount = 0;
+	private: System::Void RunTimeTimer_Tick(System::Object^  sender, System::EventArgs^  e) {
+		timerCount++;
+		System::String^ s = gcnew String(L"");
+		if (timerCount / 36000 >= 1) {
+			s += (int)(timerCount / 36000) + ":";
+		}
+		if (timerCount / 600 >= 1) {
+			s += (int)(timerCount / 600) % 60 + ":";
+
+		}
+		if (timerCount / 10 >= 1) {
+			s += (int)(timerCount / 10) % 60 + ".";
+		}
+		s += timerCount % 10;
+
+		lblRunTime->Text = s;
+	}
+			 public: bool ImageInspect = false;
+					 bool BatchRunning = false;
+			 //glass inspection button clicked
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+		ImageInspect = true;
+	}
+	};
 }

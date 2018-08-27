@@ -1,8 +1,4 @@
-﻿  ImageSettingsForm.cpp
-d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(437): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: see declaration of 'localtime'
-d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(438): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+﻿  InformationForm.cpp
   LogForm.cpp
 d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(437): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: see declaration of 'localtime'

@@ -74,8 +74,8 @@ namespace GlassVisionSystemV105 {
 			 ProductSettingsForm^ prodSettingForm;
 			 PasswordForm^ passForm;
 			 LogForm^ logSelectionForm;
-	public: LogPreviewForm^ LPForm;
-			 
+	public: LogPreviewForm ^ LPForm;
+
 
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 	private: System::Windows::Forms::ToolStripMenuItem^  infoToolStripMenuItem;
@@ -415,15 +415,21 @@ namespace GlassVisionSystemV105 {
 		}
 
 		//run the vision data analysis on cameras A & B
-		if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera != nullptr) {
-			if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen())
-				CameraA.ProcessImage();
-		}
+		if (infoForm->ImageInspect == true && infoForm->BatchRunning == true || infoForm->BatchRunning == false) {
+			infoForm->ImageInspect = false;
+			if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera != nullptr) {
+				if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen()) {
+
+					CameraA.ProcessImage();
+				}
+			}
 
 
-		if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera != nullptr) {
-			if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera->IsOpen())
-				CameraB.ProcessImage();
+			if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera != nullptr) {
+				if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera->IsOpen()) {
+					CameraB.ProcessImage();
+				}
+			}
 		}
 
 		infoForm->FormUpdate();
@@ -499,5 +505,5 @@ namespace GlassVisionSystemV105 {
 		CurrentPannelA = LogSelection;
 		CurrentPannelB = LogView;
 	}
-};
+	};
 }

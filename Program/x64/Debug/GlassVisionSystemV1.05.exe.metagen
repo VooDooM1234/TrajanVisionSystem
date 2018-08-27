@@ -52,6 +52,9 @@ Class GlassVisionSystemV105.LogForm: AutoLayout, AnsiClass, Class, Public, Befor
 Class GlassVisionSystemV105.InformationForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean ImageInspect : Public
+    Boolean BatchRunning : Public
   Methods:
     resetToolTips(): PrivateScope, Public, HideBySig
     updateToolTips(): PrivateScope, Public, HideBySig

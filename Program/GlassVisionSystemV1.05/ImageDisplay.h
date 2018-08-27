@@ -10,8 +10,10 @@ public:
 	void CameraInitialization(int camNumber, std::string CamName);
 	void PylonInitialization(int camNumber, std::string Camname);
 	void Imageanalysis::OpenCVCamInitialization(int camNumber, std::string camName);
-public:
+private:
+	void Imageanalysis::ImagePreProcessing();
 	void Imageanalysis::CustomIDODDetection();
+public:
 	void ProcessImage();
 	void ProcessPylonImage();
 private:

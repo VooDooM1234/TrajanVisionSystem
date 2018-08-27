@@ -104,6 +104,8 @@ void Imageanalysis::ProcessImage()
 {
 	//Store original Image display the oridinal image
 	if (IMGInfo.ImageCapture.isOpened()) {
+		
+		IMGInfo.ImageCapture >> IMGInfo.original;
 		IMGInfo.ImageCapture >> IMGInfo.original;
 
 	}
@@ -152,6 +154,12 @@ void Imageanalysis::ProcessPylonImage() {
 }
 
 void Imageanalysis::generateManipulated() {
+	ImagePreProcessing();
+	CustomIDODDetection();
+}
+
+
+void Imageanalysis::ImagePreProcessing() {
 	//converts the colored image to grayscale (0-255 single color image)
 	cv::cvtColor(IMGInfo.original, IMGInfo.grayscale, CV_BGR2GRAY);
 
@@ -161,13 +169,11 @@ void Imageanalysis::generateManipulated() {
 	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
 	//cv::imshow("XXX", IMGInfo.binaryThreshold);
 	//cv::resizeWindow("XXX", cv::Size(2448 / 4, 2048 / 4));
-	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, /*currentImageSettings.CannyThresholdA*/100, currentImageSettings.CannyThresholdB, 3);
+	cv::Canny(IMGInfo.grayscale, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, 3);
 	int dilationSize = 2;
 	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2 * dilationSize + 1, 2 * dilationSize + 1), cv::Point(dilationSize, dilationSize));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
 	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
-
-	CustomIDODDetection();
 }
 
 
@@ -175,6 +181,7 @@ void Imageanalysis::CustomIDODDetection() {
 	/// Find contours using canny method
 	vector<vector<cv::Point> > contours;
 	vector<cv::Vec4i> hierarchy;
+	
 	cv::findContours(IMGInfo.canny, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 	/// Draw contours
 	cv::Mat drawing = cv::Mat::zeros(IMGInfo.canny.size(), CV_8UC3);
