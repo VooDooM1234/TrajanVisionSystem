@@ -417,18 +417,22 @@ namespace GlassVisionSystemV105 {
 		//run the vision data analysis on cameras A & B
 		if (infoForm->ImageInspect == true && infoForm->BatchRunning == true || infoForm->BatchRunning == false) {
 			infoForm->ImageInspect = false;
+
+			//processes camera A if it is opperational/connected
 			if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera != nullptr) {
 				if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen()) {
-
 					CameraA.ProcessImage();
 				}
 			}
-
-
+			//processes camera B is it is opperational/connected
 			if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera != nullptr) {
 				if (CameraB.IMGInfo.ImageCapture.isOpened() || CameraB.IMGInfo.camera->IsOpen()) {
 					CameraB.ProcessImage();
 				}
+			}
+			//updates current batch information display if batch is running
+			if (infoForm->BatchRunning) {
+				infoForm->PopulateInspection();
 			}
 		}
 
@@ -444,56 +448,75 @@ namespace GlassVisionSystemV105 {
 	private: System::Void groupBox2_Enter(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void modifyExistingRecipeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-		//opens up password input when attempting to view menu
-		currentLog.execution = "{USER} Attempted to access recipe creation/Modification Interface";
-		Windows::Forms::DialogResult result = passForm->ShowDialog();
-		if (result == Windows::Forms::DialogResult::Yes) {
-			//if password input successful, display menu
-			CurrentPannelA = ProductCreation;
-			CurrentPannelB = chuteForm;
+		if (infoForm->BatchRunning) {
+			System::Windows::Forms::MessageBox::Show("System In Use", "Batch is cuttently operational, please stop the process and try again.", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
-
+		else {
+			//opens up password input when attempting to view menu
+			currentLog.execution = "{USER} Attempted to access recipe creation/Modification Interface";
+			Windows::Forms::DialogResult result = passForm->ShowDialog();
+			if (result == Windows::Forms::DialogResult::Yes) {
+				//if password input successful, display menu
+				CurrentPannelA = ProductCreation;
+				CurrentPannelB = chuteForm;
+			}
+		}
 	}
 	private: System::Void label27_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void label25_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void debugToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-		//opens up password input when attempting to view menu
-		currentLog.execution = "{USER} Attempted to access Camera Settings Interface";
-		Windows::Forms::DialogResult result = passForm->ShowDialog();
-		if (result == Windows::Forms::DialogResult::Yes) {
-			//if password input successful, display menu
-			CamSettingsForm->loadImageSettingsForm();
-			CurrentPannelA = Debug;
-			CurrentPannelB = cameraForm;
+		if (infoForm->BatchRunning) {
+			System::Windows::Forms::MessageBox::Show("System In Use", "Batch is cuttently operational, please stop the process and try again.", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+		else {
+			//opens up password input when attempting to view menu
+			currentLog.execution = "{USER} Attempted to access Camera Settings Interface";
+			Windows::Forms::DialogResult result = passForm->ShowDialog();
+			if (result == Windows::Forms::DialogResult::Yes) {
+				//if password input successful, display menu
+				CamSettingsForm->loadImageSettingsForm();
+				CurrentPannelA = Debug;
+				CurrentPannelB = cameraForm;
+			}
 		}
 	}
 
 	private: System::Void rbCamA_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void selectRecipeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-		//opens up file selection dialog
-		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-		{
+		if (infoForm->BatchRunning) {
+			System::Windows::Forms::MessageBox::Show("System In Use", "Batch is cuttently operational, please stop the process and try again.", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+		else {
+			//opens up file selection dialog
+			if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
 
-			msclr::interop::marshal_context context;
-			//loadselected recipe and sets it to the current recipe being used.
-			std::string standardString = context.marshal_as<std::string>(openFileDialog1->FileName);
-			currentLog.execution = "{USER} Loading Recipe: '" + currentProductSettings.partNumber + "'";
-			currentProductSettings = LoadProductSettings(standardString);
-			infoForm->resetToolTips();
-			infoForm->updateToolTips();
+				msclr::interop::marshal_context context;
+				//loadselected recipe and sets it to the current recipe being used.
+				std::string standardString = context.marshal_as<std::string>(openFileDialog1->FileName);
+				currentLog.execution = "{USER} Loading Recipe: '" + currentProductSettings.partNumber + "'";
+				currentProductSettings = LoadProductSettings(standardString);
+				infoForm->resetToolTips();
+				infoForm->updateToolTips();
 
 
+			}
 		}
 	}
 	private: System::Void reloadCamerasToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-		CameraA.IMGInfo = *new ImageInformation();
-		CameraA.CameraInitialization(0, "CamA");
+		if (infoForm->BatchRunning) {
+			System::Windows::Forms::MessageBox::Show("System In Use", "Batch is cuttently operational, please stop the process and try again.", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+		else {
+			CameraA.IMGInfo = *new ImageInformation();
+			CameraA.CameraInitialization(0, "CamA");
 
-		CameraB.IMGInfo = *new ImageInformation();
-		CameraB.CameraInitialization(1, "CamA");
+			CameraB.IMGInfo = *new ImageInformation();
+			CameraB.CameraInitialization(1, "CamA");
+		}
 	}
 
 	private: System::Void MyForm_FormClosing(Object^ sender, FormClosingEventArgs^ e) {
@@ -502,8 +525,13 @@ namespace GlassVisionSystemV105 {
 		SaveLog(currentLog);
 	}
 	private: System::Void infoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-		CurrentPannelA = LogSelection;
-		CurrentPannelB = LogView;
+		if (infoForm->BatchRunning) {
+			System::Windows::Forms::MessageBox::Show("System In Use", "Batch is cuttently operational, please stop the process and try again.", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+		else {
+			CurrentPannelA = LogSelection;
+			CurrentPannelB = LogView;
+		}
 	}
 	};
 }

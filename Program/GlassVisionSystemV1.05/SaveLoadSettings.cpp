@@ -26,10 +26,12 @@ void LoadImageSettingsFromFile(string filename) {
 			temp.CannyThresholdB = 20;
 			temp.CircleTolerance = 10;
 			temp.ExposureTime = 100000;
+			temp.MeasuredPixels = 1;
+			temp.DesiredOD = 1;
 
 			SaveImageSettings(temp, "CurrentSettings");
 			myfile.open("ImageSettings/CurrentSettings.txt");
-
+			
 		}
 	}
 	getline(myfile, line);
@@ -44,8 +46,16 @@ void LoadImageSettingsFromFile(string filename) {
 	getline(myfile, line);
 	result.ExposureTime = atoi(line.c_str());
 
+	getline(myfile, line);
+	result.MeasuredPixels = atoi(line.c_str());
+
+	getline(myfile, line);
+	result.DesiredOD = atoi(line.c_str());
+
 	myfile.close();
 	currentImageSettings = result;
+	currentImageSettings.PixToMMRatio = result.DesiredOD / result.MeasuredPixels;
+
 }
 void LoadImageSettingsFromGUI() {
 
@@ -67,6 +77,8 @@ void SaveImageSettings(ImageSettings settings, string filename) {
 	myfile << settings.CannyThresholdB << std::endl;
 	myfile << settings.CircleTolerance << std::endl;
 	myfile << settings.ExposureTime << std::endl;
+	myfile << settings.MeasuredPixels << std::endl;
+	myfile << settings.DesiredOD << std::endl;
 
 	myfile.close();
 }

@@ -1,4 +1,5 @@
 #include "Structs.h"
+#include "ImageDisplay.h"
 #include <chrono>
 #include "SaveLoadSettings.h"
 #include <msclr\marshal_cppstd.h>
@@ -23,10 +24,20 @@ namespace GlassVisionSystemV105 {
 	{
 		//SelectedInfoPanelForm currentForm;
 	private:
-		//
-		int PCA, PCB, PCT, ExpTime;
+		//placeholder values for past settings
+		int PCA, PCB, PCT, ExpTime, DesOD;
+		double MeasPixel;
 	private: System::Windows::Forms::GroupBox^  groupBox4;
 	private: System::Windows::Forms::NumericUpDown^  numExposureTime;
+	private: System::Windows::Forms::GroupBox^  groupBox5;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Label^  lblCalculatedRatio;
+	private: System::Windows::Forms::NumericUpDown^  nudMeasuredOD;
+	private: System::Windows::Forms::NumericUpDown^  nudDesiredOD;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::Button^  btnPixelTomm;
+	private: System::Windows::Forms::Label^  label5;
 
 
 	private: System::Windows::Forms::HScrollBar^  hScrollBar4;
@@ -101,6 +112,15 @@ namespace GlassVisionSystemV105 {
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(ImageSettingsForm::typeid));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->groupBox5 = (gcnew System::Windows::Forms::GroupBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->lblCalculatedRatio = (gcnew System::Windows::Forms::Label());
+			this->nudMeasuredOD = (gcnew System::Windows::Forms::NumericUpDown());
+			this->nudDesiredOD = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->btnPixelTomm = (gcnew System::Windows::Forms::Button());
 			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
 			this->numExposureTime = (gcnew System::Windows::Forms::NumericUpDown());
 			this->hScrollBar4 = (gcnew System::Windows::Forms::HScrollBar());
@@ -120,6 +140,9 @@ namespace GlassVisionSystemV105 {
 			this->hScrollBar1 = (gcnew System::Windows::Forms::HScrollBar());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->panel1->SuspendLayout();
+			this->groupBox5->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasuredOD))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudDesiredOD))->BeginInit();
 			this->groupBox4->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numExposureTime))->BeginInit();
 			this->groupBox3->SuspendLayout();
@@ -133,6 +156,7 @@ namespace GlassVisionSystemV105 {
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->panel1->Controls->Add(this->groupBox5);
 			this->panel1->Controls->Add(this->groupBox4);
 			this->panel1->Controls->Add(this->btnReset);
 			this->panel1->Controls->Add(this->label1);
@@ -149,6 +173,108 @@ namespace GlassVisionSystemV105 {
 			this->panel1->TabIndex = 0;
 			this->panel1->Tag = L"";
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &ImageSettingsForm::panel1_Paint);
+			// 
+			// groupBox5
+			// 
+			this->groupBox5->Controls->Add(this->label5);
+			this->groupBox5->Controls->Add(this->label4);
+			this->groupBox5->Controls->Add(this->lblCalculatedRatio);
+			this->groupBox5->Controls->Add(this->nudMeasuredOD);
+			this->groupBox5->Controls->Add(this->nudDesiredOD);
+			this->groupBox5->Controls->Add(this->label3);
+			this->groupBox5->Controls->Add(this->label2);
+			this->groupBox5->Controls->Add(this->btnPixelTomm);
+			this->groupBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupBox5->Location = System::Drawing::Point(196, 158);
+			this->groupBox5->Name = L"groupBox5";
+			this->groupBox5->Size = System::Drawing::Size(217, 129);
+			this->groupBox5->TabIndex = 15;
+			this->groupBox5->TabStop = false;
+			this->groupBox5->Text = L"Pixel to milimeter Ratio";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(87, 24);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(116, 16);
+			this->label5->TabIndex = 7;
+			this->label5->Text = L" - Using Camera A";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(7, 95);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(110, 16);
+			this->label4->TabIndex = 6;
+			this->label4->Text = L"Calculated Ratio:";
+			// 
+			// lblCalculatedRatio
+			// 
+			this->lblCalculatedRatio->AutoSize = true;
+			this->lblCalculatedRatio->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->lblCalculatedRatio->Location = System::Drawing::Point(146, 95);
+			this->lblCalculatedRatio->Name = L"lblCalculatedRatio";
+			this->lblCalculatedRatio->Size = System::Drawing::Size(17, 18);
+			this->lblCalculatedRatio->TabIndex = 5;
+			this->lblCalculatedRatio->Text = L"0";
+			// 
+			// nudMeasuredOD
+			// 
+			this->nudMeasuredOD->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->nudMeasuredOD->Location = System::Drawing::Point(146, 69);
+			this->nudMeasuredOD->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2500, 0, 0, 0 });
+			this->nudMeasuredOD->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudMeasuredOD->Name = L"nudMeasuredOD";
+			this->nudMeasuredOD->Size = System::Drawing::Size(65, 22);
+			this->nudMeasuredOD->TabIndex = 4;
+			this->nudMeasuredOD->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudMeasuredOD->ValueChanged += gcnew System::EventHandler(this, &ImageSettingsForm::nudMeasuredOD_ValueChanged);
+			// 
+			// nudDesiredOD
+			// 
+			this->nudDesiredOD->DecimalPlaces = 1;
+			this->nudDesiredOD->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->nudDesiredOD->Location = System::Drawing::Point(146, 46);
+			this->nudDesiredOD->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
+			this->nudDesiredOD->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudDesiredOD->Name = L"nudDesiredOD";
+			this->nudDesiredOD->Size = System::Drawing::Size(65, 22);
+			this->nudDesiredOD->TabIndex = 3;
+			this->nudDesiredOD->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudDesiredOD->ValueChanged += gcnew System::EventHandler(this, &ImageSettingsForm::nudDesiredOD_ValueChanged);
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(7, 71);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(136, 16);
+			this->label3->TabIndex = 2;
+			this->label3->Text = L"Measured OD(Pixels)";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(7, 48);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(112, 16);
+			this->label2->TabIndex = 1;
+			this->label2->Text = L"Desired OD (mm)";
+			// 
+			// btnPixelTomm
+			// 
+			this->btnPixelTomm->Location = System::Drawing::Point(6, 21);
+			this->btnPixelTomm->Name = L"btnPixelTomm";
+			this->btnPixelTomm->Size = System::Drawing::Size(75, 23);
+			this->btnPixelTomm->TabIndex = 0;
+			this->btnPixelTomm->Text = L"Calculate";
+			this->btnPixelTomm->UseVisualStyleBackColor = true;
+			this->btnPixelTomm->Click += gcnew System::EventHandler(this, &ImageSettingsForm::btnPixelTomm_Click);
 			// 
 			// groupBox4
 			// 
@@ -376,6 +502,10 @@ namespace GlassVisionSystemV105 {
 			this->Text = L"DebugForm";
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			this->groupBox5->ResumeLayout(false);
+			this->groupBox5->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasuredOD))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudDesiredOD))->EndInit();
 			this->groupBox4->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numExposureTime))->EndInit();
 			this->groupBox3->ResumeLayout(false);
@@ -420,6 +550,8 @@ namespace GlassVisionSystemV105 {
 			PCB = currentImageSettings.CannyThresholdB;
 			PCT = currentImageSettings.CircleTolerance;
 			ExpTime = currentImageSettings.ExposureTime/1000;
+			MeasPixel = currentImageSettings.MeasuredPixels;
+			DesOD = currentImageSettings.DesiredOD;
 			updateDisplayNumbers();
 		}
 
@@ -430,6 +562,9 @@ namespace GlassVisionSystemV105 {
 		tempSettings.CannyThresholdB = (int)numCannyTolB->Value;
 		tempSettings.CircleTolerance = (int)numCircleTolerance->Value;
 		tempSettings.ExposureTime = (int)numExposureTime->Value * 1000;
+		tempSettings.MeasuredPixels = (int)nudMeasuredOD->Value;
+		tempSettings.DesiredOD = Convert::ToDouble( nudDesiredOD->Value);
+		tempSettings.PixToMMRatio = Convert::ToDouble(lblCalculatedRatio->Text);
 
 		SaveImageSettings(tempSettings, "CurrentSettings");
 
@@ -439,6 +574,7 @@ namespace GlassVisionSystemV105 {
 		Currentdate = Currentdate.substr(0, Currentdate.size() - 1);
 		SaveImageSettings(tempSettings, Currentdate);
 		CurrentPannelA = InfoForm;
+		currentImageSettings = tempSettings;
 	}
 
 	private: void updateDisplayNumbers() {
@@ -447,6 +583,9 @@ namespace GlassVisionSystemV105 {
 		numCircleTolerance->Value = currentImageSettings.CircleTolerance;
 		numExposureTime->Value = currentImageSettings.ExposureTime/1000;
 
+		nudMeasuredOD->Value = currentImageSettings.MeasuredPixels;
+		nudDesiredOD->Value = Convert::ToDecimal( currentImageSettings.DesiredOD);
+		lblCalculatedRatio->Text = Convert::ToString(currentImageSettings.PixToMMRatio);
 	}
 	private:
 		void updateSettingPreview() {
@@ -455,12 +594,20 @@ namespace GlassVisionSystemV105 {
 			currentImageSettings.CircleTolerance = (int)numCircleTolerance->Value;
 			currentImageSettings.ExposureTime = (int)numExposureTime->Value * 1000;
 
+			currentImageSettings.MeasuredPixels = (int)nudMeasuredOD->Value;
+			currentImageSettings.DesiredOD = Convert::ToDouble(nudDesiredOD->Value);
+			currentImageSettings.PixToMMRatio = currentImageSettings.DesiredOD / currentImageSettings.MeasuredPixels;
+
 		}
 		void RevertSettings() {
 			currentImageSettings.CannyThresholdA = PCA;
 			currentImageSettings.CannyThresholdB = PCB;
 			currentImageSettings.CircleTolerance = PCT;
 			currentImageSettings.ExposureTime = ExpTime;
+
+			currentImageSettings.MeasuredPixels = MeasPixel;
+			currentImageSettings.DesiredOD = DesOD;
+			currentImageSettings.PixToMMRatio = DesOD/ MeasPixel;
 
 		}
 
@@ -503,6 +650,21 @@ private: System::Void nudExposureTime_ValueChanged(System::Object^  sender, Syst
 private: System::Void hScrollBar4_Scroll(System::Object^  sender, System::Windows::Forms::ScrollEventArgs^  e) {
 	numExposureTime->Value = hScrollBar4->Value;
 
+}
+
+		 private: void calculatePtoMMRatio() {
+			 currentImageSettings.PixToMMRatio = Convert::ToDouble( nudDesiredOD->Value / nudMeasuredOD->Value);
+			 lblCalculatedRatio->Text = Convert::ToString(currentImageSettings.PixToMMRatio);
+		 }
+		 //auto calculate pixel to mm button pressed
+private: System::Void btnPixelTomm_Click(System::Object^  sender, System::EventArgs^  e) {
+	nudMeasuredOD->Value = Convert::ToDecimal(CameraA.IMGInfo.OD);
+}
+private: System::Void nudMeasuredOD_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	calculatePtoMMRatio();
+}
+private: System::Void nudDesiredOD_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	calculatePtoMMRatio();
 }
 };
 }

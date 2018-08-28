@@ -13,6 +13,7 @@ public:
 private:
 	void Imageanalysis::ImagePreProcessing();
 	void Imageanalysis::CustomIDODDetection();
+	void Imageanalysis::ChuteDetermination();
 public:
 	void ProcessImage();
 	void ProcessPylonImage();

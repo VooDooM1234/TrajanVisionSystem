@@ -31,6 +31,7 @@ using namespace System::Collections::Generic;
 
 const double PI = 3.14159265358979323846;
 
+
 enum Chute {
 	Tuscos, A, B, C, D
 };
@@ -70,6 +71,9 @@ typedef struct {
 typedef struct {
 	int CannyThresholdA = 0, CannyThresholdB = 0;
 	int CircleTolerance = 0, ExposureTime = 100;
+	int MeasuredPixels = 1;
+	double DesiredOD = 1;
+	double PixToMMRatio = 1;
 
 }ImageSettings;
 
@@ -124,6 +128,7 @@ typedef struct {
 	cv::Mat original, grayscale, canny, binaryThreshold, manipulated;
 	double ID, OD, IDVariance, ODVariance;
 	std::vector<std::vector<cv::Point>> defects;
+	Chute chute = Tuscos;
 	int defectCount, camNumber;
 	std::string camName;
 	bool multiConcentricCircleDetected = false;

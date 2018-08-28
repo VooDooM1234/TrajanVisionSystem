@@ -59,6 +59,7 @@ Class GlassVisionSystemV105.InformationForm: AutoLayout, AnsiClass, Class, Publi
     resetToolTips(): PrivateScope, Public, HideBySig
     updateToolTips(): PrivateScope, Public, HideBySig
     FormUpdate(): PrivateScope, Public, HideBySig
+    PopulateInspection(): PrivateScope, Public, HideBySig
 Class GlassVisionSystemV105.ProductSettingsForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

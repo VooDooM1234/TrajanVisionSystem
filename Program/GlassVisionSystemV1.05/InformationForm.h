@@ -815,11 +815,16 @@ namespace GlassVisionSystemV105 {
 	}
 	private: System::Void lblID_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
+	public: void PopulateInspection() {
+
+	}
+
 	private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 			 void ResetBatchLabels() {
 
 			 }
+
 			 int timerCount = 0;
 	private: System::Void RunTimeTimer_Tick(System::Object^  sender, System::EventArgs^  e) {
 		timerCount++;
@@ -838,9 +843,9 @@ namespace GlassVisionSystemV105 {
 
 		lblRunTime->Text = s;
 	}
-			 public: bool ImageInspect = false;
-					 bool BatchRunning = false;
-			 //glass inspection button clicked
+	public: bool ImageInspect = false;
+			bool BatchRunning = false;
+			//glass inspection button clicked
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		ImageInspect = true;
 	}

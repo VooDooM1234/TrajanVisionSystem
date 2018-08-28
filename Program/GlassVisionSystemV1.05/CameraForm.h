@@ -48,12 +48,12 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::RadioButton^  rbCamB;
 	private: System::Windows::Forms::RadioButton^  rbCamA;
 	private: System::Windows::Forms::GroupBox^  groupBox6;
-	private: System::Windows::Forms::Label^  LBLODVarCamB;
 
-	private: System::Windows::Forms::Label^  label26;
-	private: System::Windows::Forms::Label^  LBLIDVarCamB;
 
-	private: System::Windows::Forms::Label^  label28;
+
+
+
+
 	private: System::Windows::Forms::Label^  label29;
 	private: System::Windows::Forms::Label^  LBLODCamB;
 
@@ -61,10 +61,10 @@ namespace GlassVisionSystemV105 {
 
 	private: System::Windows::Forms::Label^  label32;
 	private: System::Windows::Forms::Label^  label33;
-	private: System::Windows::Forms::Label^  LBLODVarCamA;
-	private: System::Windows::Forms::Label^  label24;
-	private: System::Windows::Forms::Label^  LBLIDVarCamA;
-	private: System::Windows::Forms::Label^  label16;
+
+
+
+
 	private: System::Windows::Forms::Label^  label22;
 	private: System::Windows::Forms::Label^  LBLODCamA;
 	private: System::Windows::Forms::Label^  LBLIDCamA;
@@ -76,6 +76,9 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::PictureBox^  PBCamA;
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::GroupBox^  groupBox2;
+	private: System::Windows::Forms::Label^  lblDestination;
+	private: System::Windows::Forms::Label^  label2;
 	private: System::ComponentModel::IContainer^  components;
 
 	private:
@@ -102,19 +105,14 @@ namespace GlassVisionSystemV105 {
 			this->rbCamB = (gcnew System::Windows::Forms::RadioButton());
 			this->rbCamA = (gcnew System::Windows::Forms::RadioButton());
 			this->groupBox6 = (gcnew System::Windows::Forms::GroupBox());
-			this->LBLODVarCamB = (gcnew System::Windows::Forms::Label());
-			this->label26 = (gcnew System::Windows::Forms::Label());
-			this->LBLIDVarCamB = (gcnew System::Windows::Forms::Label());
-			this->label28 = (gcnew System::Windows::Forms::Label());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->lblDestination = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label29 = (gcnew System::Windows::Forms::Label());
 			this->LBLODCamB = (gcnew System::Windows::Forms::Label());
 			this->LBLIDCamB = (gcnew System::Windows::Forms::Label());
 			this->label32 = (gcnew System::Windows::Forms::Label());
 			this->label33 = (gcnew System::Windows::Forms::Label());
-			this->LBLODVarCamA = (gcnew System::Windows::Forms::Label());
-			this->label24 = (gcnew System::Windows::Forms::Label());
-			this->LBLIDVarCamA = (gcnew System::Windows::Forms::Label());
-			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->label22 = (gcnew System::Windows::Forms::Label());
 			this->LBLODCamA = (gcnew System::Windows::Forms::Label());
 			this->LBLIDCamA = (gcnew System::Windows::Forms::Label());
@@ -129,6 +127,7 @@ namespace GlassVisionSystemV105 {
 			this->groupBox8->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			this->groupBox6->SuspendLayout();
+			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBCamB))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBCamA))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -256,19 +255,12 @@ namespace GlassVisionSystemV105 {
 			// 
 			// groupBox6
 			// 
-			this->groupBox6->Controls->Add(this->LBLODVarCamB);
-			this->groupBox6->Controls->Add(this->label26);
-			this->groupBox6->Controls->Add(this->LBLIDVarCamB);
-			this->groupBox6->Controls->Add(this->label28);
+			this->groupBox6->Controls->Add(this->groupBox2);
 			this->groupBox6->Controls->Add(this->label29);
 			this->groupBox6->Controls->Add(this->LBLODCamB);
 			this->groupBox6->Controls->Add(this->LBLIDCamB);
 			this->groupBox6->Controls->Add(this->label32);
 			this->groupBox6->Controls->Add(this->label33);
-			this->groupBox6->Controls->Add(this->LBLODVarCamA);
-			this->groupBox6->Controls->Add(this->label24);
-			this->groupBox6->Controls->Add(this->LBLIDVarCamA);
-			this->groupBox6->Controls->Add(this->label16);
 			this->groupBox6->Controls->Add(this->label22);
 			this->groupBox6->Controls->Add(this->LBLODCamA);
 			this->groupBox6->Controls->Add(this->LBLIDCamA);
@@ -285,45 +277,33 @@ namespace GlassVisionSystemV105 {
 			this->groupBox6->Visible = false;
 			this->groupBox6->Enter += gcnew System::EventHandler(this, &CameraForm::groupBox6_Enter);
 			// 
-			// LBLODVarCamB
+			// groupBox2
 			// 
-			this->LBLODVarCamB->AutoSize = true;
-			this->LBLODVarCamB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->LBLODVarCamB->Location = System::Drawing::Point(448, 53);
-			this->LBLODVarCamB->Name = L"LBLODVarCamB";
-			this->LBLODVarCamB->Size = System::Drawing::Size(80, 16);
-			this->LBLODVarCamB->TabIndex = 41;
-			this->LBLODVarCamB->Text = L"XXXXXXXXX";
+			this->groupBox2->Controls->Add(this->lblDestination);
+			this->groupBox2->Controls->Add(this->label2);
+			this->groupBox2->Location = System::Drawing::Point(162, 96);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(278, 75);
+			this->groupBox2->TabIndex = 42;
+			this->groupBox2->TabStop = false;
 			// 
-			// label26
+			// lblDestination
 			// 
-			this->label26->AutoSize = true;
-			this->label26->Location = System::Drawing::Point(418, 53);
-			this->label26->Name = L"label26";
-			this->label26->Size = System::Drawing::Size(34, 16);
-			this->label26->TabIndex = 40;
-			this->label26->Text = L"(+/-):";
+			this->lblDestination->AutoSize = true;
+			this->lblDestination->Location = System::Drawing::Point(164, 22);
+			this->lblDestination->Name = L"lblDestination";
+			this->lblDestination->Size = System::Drawing::Size(32, 16);
+			this->lblDestination->TabIndex = 1;
+			this->lblDestination->Text = L"XXX";
 			// 
-			// LBLIDVarCamB
+			// label2
 			// 
-			this->LBLIDVarCamB->AutoSize = true;
-			this->LBLIDVarCamB->Location = System::Drawing::Point(448, 32);
-			this->LBLIDVarCamB->Name = L"LBLIDVarCamB";
-			this->LBLIDVarCamB->Size = System::Drawing::Size(80, 16);
-			this->LBLIDVarCamB->TabIndex = 39;
-			this->LBLIDVarCamB->Text = L"XXXXXXXXX";
-			// 
-			// label28
-			// 
-			this->label28->AutoSize = true;
-			this->label28->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label28->Location = System::Drawing::Point(418, 32);
-			this->label28->Name = L"label28";
-			this->label28->Size = System::Drawing::Size(34, 16);
-			this->label28->TabIndex = 38;
-			this->label28->Text = L"(+/-):";
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(7, 22);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(151, 16);
+			this->label2->TabIndex = 0;
+			this->label2->Text = L"Determined Destination:";
 			// 
 			// label29
 			// 
@@ -380,50 +360,6 @@ namespace GlassVisionSystemV105 {
 			this->label33->TabIndex = 33;
 			this->label33->Text = L"ID:";
 			// 
-			// LBLODVarCamA
-			// 
-			this->LBLODVarCamA->AutoSize = true;
-			this->LBLODVarCamA->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->LBLODVarCamA->Location = System::Drawing::Point(163, 53);
-			this->LBLODVarCamA->Name = L"LBLODVarCamA";
-			this->LBLODVarCamA->Size = System::Drawing::Size(80, 16);
-			this->LBLODVarCamA->TabIndex = 32;
-			this->LBLODVarCamA->Text = L"XXXXXXXXX";
-			// 
-			// label24
-			// 
-			this->label24->AutoSize = true;
-			this->label24->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label24->Location = System::Drawing::Point(133, 53);
-			this->label24->Name = L"label24";
-			this->label24->Size = System::Drawing::Size(34, 16);
-			this->label24->TabIndex = 31;
-			this->label24->Text = L"(+/-):";
-			// 
-			// LBLIDVarCamA
-			// 
-			this->LBLIDVarCamA->AutoSize = true;
-			this->LBLIDVarCamA->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->LBLIDVarCamA->Location = System::Drawing::Point(163, 32);
-			this->LBLIDVarCamA->Name = L"LBLIDVarCamA";
-			this->LBLIDVarCamA->Size = System::Drawing::Size(80, 16);
-			this->LBLIDVarCamA->TabIndex = 30;
-			this->LBLIDVarCamA->Text = L"XXXXXXXXX";
-			// 
-			// label16
-			// 
-			this->label16->AutoSize = true;
-			this->label16->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label16->Location = System::Drawing::Point(133, 32);
-			this->label16->Name = L"label16";
-			this->label16->Size = System::Drawing::Size(34, 16);
-			this->label16->TabIndex = 29;
-			this->label16->Text = L"(+/-):";
-			// 
 			// label22
 			// 
 			this->label22->AutoSize = true;
@@ -440,7 +376,7 @@ namespace GlassVisionSystemV105 {
 			this->LBLODCamA->AutoSize = true;
 			this->LBLODCamA->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->LBLODCamA->Location = System::Drawing::Point(59, 53);
+			this->LBLODCamA->Location = System::Drawing::Point(39, 53);
 			this->LBLODCamA->Name = L"LBLODCamA";
 			this->LBLODCamA->Size = System::Drawing::Size(80, 16);
 			this->LBLODCamA->TabIndex = 26;
@@ -451,7 +387,7 @@ namespace GlassVisionSystemV105 {
 			this->LBLIDCamA->AutoSize = true;
 			this->LBLIDCamA->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->LBLIDCamA->Location = System::Drawing::Point(58, 32);
+			this->LBLIDCamA->Location = System::Drawing::Point(38, 32);
 			this->LBLIDCamA->Name = L"LBLIDCamA";
 			this->LBLIDCamA->Size = System::Drawing::Size(80, 16);
 			this->LBLIDCamA->TabIndex = 25;
@@ -462,7 +398,7 @@ namespace GlassVisionSystemV105 {
 			this->label19->AutoSize = true;
 			this->label19->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label19->Location = System::Drawing::Point(29, 53);
+			this->label19->Location = System::Drawing::Point(9, 53);
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(31, 16);
 			this->label19->TabIndex = 18;
@@ -473,7 +409,7 @@ namespace GlassVisionSystemV105 {
 			this->label21->AutoSize = true;
 			this->label21->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label21->Location = System::Drawing::Point(35, 32);
+			this->label21->Location = System::Drawing::Point(15, 32);
 			this->label21->Name = L"label21";
 			this->label21->Size = System::Drawing::Size(24, 16);
 			this->label21->TabIndex = 17;
@@ -564,6 +500,8 @@ namespace GlassVisionSystemV105 {
 			this->groupBox1->PerformLayout();
 			this->groupBox6->ResumeLayout(false);
 			this->groupBox6->PerformLayout();
+			this->groupBox2->ResumeLayout(false);
+			this->groupBox2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBCamB))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBCamA))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
@@ -573,62 +511,62 @@ namespace GlassVisionSystemV105 {
 		}
 #pragma endregion
 
-		private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-			PBCamA->CreateGraphics()->Clear(Color::Gray);
-			PBCamB->CreateGraphics()->Clear(Color::Gray);
-			//PBCamC->CreateGraphics()->Clear(Color::Gray);
-			pictureBox1->CreateGraphics()->Clear(Color::Gray);
+	private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		PBCamA->CreateGraphics()->Clear(Color::Gray);
+		PBCamB->CreateGraphics()->Clear(Color::Gray);
+		//PBCamC->CreateGraphics()->Clear(Color::Gray);
+		pictureBox1->CreateGraphics()->Clear(Color::Gray);
 
-			if (rbCamAll->Checked == true) {
-				//AllCamPanel->Visible = true;
-			}
-			else
-			{
-				//AllCamPanel->Visible = false;
-			}
+		if (rbCamAll->Checked == true) {
+			//AllCamPanel->Visible = true;
+		}
+		else
+		{
+			//AllCamPanel->Visible = false;
+		}
+	}
+
+	private:
+		System::Drawing::Bitmap^ ConvertMatToBitmap(cv::Mat matToConvert) {
+			System::Drawing::Bitmap^ result;
+			if (matToConvert.empty() == false)
+				result = gcnew System::Drawing::Bitmap(matToConvert.cols, matToConvert.rows, (int)matToConvert.step1(), System::Drawing::Imaging::PixelFormat::Format24bppRgb, System::IntPtr(matToConvert.data));
+			return result;
 		}
 
-		private:
-			System::Drawing::Bitmap^ ConvertMatToBitmap(cv::Mat matToConvert) {
-				System::Drawing::Bitmap^ result;
-				if (matToConvert.empty() == false)
-					result = gcnew System::Drawing::Bitmap(matToConvert.cols, matToConvert.rows, (int)matToConvert.step1(), System::Drawing::Imaging::PixelFormat::Format24bppRgb, System::IntPtr(matToConvert.data));
-				return result;
-			}
-
-			private: Void DrawImage(ImageInformation CamInfo, System::Windows::Forms::PictureBox ^PicBox) {
-				cv::Mat DisplayImage;
-				if (rbCamModeManipulated->Checked == true) {
-					DisplayImage = CamInfo.manipulated;
-				}
-				else if (rbCamModeCanny->Checked == true) {
-					//DisplayImage = CamInfo.canny;
-					cv::cvtColor(CamInfo.canny, DisplayImage, CV_GRAY2RGB);
-				}
-				else if (rbCamModeBW->Checked == true) {
-					cv::cvtColor(CamInfo.grayscale, DisplayImage, CV_GRAY2RGB);
-				}
-				else {
-					DisplayImage = CamInfo.original;
-				}
-				System::Drawing::Bitmap^ bitmap;
-				bitmap = ConvertMatToBitmap(DisplayImage);
-				System::Drawing::RectangleF rect((float)0, (float)0, (float)PicBox->Width, (float)PicBox->Height);
-				System::Drawing::Graphics^ graphics = PicBox->CreateGraphics();
-				//cv::imshow("Original", CamInfo.original);
-				if (bitmap == nullptr || (!CamInfo.ImageCapture.isOpened() && !CamInfo.camera->IsOpen())) {
-					//pictureBox1->Text = "test";
-					//System::String message = new System::String( "error";
-					graphics->Clear(System::Drawing::Color::Gray);
-					graphics->DrawString("Camera Is Not Connected!", gcnew System::Drawing::Font("Arial", 24, FontStyle::Bold), SystemBrushes::WindowText, rect/*new Point(100, 250)*/);
-					//graphics->DrawString(;
-				}
-				else
-				{
-					graphics->DrawImage(bitmap, rect);
-				}
-				delete bitmap;
-			}
+	private: Void DrawImage(ImageInformation CamInfo, System::Windows::Forms::PictureBox ^PicBox) {
+		cv::Mat DisplayImage;
+		if (rbCamModeManipulated->Checked == true) {
+			DisplayImage = CamInfo.manipulated;
+		}
+		else if (rbCamModeCanny->Checked == true) {
+			//DisplayImage = CamInfo.canny;
+			cv::cvtColor(CamInfo.canny, DisplayImage, CV_GRAY2RGB);
+		}
+		else if (rbCamModeBW->Checked == true) {
+			cv::cvtColor(CamInfo.grayscale, DisplayImage, CV_GRAY2RGB);
+		}
+		else {
+			DisplayImage = CamInfo.original;
+		}
+		System::Drawing::Bitmap^ bitmap;
+		bitmap = ConvertMatToBitmap(DisplayImage);
+		System::Drawing::RectangleF rect((float)0, (float)0, (float)PicBox->Width, (float)PicBox->Height);
+		System::Drawing::Graphics^ graphics = PicBox->CreateGraphics();
+		//cv::imshow("Original", CamInfo.original);
+		if (bitmap == nullptr || (!CamInfo.ImageCapture.isOpened() && !CamInfo.camera->IsOpen())) {
+			//pictureBox1->Text = "test";
+			//System::String message = new System::String( "error";
+			graphics->Clear(System::Drawing::Color::Gray);
+			graphics->DrawString("Camera Is Not Connected!", gcnew System::Drawing::Font("Arial", 24, FontStyle::Bold), SystemBrushes::WindowText, rect/*new Point(100, 250)*/);
+			//graphics->DrawString(;
+		}
+		else
+		{
+			graphics->DrawImage(bitmap, rect);
+		}
+		delete bitmap;
+	}
 
 
 	private: Void ImageShow() {
@@ -656,20 +594,20 @@ namespace GlassVisionSystemV105 {
 			if (CameraA.IMGInfo.multiConcentricCircleDetected) {
 				LBLIDCamA->Text = "ERROR";
 				LBLODCamA->Text = "ERROR";
-				LBLIDVarCamA->Text = "ERROR";
-				LBLODVarCamA->Text = "ERROR";
+
 			}
 			else {
-				LBLIDCamA->Text = CameraA.IMGInfo.ID.ToString();
-				LBLODCamA->Text = CameraA.IMGInfo.OD.ToString();
-				LBLIDVarCamA->Text = CameraA.IMGInfo.IDVariance.ToString();
-				LBLODVarCamA->Text = CameraA.IMGInfo.ODVariance.ToString();
+				//convert value to string, displaying both in pixels and converted mm, the "F" denotes default rounding to 2 decimial places
+				String^ IDmmtxt = (CameraA.IMGInfo.ID * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraA.IMGInfo.IDVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
+				String^ IDpxTxt = (CameraA.IMGInfo.ID).ToString("F") + "p (+/-)" + CameraA.IMGInfo.IDVariance.ToString("F") + "p";
+				String^ ODmmtxt = (CameraA.IMGInfo.OD * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraA.IMGInfo.ODVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
+				String^ ODpxTxt = (CameraA.IMGInfo.OD).ToString("F") + "p (+/-)" + CameraA.IMGInfo.ODVariance.ToString("F") + "p";
+				LBLIDCamA->Text = IDmmtxt + " - [" + IDpxTxt + "]";
+				LBLODCamA->Text = ODmmtxt + " - [" + ODpxTxt + "}";
+
+
 			}
 		}
-		/*else {
-			CameraA.IMGInfo = *new ImageInformation();
-			CameraA.CameraInitialization(0, "CamA");
-		}*/
 
 		if (CameraB.IMGInfo.ImageCapture.isOpened()) {
 			//CameraA.ProcessImage();
@@ -677,14 +615,16 @@ namespace GlassVisionSystemV105 {
 			if (CameraB.IMGInfo.multiConcentricCircleDetected) {
 				LBLIDCamB->Text = "ERROR";
 				LBLODCamB->Text = "ERROR";
-				LBLIDVarCamB->Text = "ERROR";
-				LBLODVarCamB->Text = "ERROR";
+
 			}
 			else {
-				LBLIDCamB->Text = CameraB.IMGInfo.ID.ToString();
-				LBLODCamB->Text = CameraB.IMGInfo.OD.ToString();
-				LBLIDVarCamB->Text = CameraB.IMGInfo.IDVariance.ToString();
-				LBLODVarCamB->Text = CameraB.IMGInfo.ODVariance.ToString();
+				//convert value to string, displaying both in pixels and converted mm, the "F" denotes default rounding to 2 decimial places
+				String^ IDmmtxt = (CameraB.IMGInfo.ID * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraB.IMGInfo.IDVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
+				String^ IDpxTxt = (CameraB.IMGInfo.ID).ToString("F") + "p (+/-)" + CameraB.IMGInfo.IDVariance.ToString("F") + "p";
+				String^ ODmmtxt = (CameraB.IMGInfo.OD * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraB.IMGInfo.ODVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
+				String^ ODpxTxt = (CameraB.IMGInfo.OD).ToString("F") + "p (+/-)" + CameraB.IMGInfo.ODVariance.ToString("F") + "p";
+				LBLIDCamB->Text = IDmmtxt + " - [" + IDpxTxt + "]";
+				LBLODCamB->Text = ODmmtxt + " - [" + ODpxTxt + "}";
 			}
 		}
 		/*else {
@@ -693,46 +633,50 @@ namespace GlassVisionSystemV105 {
 		}*/
 		ImageShow();
 	}
-private: System::Void groupBox6_Enter(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void PBCamA_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void PBCamB_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void label3_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void rbCamA_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void groupBox6_Enter(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void PBCamA_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void PBCamB_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void label3_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void rbCamA_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 
-	pictureBox1->Visible = true;
+		pictureBox1->Visible = true;
 
-	PBCamA->Visible = false;
-	PBCamB->Visible = false;
-	label1->Visible = false;
-	label3->Visible = false;
+		PBCamA->Visible = false;
+		PBCamB->Visible = false;
+		label1->Visible = false;
+		label3->Visible = false;
 
-	groupBox6->Visible = false;
-}
-private: System::Void rbCamB_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-	pictureBox1->Visible = true;
+		groupBox6->Visible = false;
+	}
+	private: System::Void rbCamB_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		pictureBox1->Visible = true;
 
-	PBCamA->Visible = false;
-	PBCamB->Visible = false;
-	label1->Visible = false;
-	label3->Visible = false;
+		PBCamA->Visible = false;
+		PBCamB->Visible = false;
+		label1->Visible = false;
+		label3->Visible = false;
 
-	groupBox6->Visible = false;
-}
-private: System::Void rbCamAll_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-	pictureBox1->Visible = false;
+		groupBox6->Visible = false;
+	}
+	private: System::Void rbCamAll_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		pictureBox1->Visible = false;
 
-	PBCamA->Visible = true;
-	PBCamB->Visible = true;
-	label1->Visible = true;
-	label3->Visible = true;
+		PBCamA->Visible = true;
+		PBCamB->Visible = true;
+		label1->Visible = true;
+		label3->Visible = true;
 
-	groupBox6->Visible = true;
-}
-};
+		groupBox6->Visible = true;
+	}
+	private: System::Void LBLIDVarCamA_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void label16_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	};
 }

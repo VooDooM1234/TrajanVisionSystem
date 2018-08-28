@@ -156,6 +156,80 @@ void Imageanalysis::ProcessPylonImage() {
 void Imageanalysis::generateManipulated() {
 	ImagePreProcessing();
 	CustomIDODDetection();
+	ChuteDetermination();
+}
+
+void Imageanalysis::ChuteDetermination() {
+	for each (ChuteSpecifications var in currentProductSettings.listOfChuteSpecs)
+	{
+		double lower = 0;
+		double upper = 0;
+		//set initial upper and lower limits for the ID
+		lower = (currentProductSettings.targetID * 1 - (var.IDTolerance / 100)) / currentImageSettings.PixToMMRatio;
+		upper = (currentProductSettings.targetID * 1 + (var.IDTolerance / 100)) / currentImageSettings.PixToMMRatio;
+		if (var.IDGood) {
+			if (IMGInfo.ID - IMGInfo.IDVariance > lower && IMGInfo.ID + IMGInfo.IDVariance < upper) {
+
+			}
+			else {
+				//does not meet chute specification, go to next loop itteration/check next chute specs
+				continue;
+			}
+		}
+		if (var.IDLower) {
+			if (IMGInfo.ID - IMGInfo.IDVariance <= lower) {
+
+			}
+			else {
+				//does not meet chute specification, go to next loop itteration/check next chute specs
+				continue;
+			}
+		}
+		if (var.IDHigher) {
+			if (IMGInfo.ID + IMGInfo.IDVariance >= upper) {
+
+			}
+			else {
+				//does not meet chute specification, go to next loop itteration/check next chute specs
+				continue;
+			}
+		}
+
+		//set initial upper and lower limits for the OD
+		lower = (currentProductSettings.targetOD * 1 - (var.ODTolerance / 100)) / currentImageSettings.PixToMMRatio;
+		upper = (currentProductSettings.targetOD * 1 + (var.ODTolerance / 100)) / currentImageSettings.PixToMMRatio;
+		if (var.ODGood) {
+			
+			if (IMGInfo.OD - IMGInfo.ODVariance > lower && IMGInfo.OD + IMGInfo.ODVariance < upper) {
+
+			}
+			else {
+				//does not meet chute specification, go to next loop itteration/check next chute specs
+				continue;
+			}
+		}
+		if (var.ODLower) {
+
+			if (IMGInfo.OD - IMGInfo.ODVariance <= lower) {
+
+			}
+			else {
+				//does not meet chute specification, go to next loop itteration/check next chute specs
+				continue;
+			}
+		}
+		if (var.ODHigher) {
+
+			if (IMGInfo.OD + IMGInfo.ODVariance >= upper) {
+
+			}
+			else {
+				//does not meet chute specification, go to next loop itteration/check next chute specs
+				continue;
+			}
+		}
+		IMGInfo.chute = var.chutetype;
+	}
 }
 
 
