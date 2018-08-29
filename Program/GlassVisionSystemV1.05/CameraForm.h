@@ -604,8 +604,6 @@ namespace GlassVisionSystemV105 {
 				String^ ODpxTxt = (CameraA.IMGInfo.OD).ToString("F") + "p (+/-)" + CameraA.IMGInfo.ODVariance.ToString("F") + "p";
 				LBLIDCamA->Text = IDmmtxt + " - [" + IDpxTxt + "]";
 				LBLODCamA->Text = ODmmtxt + " - [" + ODpxTxt + "}";
-
-
 			}
 		}
 
@@ -631,8 +629,21 @@ namespace GlassVisionSystemV105 {
 			CameraB.IMGInfo = *new ImageInformation();
 			CameraB.CameraInitialization(1, "CamB");
 		}*/
+		UpdateDeterminedDestination();
+
 		ImageShow();
 	}
+
+			 private: void UpdateDeterminedDestination() {
+
+				 if (CameraA.IMGInfo.chutePriority < CameraB.IMGInfo.chutePriority) {
+					 lblDestination->Text = getChuteString(CameraA.IMGInfo.chute);
+				 }
+				 else {
+					 lblDestination->Text = getChuteString(CameraB.IMGInfo.chute);
+				 }
+			 }
+
 	private: System::Void groupBox6_Enter(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void PBCamA_Click(System::Object^  sender, System::EventArgs^  e) {

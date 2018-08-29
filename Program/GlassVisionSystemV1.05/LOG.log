@@ -244,3 +244,51 @@
 118,7,28,18,40,21,2;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
 118,7,28,18,40,21,2;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
 118,7,28,18,40,21,2;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,16,16,12,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,16,16,13,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,16,16,13,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,16,16,13,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,16,16,53,3;user;user Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for user
+118,7,29,16,18,21,3;user;user Attempting to Save PartNumber: 123456789;Part Number already Exists, user Decided to override existing settings
+118,7,29,16,18,21,3;user;user Attempting to Save PartNumber: 123456789;Backing up Previous recipe '123456789', backup file location: RecipeBackup/123456789---Wed_Aug_29_16-18-21_2018.txt
+118,7,29,16,19,22,3;user;user Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for user
+118,7,29,16,19,33,3;user;user Attempting to Save PartNumber: 123456789;Part Number already Exists, user Decided to override existing settings
+118,7,29,16,19,33,3;user;user Attempting to Save PartNumber: 123456789;Backing up Previous recipe '123456789', backup file location: RecipeBackup/123456789---Wed_Aug_29_16-19-33_2018.txt
+118,7,29,16,20,2,3;user;user Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for user
+118,7,29,16,20,13,3;user;user Attempting to Save PartNumber: 123456789;Part Number already Exists, user Decided to override existing settings
+118,7,29,16,20,13,3;user;user Attempting to Save PartNumber: 123456789;Backing up Previous recipe '123456789', backup file location: RecipeBackup/123456789---Wed_Aug_29_16-20-13_2018.txt
+118,7,29,16,28,29,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,16,28,30,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,16,28,30,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,16,28,30,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,16,31,44,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,16,31,45,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,16,31,45,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,16,31,45,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,16,31,53,3;user;user Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for user
+118,7,29,16,32,39,3;user;user Attempting to Save PartNumber: 123456789;Part Number already Exists, user Decided to override existing settings
+118,7,29,16,32,39,3;user;user Attempting to Save PartNumber: 123456789;Backing up Previous recipe '123456789', backup file location: RecipeBackup/123456789---Wed_Aug_29_16-32-39_2018.txt
+118,7,29,17,3,53,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,17,3,54,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,17,3,54,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,17,3,54,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,17,4,42,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,17,4,43,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,17,4,43,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,17,4,43,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,17,12,31,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,17,12,31,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,17,12,32,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,17,12,32,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,17,24,34,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,17,24,34,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,17,24,35,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,17,24,35,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,17,27,44,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,17,27,45,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,17,27,45,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,17,27,45,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,29,17,31,25,3;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,29,17,31,26,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,29,17,31,26,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,29,17,31,26,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed

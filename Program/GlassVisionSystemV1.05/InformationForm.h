@@ -1,5 +1,6 @@
 #pragma once
 #include "Structs.h"
+#include "ImageDisplay.h"
 
 namespace GlassVisionSystemV105 {
 
@@ -249,9 +250,9 @@ namespace GlassVisionSystemV105 {
 			this->lblDCount->AutoSize = true;
 			this->lblDCount->Location = System::Drawing::Point(57, 18);
 			this->lblDCount->Name = L"lblDCount";
-			this->lblDCount->Size = System::Drawing::Size(80, 16);
+			this->lblDCount->Size = System::Drawing::Size(15, 16);
 			this->lblDCount->TabIndex = 33;
-			this->lblDCount->Text = L"XXXXXXXXX";
+			this->lblDCount->Text = L"0";
 			// 
 			// label18
 			// 
@@ -278,9 +279,9 @@ namespace GlassVisionSystemV105 {
 			this->lblBCount->AutoSize = true;
 			this->lblBCount->Location = System::Drawing::Point(57, 18);
 			this->lblBCount->Name = L"lblBCount";
-			this->lblBCount->Size = System::Drawing::Size(80, 16);
+			this->lblBCount->Size = System::Drawing::Size(15, 16);
 			this->lblBCount->TabIndex = 33;
-			this->lblBCount->Text = L"XXXXXXXXX";
+			this->lblBCount->Text = L"0";
 			// 
 			// label16
 			// 
@@ -307,9 +308,9 @@ namespace GlassVisionSystemV105 {
 			this->lblACount->AutoSize = true;
 			this->lblACount->Location = System::Drawing::Point(57, 18);
 			this->lblACount->Name = L"lblACount";
-			this->lblACount->Size = System::Drawing::Size(80, 16);
+			this->lblACount->Size = System::Drawing::Size(15, 16);
 			this->lblACount->TabIndex = 33;
-			this->lblACount->Text = L"XXXXXXXXX";
+			this->lblACount->Text = L"0";
 			// 
 			// label12
 			// 
@@ -336,9 +337,9 @@ namespace GlassVisionSystemV105 {
 			this->lblCCount->AutoSize = true;
 			this->lblCCount->Location = System::Drawing::Point(57, 18);
 			this->lblCCount->Name = L"lblCCount";
-			this->lblCCount->Size = System::Drawing::Size(80, 16);
+			this->lblCCount->Size = System::Drawing::Size(15, 16);
 			this->lblCCount->TabIndex = 33;
-			this->lblCCount->Text = L"XXXXXXXXX";
+			this->lblCCount->Text = L"0";
 			// 
 			// label14
 			// 
@@ -365,9 +366,9 @@ namespace GlassVisionSystemV105 {
 			this->lblTusCount->AutoSize = true;
 			this->lblTusCount->Location = System::Drawing::Point(57, 18);
 			this->lblTusCount->Name = L"lblTusCount";
-			this->lblTusCount->Size = System::Drawing::Size(80, 16);
+			this->lblTusCount->Size = System::Drawing::Size(15, 16);
 			this->lblTusCount->TabIndex = 31;
-			this->lblTusCount->Text = L"XXXXXXXXX";
+			this->lblTusCount->Text = L"0";
 			// 
 			// label11
 			// 
@@ -403,6 +404,7 @@ namespace GlassVisionSystemV105 {
 			this->lblRunTime->Size = System::Drawing::Size(80, 16);
 			this->lblRunTime->TabIndex = 29;
 			this->lblRunTime->Text = L"XXXXXXXXX";
+			this->lblRunTime->Click += gcnew System::EventHandler(this, &InformationForm::lblRunTime_Click);
 			// 
 			// label4
 			// 
@@ -418,27 +420,29 @@ namespace GlassVisionSystemV105 {
 			this->lblFalureRate->AutoSize = true;
 			this->lblFalureRate->Location = System::Drawing::Point(140, 81);
 			this->lblFalureRate->Name = L"lblFalureRate";
-			this->lblFalureRate->Size = System::Drawing::Size(80, 16);
+			this->lblFalureRate->Size = System::Drawing::Size(44, 16);
 			this->lblFalureRate->TabIndex = 27;
-			this->lblFalureRate->Text = L"XXXXXXXXX";
+			this->lblFalureRate->Text = L"0.00%";
+			this->lblFalureRate->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// lblTotal
 			// 
 			this->lblTotal->AutoSize = true;
 			this->lblTotal->Location = System::Drawing::Point(140, 59);
 			this->lblTotal->Name = L"lblTotal";
-			this->lblTotal->Size = System::Drawing::Size(80, 16);
+			this->lblTotal->Size = System::Drawing::Size(15, 16);
 			this->lblTotal->TabIndex = 26;
-			this->lblTotal->Text = L"XXXXXXXXX";
+			this->lblTotal->Text = L"0";
 			// 
 			// lblNumDefects
 			// 
 			this->lblNumDefects->AutoSize = true;
 			this->lblNumDefects->Location = System::Drawing::Point(140, 38);
 			this->lblNumDefects->Name = L"lblNumDefects";
-			this->lblNumDefects->Size = System::Drawing::Size(80, 16);
+			this->lblNumDefects->Size = System::Drawing::Size(15, 16);
 			this->lblNumDefects->TabIndex = 25;
-			this->lblNumDefects->Text = L"XXXXXXXXX";
+			this->lblNumDefects->Text = L"0";
+			this->lblNumDefects->Click += gcnew System::EventHandler(this, &InformationForm::lblNumDefects_Click);
 			// 
 			// label2
 			// 
@@ -669,8 +673,8 @@ namespace GlassVisionSystemV105 {
 						}
 						else {
 							ToolTips[i] += L"ERROR" + Environment::NewLine;
-
 						}
+
 					}
 
 					ToolTips[i] += L"-----ID Settings-----" + Environment::NewLine;
@@ -815,8 +819,59 @@ namespace GlassVisionSystemV105 {
 	}
 	private: System::Void lblID_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
-	public: void PopulateInspection() {
 
+			 private: void ResetLabels() {
+				 lblTotal->Text = "0";
+				 lblNumDefects->Text = "0";
+				 lblFalureRate->Text = "0.0%";
+
+				 lblTusCount->Text = "0";
+				 lblACount->Text = "0";
+				 lblBCount->Text = "0";
+				 lblCCount->Text = "0";
+				 lblDCount->Text = "0";
+
+
+			 }
+	public: void PopulateInspection() {
+		lblTotal->Text = Convert::ToString(Convert::ToInt32(lblTotal->Text) + 1);
+		Chute Destination = Tuscos;
+		if (CameraA.IMGInfo.chutePriority < CameraB.IMGInfo.chutePriority) {
+			Destination = CameraA.IMGInfo.chute;
+		}
+		else {
+			Destination = CameraB.IMGInfo.chute;
+		}
+
+		switch (Destination)
+		{
+		case Tuscos:
+			lblTusCount->Text = Convert::ToString(Convert::ToInt32(lblTusCount->Text) + 1);
+			break;
+		case A:
+			lblACount->Text = Convert::ToString(Convert::ToInt32(lblACount->Text) + 1);
+			break;
+		case B:
+			lblBCount->Text = Convert::ToString(Convert::ToInt32(lblBCount->Text) + 1);
+			break;
+		case C:
+			lblCCount->Text = Convert::ToString(Convert::ToInt32(lblCCount->Text) + 1);
+			break;
+		case D:
+			lblDCount->Text = Convert::ToString(Convert::ToInt32(lblDCount->Text) + 1);
+			break;
+		default:
+			break;
+		}
+
+		for each (ChuteSpecifications var in currentProductSettings.listOfChuteSpecs)
+		{
+			if (var.chutetype == Destination && var.defectsOutOfRange) {
+				lblNumDefects->Text = Convert::ToString(Convert::ToInt32(lblNumDefects->Text) + 1);
+			}
+		}
+
+		lblFalureRate->Text = (Convert::ToInt32(lblTotal->Text) / Convert::ToInt32(lblNumDefects->Text)).ToString("F") + "%";
 	}
 
 	private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -849,5 +904,9 @@ namespace GlassVisionSystemV105 {
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		ImageInspect = true;
 	}
-	};
+	private: System::Void lblRunTime_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+private: System::Void lblNumDefects_Click(System::Object^  sender, System::EventArgs^  e) {
+}
+};
 }

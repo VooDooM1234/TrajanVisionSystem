@@ -129,6 +129,7 @@ typedef struct {
 	double ID, OD, IDVariance, ODVariance;
 	std::vector<std::vector<cv::Point>> defects;
 	Chute chute = Tuscos;
+	int chutePriority = 10;
 	int defectCount, camNumber;
 	std::string camName;
 	bool multiConcentricCircleDetected = false;
