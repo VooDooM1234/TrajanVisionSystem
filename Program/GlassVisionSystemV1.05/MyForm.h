@@ -298,18 +298,12 @@ namespace GlassVisionSystemV105 {
 
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
-
 	private: System::Void pictureBox1_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
-
 	private: void DisplayImage(std::vector<cv::Mat> Images) {
-
 	}
-
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
-
-
 
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 
@@ -442,7 +436,6 @@ namespace GlassVisionSystemV105 {
 	}
 	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
-
 	private: System::Void label2_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void groupBox2_Enter(System::Object^  sender, System::EventArgs^  e) {
@@ -482,7 +475,6 @@ namespace GlassVisionSystemV105 {
 			}
 		}
 	}
-
 	private: System::Void rbCamA_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void selectRecipeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -518,7 +510,6 @@ namespace GlassVisionSystemV105 {
 			CameraB.CameraInitialization(1, "CamA");
 		}
 	}
-
 	private: System::Void MyForm_FormClosing(Object^ sender, FormClosingEventArgs^ e) {
 		currentLog.execution = "{USER} Exiting Application";
 		currentLog.result = "Form Shutting Down";

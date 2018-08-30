@@ -294,7 +294,7 @@ namespace GlassVisionSystemV105 {
 			this->numExposureTime->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->numExposureTime->Location = System::Drawing::Point(107, 35);
-			this->numExposureTime->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2500, 0, 0, 0 });
+			this->numExposureTime->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 400, 0, 0, 0 });
 			this->numExposureTime->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numExposureTime->Name = L"numExposureTime";
 			this->numExposureTime->Size = System::Drawing::Size(65, 22);
@@ -306,7 +306,7 @@ namespace GlassVisionSystemV105 {
 			// 
 			this->hScrollBar4->Dock = System::Windows::Forms::DockStyle::Top;
 			this->hScrollBar4->Location = System::Drawing::Point(3, 18);
-			this->hScrollBar4->Maximum = 2500;
+			this->hScrollBar4->Maximum = 400;
 			this->hScrollBar4->Minimum = 1;
 			this->hScrollBar4->Name = L"hScrollBar4";
 			this->hScrollBar4->Size = System::Drawing::Size(172, 16);
@@ -468,6 +468,7 @@ namespace GlassVisionSystemV105 {
 			this->numCannyTolA->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->numCannyTolA->Location = System::Drawing::Point(107, 35);
+			this->numCannyTolA->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
 			this->numCannyTolA->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numCannyTolA->Name = L"numCannyTolA";
 			this->numCannyTolA->Size = System::Drawing::Size(65, 22);
@@ -479,6 +480,7 @@ namespace GlassVisionSystemV105 {
 			// 
 			this->hScrollBar1->Dock = System::Windows::Forms::DockStyle::Top;
 			this->hScrollBar1->Location = System::Drawing::Point(3, 18);
+			this->hScrollBar1->Maximum = 255;
 			this->hScrollBar1->Minimum = 1;
 			this->hScrollBar1->Name = L"hScrollBar1";
 			this->hScrollBar1->Size = System::Drawing::Size(172, 16);
@@ -603,7 +605,7 @@ namespace GlassVisionSystemV105 {
 			currentImageSettings.CannyThresholdA = PCA;
 			currentImageSettings.CannyThresholdB = PCB;
 			currentImageSettings.CircleTolerance = PCT;
-			currentImageSettings.ExposureTime = ExpTime;
+			currentImageSettings.ExposureTime = ExpTime * 1000;
 
 			currentImageSettings.MeasuredPixels = MeasPixel;
 			currentImageSettings.DesiredOD = DesOD;

@@ -588,7 +588,7 @@ namespace GlassVisionSystemV105 {
 		}
 	}
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-		if (CameraA.IMGInfo.ImageCapture.isOpened()) {
+		if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen()) {
 			//CameraA.ProcessImage();
 			//Images = processing.IMGmain();
 			if (CameraA.IMGInfo.multiConcentricCircleDetected) {

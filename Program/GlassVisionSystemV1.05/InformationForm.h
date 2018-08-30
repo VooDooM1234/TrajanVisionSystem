@@ -871,7 +871,14 @@ namespace GlassVisionSystemV105 {
 			}
 		}
 
-		lblFalureRate->Text = (Convert::ToInt32(lblTotal->Text) / Convert::ToInt32(lblNumDefects->Text)).ToString("F") + "%";
+		float failureRate = 0;
+		try {
+			failureRate = (Convert::ToInt32(lblTotal->Text) / Convert::ToInt32(lblNumDefects->Text));
+		}
+		catch (...) {
+			failureRate = 0; 
+		}
+		lblFalureRate->Text = failureRate.ToString("F") + "%";
 	}
 
 	private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {

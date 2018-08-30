@@ -292,3 +292,123 @@
 118,7,29,17,31,26,3;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
 118,7,29,17,31,26,3;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
 118,7,29,17,31,26,3;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,40,57,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,40,57,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,43,4,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,19,49,17,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,49,17,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,49,34,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,19,50,5,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,50,5,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,50,12,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,19,50,38,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,50,38,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,50,45,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,19,51,4,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,51,4,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,51,10,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,19,51,27,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,51,27,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,51,33,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,19,52,10,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,52,10,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,52,18,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,19,57,14,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,19,57,14,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,19,57,20,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,20,6,4,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,20,6,4,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,20,6,15,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,20,54,41,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,20,57,18,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,20,57,18,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,20,57,25,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,20,25,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,20,25,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,20,43,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,22,54,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,22,54,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,23,46,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,36,40,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,36,40,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,36,50,4;Owner;Owner Attempted to access Camera Settings Interface;Incorrect Password Entered - Owner Attempting to Retry, Attempt #1
+118,7,30,21,36,53,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #2, Proceeding to display UI for Owner
+118,7,30,21,38,18,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,38,18,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,41,31,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,41,31,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,47,13,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,47,13,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,48,14,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,48,14,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,48,50,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,51,45,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,51,58,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,51,58,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,52,4,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,52,23,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,53,19,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,53,19,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,53,27,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,53,47,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,53,47,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,53,53,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,55,14,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,55,14,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,55,20,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,59,17,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,21,59,17,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,21,59,23,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,59,31,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,59,38,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,59,42,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,21,59,48,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,22,3,17,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,3,17,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,8,49,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,8,50,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,12,43,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,22,17,23,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,17,23,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,18,25,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,18,25,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,20,27,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,20,27,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,20,47,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,22,23,38,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,23,38,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,23,55,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,23,55,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,24,42,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,22,26,25,4;Owner;Owner Attempting to Save PartNumber: 987654321;No existing Part Number Found, A New Recipe has been created, Saving to: ProductSettings/987654321.txt
+118,7,30,22,28,1,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,22,28,1,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,22,28,10,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,22,59,47,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,23,15,36,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,15,36,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,15,44,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,23,18,26,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,18,26,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,18,33,4;Owner;System Launched by Owner;Failed Loading CamA: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,18,36,4;Owner;System Launched by Owner;Opening Camera: CamA On Port Number: '0'  using OpenCV Method Failed
+118,7,30,23,18,38,4;Owner;System Launched by Owner;Failed Loading CamA: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,18,38,4;Owner;System Launched by Owner;Opening Camera: CamA On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,19,3,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,19,3,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,19,8,4;Owner;System Launched by Owner;Failed Loading CamA: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,19,10,4;Owner;System Launched by Owner;Opening Camera: CamA On Port Number: '0'  using OpenCV Method Failed
+118,7,30,23,19,13,4;Owner;System Launched by Owner;Failed Loading CamA: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,19,13,4;Owner;System Launched by Owner;Opening Camera: CamA On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,19,57,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,19,57,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,20,3,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,23,23,54,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,23,54,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,24,37,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,7,30,23,29,16,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,29,16,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,30,36,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,30,36,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,30,23,35,28,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,7,30,23,35,28,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed

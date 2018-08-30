@@ -17,7 +17,7 @@ Imageanalysis CameraB;
 int camWidth = 10000;
 int camHeight = 10000;
 
-
+//Runs this first, tries to run PylonInit, if no pylon cam, runs OpenCVInit
 void Imageanalysis::CameraInitialization(int camNumber, string camName) {
 	
 	PylonInitialization(camNumber, camName);
@@ -137,7 +137,7 @@ void Imageanalysis::ProcessPylonImage() {
 	PylonToCVFormatConverter.OutputPixelFormat = PixelType_BGR8packed;
 	CPylonImage PylonImage;
 	CGrabResultPtr PtrGrabResult;
-	IMGInfo.camera->GrabOne(500, PtrGrabResult);
+	IMGInfo.camera->GrabOne(500, PtrGrabResult);	//EXPOSURE TIME CANNOT EXCEED (timeoutMS-27)
 	if (PtrGrabResult->GrabSucceeded()) {
 		PylonToCVFormatConverter.Convert(PylonImage, PtrGrabResult);
 		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer()).clone();
@@ -173,10 +173,13 @@ void Imageanalysis::ChuteDetermination() {
 				goto ODSETUP;
 		}
 		else if (var.IDLower && IMGInfo.ID - IMGInfo.IDVariance <= lower) {
-				goto ODSETUP;
+			goto CHUTEDETERMINATION;
 		}
 		else if (var.IDHigher && IMGInfo.ID + IMGInfo.IDVariance >= upper) {
-				goto ODSETUP;
+			goto CHUTEDETERMINATION;
+		}
+		else if (!var.IDGood && !var.IDLower && !var.IDHigher) {
+			goto ODSETUP;
 		}
 		else {
 			continue;
@@ -196,6 +199,9 @@ void Imageanalysis::ChuteDetermination() {
 		else if (var.ODHigher && IMGInfo.OD + IMGInfo.ODVariance >= upper) {
 				goto CHUTEDETERMINATION;
 		}
+		else if (!var.ODGood && !var.ODLower && !var.ODHigher) {
+			goto CHUTEDETERMINATION;
+		}
 		else {
 			continue;
 		}
@@ -205,7 +211,6 @@ void Imageanalysis::ChuteDetermination() {
 		return;
 	}
 }
-
 
 void Imageanalysis::ImagePreProcessing() {
 	//converts the colored image to grayscale (0-255 single color image)
@@ -217,11 +222,14 @@ void Imageanalysis::ImagePreProcessing() {
 	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
 	//cv::imshow("XXX", IMGInfo.binaryThreshold);
 	//cv::resizeWindow("XXX", cv::Size(2448 / 4, 2048 / 4));
-	cv::Canny(IMGInfo.grayscale, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, 3);
+	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, 100 /*currentImageSettings.CannyThresholdA*/, currentImageSettings.CannyThresholdB, 3);
+	cv::imshow("original", IMGInfo.canny);
 	int dilationSize = 2;
 	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2 * dilationSize + 1, 2 * dilationSize + 1), cv::Point(dilationSize, dilationSize));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
+	cv::imshow("after dilate", IMGInfo.canny);
 	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
+	cv::imshow("after erode", IMGInfo.canny);
 }
 
 
@@ -315,7 +323,7 @@ void Imageanalysis::CustomIDODDetection() {
 		}
 	}
 
-	for (int i = 0; i < int(defects.size()); i++) {
+	for (int i = 0; i < defects.size(); i++) {
 		//Draws over the manipulated image the defects it found in red
 		polylines(IMGInfo.manipulated, defects[i], true, cv::Scalar(0, 0, 255), 1, 8, 0);
 	}
