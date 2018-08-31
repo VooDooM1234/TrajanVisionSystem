@@ -1,6 +1,16 @@
 ﻿  ImageDisplay.cpp
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(93): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(94): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(312): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\users\documents\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(313): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  GlassVisionSystemV1.05.vcxproj -> E:\Users\Documents\TrajanGVS\Program\x64\Debug\GlassVisionSystemV1.05.exe
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(556): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(574): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: see declaration of 'localtime'
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(575): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(610): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\informationform.h(876): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(94): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(95): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(316): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagedisplay.cpp(317): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\logpreviewform.h(108): warning C4700: uninitialized local variable 'lastTime' used
+ImageDisplay.obj : warning LNK4248: unresolved typeref token (01000044) for 'CvCapture'; image may not run
+ImageDisplay.obj : warning LNK4248: unresolved typeref token (01000045) for 'cv.IVideoCapture'; image may not run
+  GlassVisionSystemV1.05.vcxproj -> D:\Visual Studio\TrajanGVS\Program\x64\Debug\GlassVisionSystemV1.05.exe

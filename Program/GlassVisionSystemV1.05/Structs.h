@@ -59,7 +59,7 @@ extern SelectedInfoPanelBForm CurrentPannelB;
 typedef struct {
 	std::vector<cv::Point, std::allocator <cv::Point>> contour; //contour its self
 	cv::Point2f center = { 0,0 }; //contour center point
-	double radius = 0; //contour estimated radius
+	float radius = 0; //contour estimated radius
 	bool isCircle = false; //true if contour is a circle
 	int concGroup = 0; //grouping of concentric circles within 2 pixels, 0 = group not assigned
 	cv::RotatedRect rect; //minimum area rectangle of contour

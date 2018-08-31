@@ -7,6 +7,7 @@
 #include <memory>
 #include "Structs.h"
 #include "SaveLoadSettings.h"
+#include "MyForm.h"
 
 using namespace std;
 
@@ -155,6 +156,8 @@ void Imageanalysis::ProcessPylonImage() {
 
 void Imageanalysis::generateManipulated() {
 	ImagePreProcessing();
+
+
 	CustomIDODDetection();
 	ChuteDetermination();
 }
@@ -223,13 +226,14 @@ void Imageanalysis::ImagePreProcessing() {
 	//cv::imshow("XXX", IMGInfo.binaryThreshold);
 	//cv::resizeWindow("XXX", cv::Size(2448 / 4, 2048 / 4));
 	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, 100 /*currentImageSettings.CannyThresholdA*/, currentImageSettings.CannyThresholdB, 3);
-	cv::imshow("original", IMGInfo.canny);
-	int dilationSize = 2;
+	//cv::imshow("original", IMGInfo.canny);
+	int dilationSize = 1;
 	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2 * dilationSize + 1, 2 * dilationSize + 1), cv::Point(dilationSize, dilationSize));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
-	cv::imshow("after dilate", IMGInfo.canny);
+	//cv::imshow("after dilate", IMGInfo.canny);
+
 	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
-	cv::imshow("after erode", IMGInfo.canny);
+	//cv::imshow("after erode", IMGInfo.canny);
 }
 
 
@@ -371,24 +375,29 @@ bool Imageanalysis::pointInEllipse(cv::Point point, cv::RotatedRect ellipse) {
 }
 
 contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour, int SmallestRadius) {
+	contourInfo info;
+
 	double height = cv::minAreaRect(contour).size.height;
 	double width = cv::minAreaRect(contour).size.width;
 
-	cv::Point2f center;
-	float radius = 0;
-	minEnclosingCircle(contour, center, radius); //enclose the individual contour lines within a circle
+	if (height < SmallestRadius || width < SmallestRadius)
+		return info;
 
-	double circleCheck = fabs(radius - height / 2); //gets the absolute value of the measured circle area difference
-	double circleCheck2 = fabs(radius - width / 2);
+	//cv::Point2f center;
+	//float radius = 0;
+	//minEnclosingCircle(contour, center, radius); //enclose the individual contour lines within a circle
+	minEnclosingCircle(contour, info.center,  info.radius); //enclose the individual contour lines within a circle
 
-	contourInfo info;
-	info.center = center;
+	double circleCheck = fabs(info.radius - height / 2); //gets the absolute value of the measured circle area difference
+	double circleCheck2 = fabs(info.radius - width / 2);
+
+	/*info.center = center;
 	info.contour = contour;
 	info.radius = radius;
-
+*/
 	//if the difference of the circle area is within the tollerance range then the contour is a circle
-	if (circleCheck < (radius / currentImageSettings.CircleTolerance) && circleCheck2 < (radius / currentImageSettings.CircleTolerance)) {
-		if (radius >= SmallestRadius)
+	if (circleCheck < (info.radius / currentImageSettings.CircleTolerance) && circleCheck2 < (info.radius / currentImageSettings.CircleTolerance)) {
+		if (info.radius >= SmallestRadius)
 			info.isCircle = true;
 	}
 

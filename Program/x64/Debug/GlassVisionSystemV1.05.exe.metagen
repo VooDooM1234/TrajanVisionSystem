@@ -41,14 +41,6 @@ Class GlassVisionSystemV105.ImageSettingsForm: AutoLayout, AnsiClass, Class, Pub
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     loadImageSettingsForm(): PrivateScope, Public, HideBySig
-Class GlassVisionSystemV105.LogPreviewForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :System.Windows.Forms.Form
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Methods:
-    UpdateDisplay(vector<LogInfo\,std::allocator<LogInfo> >*): PrivateScope, Public, HideBySig
-Class GlassVisionSystemV105.LogForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :System.Windows.Forms.Form
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class GlassVisionSystemV105.InformationForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -73,6 +65,14 @@ Class GlassVisionSystemV105.ProductSettingsForm: AutoLayout, AnsiClass, Class, P
   Methods:
     getnumChutes(): PrivateScope, Public, HideBySig
 Class GlassVisionSystemV105.PasswordForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class GlassVisionSystemV105.LogPreviewForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    UpdateDisplay(vector<LogInfo\,std::allocator<LogInfo> >*): PrivateScope, Public, HideBySig
+Class GlassVisionSystemV105.LogForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class GlassVisionSystemV105.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit

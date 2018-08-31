@@ -412,3 +412,53 @@
 118,7,30,23,30,36,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
 118,7,30,23,35,28,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
 118,7,30,23,35,28,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,3,22,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,3,22,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,3,22,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,3,22,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,5,36,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,5,37,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,5,37,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,5,37,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,7,1,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,7,1,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,7,1,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,7,2,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,7,37,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,7,38,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,7,38,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,7,38,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,8,13,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,8,14,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,8,14,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,8,14,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,8,45,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,8,46,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,8,46,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,8,46,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,9,10,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,9,11,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,9,11,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,9,11,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,28,37,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,28,37,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,28,37,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,28,38,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,28,55,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,28,56,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,28,56,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,28,56,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,41,30,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,41,31,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,41,31,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,41,31,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,49,28,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,49,29,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,49,29,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,49,29,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,55,1,5;user;System Launched by user;Failed Loading CamA: No device is available or no device contains the provided device info properties.
+118,7,31,18,55,1,5;user;System Launched by user;Opening Camera: CamA On Port Number: '0'  using OpenCV Method worked Successfully
+118,7,31,18,55,1,5;user;System Launched by user;Failed Loading CamB: No device is available or no device contains the provided device info properties.
+118,7,31,18,55,1,5;user;System Launched by user;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,7,31,18,55,50,5;user;user Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for user
+118,7,31,18,58,28,5;user;user Exiting Application;Form Shutting Down
