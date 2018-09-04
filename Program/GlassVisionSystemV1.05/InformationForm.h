@@ -45,16 +45,6 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::Label^  lblPN;
 	private: System::Windows::Forms::GroupBox^  gbChuteInformation;
 
-
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Label^  label10;
 	private: System::Windows::Forms::GroupBox^  groupBox4;
 	private: System::Windows::Forms::Label^  lblFalureRate;
@@ -883,7 +873,6 @@ namespace GlassVisionSystemV105 {
 		else {
 			Destination = CameraB.IMGInfo.chute;
 		}
-
 		switch (Destination)
 		{
 		case Tuscos:
@@ -951,6 +940,11 @@ namespace GlassVisionSystemV105 {
 			//glass inspection button clicked
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		ImageInspect = true;
+		std::cout << "# defects: " << CameraA.IMGInfo.IMGDefects.defectCount << std::endl;
+		std::cout << "Total Defect Area (px): " << CameraA.IMGInfo.IMGDefects.totalPointsCount << std::endl;
+		std::cout << "Largest Defect (px): " << CameraA.IMGInfo.IMGDefects.largestPointCount << std::endl;
+		std::cout << "Total Defect Area (mm^2): " << CameraA.IMGInfo.IMGDefects.totalDefectArea << std::endl;
+		std::cout << "Largest Defect (mm^2): " << CameraA.IMGInfo.IMGDefects.largestDefectArea << std::endl;
 	}
 	private: System::Void lblRunTime_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
