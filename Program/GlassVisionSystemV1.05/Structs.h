@@ -129,6 +129,7 @@ typedef struct {
 	std::string RunTime = "", Rejections = "", Inspections = "", FailureRate = "";
 	std::string ChuteCountT = "", ChuteCountA = "", ChuteCountB = "", ChuteCountC = "", ChuteCountD = "";
 	std::string ChuteInformationT = "", ChuteInformationA = "", ChuteInformationB = "", ChuteInformationC = "", ChuteInformationD = "";
+	std::string displayString = ""; //display selector text
 } BatchInfo;
 
 extern std::vector<BatchInfo> batchHistory;

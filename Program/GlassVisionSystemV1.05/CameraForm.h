@@ -572,39 +572,51 @@ namespace GlassVisionSystemV105 {
 	private: Void ImageShow() {
 		//System::Drawing::Bitmap^ bitmap;
 		//System::Drawing::Graphics^ graphic = pictureBox1->CreateGraphics();
-
-		if (rbCamA->Checked == true) {
-			DrawImage(CameraA.IMGInfo, pictureBox1);
+		try {
+			if (rbCamA->Checked == true) {
+				DrawImage(CameraA.IMGInfo, pictureBox1);
+			}
+		}
+		catch (...) {
+			System::Drawing::RectangleF rect((float)0, (float)0, (float)pictureBox1->Width, (float)pictureBox1->Height);
+			System::Drawing::Graphics^ graphics = pictureBox1->CreateGraphics();
+			graphics->Clear(System::Drawing::Color::Gray);
+			graphics->DrawString("Camera Is Not Connected!", gcnew System::Drawing::Font("Arial", 24, FontStyle::Bold), SystemBrushes::WindowText, rect/*new Point(100, 250)*/);
 		}
 
-		if (rbCamB->Checked == true) {
-			DrawImage(CameraB.IMGInfo, pictureBox1);
-		}
+			if (rbCamB->Checked == true) {
+				DrawImage(CameraB.IMGInfo, pictureBox1);
+			}
 
-		if (rbCamAll->Checked == true) {
-			DrawImage(CameraA.IMGInfo, PBCamA);
-			DrawImage(CameraB.IMGInfo, PBCamB);
-
-		}
+			if (rbCamAll->Checked == true) {
+				DrawImage(CameraA.IMGInfo, PBCamA);
+				DrawImage(CameraB.IMGInfo, PBCamB);
+			}
+		
 	}
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-		if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen()) {
-			//CameraA.ProcessImage();
-			//Images = processing.IMGmain();
-			if (CameraA.IMGInfo.multiConcentricCircleDetected) {
-				LBLIDCamA->Text = "ERROR";
-				LBLODCamA->Text = "ERROR";
+		try {
+			if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen()) {
+				//CameraA.ProcessImage();
+				//Images = processing.IMGmain();
+				if (CameraA.IMGInfo.multiConcentricCircleDetected) {
+					LBLIDCamA->Text = "ERROR";
+					LBLODCamA->Text = "ERROR";
 
+				}
+				else {
+					//convert value to string, displaying both in pixels and converted mm, the "F" denotes default rounding to 2 decimial places
+					String^ IDmmtxt = (CameraA.IMGInfo.ID * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraA.IMGInfo.IDVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
+					String^ IDpxTxt = (CameraA.IMGInfo.ID).ToString("F") + "p (+/-)" + CameraA.IMGInfo.IDVariance.ToString("F") + "p";
+					String^ ODmmtxt = (CameraA.IMGInfo.OD * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraA.IMGInfo.ODVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
+					String^ ODpxTxt = (CameraA.IMGInfo.OD).ToString("F") + "p (+/-)" + CameraA.IMGInfo.ODVariance.ToString("F") + "p";
+					LBLIDCamA->Text = IDmmtxt + " - [" + IDpxTxt + "]";
+					LBLODCamA->Text = ODmmtxt + " - [" + ODpxTxt + "}";
+				}
 			}
-			else {
-				//convert value to string, displaying both in pixels and converted mm, the "F" denotes default rounding to 2 decimial places
-				String^ IDmmtxt = (CameraA.IMGInfo.ID * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraA.IMGInfo.IDVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
-				String^ IDpxTxt = (CameraA.IMGInfo.ID).ToString("F") + "p (+/-)" + CameraA.IMGInfo.IDVariance.ToString("F") + "p";
-				String^ ODmmtxt = (CameraA.IMGInfo.OD * currentImageSettings.PixToMMRatio).ToString("F") + "mm (+/-) " + (CameraA.IMGInfo.ODVariance * currentImageSettings.PixToMMRatio).ToString("F") + "mm";
-				String^ ODpxTxt = (CameraA.IMGInfo.OD).ToString("F") + "p (+/-)" + CameraA.IMGInfo.ODVariance.ToString("F") + "p";
-				LBLIDCamA->Text = IDmmtxt + " - [" + IDpxTxt + "]";
-				LBLODCamA->Text = ODmmtxt + " - [" + ODpxTxt + "}";
-			}
+		}
+		catch (...) {
+			CameraA.IMGInfo.ImageCapture.release();
 		}
 
 		if (CameraB.IMGInfo.ImageCapture.isOpened()) {

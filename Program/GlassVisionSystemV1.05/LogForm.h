@@ -52,9 +52,9 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker1;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
-	private: System::Windows::Forms::RadioButton^  rbLogs;
+	public: System::Windows::Forms::RadioButton^  rbLogs;
 
-	private: System::Windows::Forms::RadioButton^  rbBatch;
+	public: System::Windows::Forms::RadioButton^  rbBatch;
 
 	private: System::Windows::Forms::Button^  btnReturn;
 	private: System::Windows::Forms::GroupBox^  groupBox2;
@@ -266,8 +266,7 @@ namespace GlassVisionSystemV105 {
 		}
 		else {
 			for (int i = 0; i < batchHistory.size(); i++) {
-				std::string s;
-				AddItem(batchHistory[i].date, s);
+				AddItem(batchHistory[i].date, batchHistory[i].displayString);
 
 			}
 		}
@@ -291,6 +290,8 @@ namespace GlassVisionSystemV105 {
 
 	private: System::Void lstItems_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 	public: std::vector<LogInfo> LogForm::GetLogs();
+			std::vector<BatchInfo> LogForm::GetBatches();
+
 	private: System::Void btnReturn_Click(System::Object^  sender, System::EventArgs^  e) {
 		CurrentPannelA = InfoForm;
 		CurrentPannelB = cameraForm;

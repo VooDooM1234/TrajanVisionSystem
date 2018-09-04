@@ -409,7 +409,7 @@ namespace GlassVisionSystemV105 {
 		}
 
 		//run the vision data analysis on cameras A & B
-		if (infoForm->ImageInspect == true && infoForm->BatchRunning == true || infoForm->BatchRunning == false) {
+		if (infoForm->ImageInspect == true && infoForm->BatchRunning == true || infoForm->BatchRunning == false && CurrentPannelB == cameraForm) {
 			infoForm->ImageInspect = false;
 
 			//processes camera A if it is opperational/connected
