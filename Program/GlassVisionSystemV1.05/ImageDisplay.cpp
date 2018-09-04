@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <stdio.h>
 #include <math.h>
-//#include "RobotComms.h"
 #include "ImageDisplay.h"
 #include <memory>
 #include "Structs.h"
@@ -85,8 +81,6 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 		{
 			IMGInfo.camera->OffsetY.SetValue(IMGInfo.camera->OffsetY.GetMin());
 		}
-		cout << "OffsetX          : " << IMGInfo.camera->OffsetX.GetValue() << endl;
-		cout << "OffsetY          : " << IMGInfo.camera->OffsetY.GetValue() << endl;
 
 		IMGInfo.camera->ExposureTime.SetValue(currentImageSettings.ExposureTime);
 		IMGInfo.camera->AcquisitionFrameRate.SetValue(60);
@@ -116,8 +110,8 @@ void Imageanalysis::ProcessImage()
 	}
 	try
 	{
-		//reduce camera size by 1/2 the original image
-		cv::Rect rect(camWidth / 4, camHeight / 4, camWidth / 2, camHeight / 2);
+		//crops and scals original image to fit form window - rect(x, y, width, height)
+		cv::Rect rect(camWidth * 0.125, camHeight * 0.125, camWidth * 0.75, camHeight * 0.75);
 		IMGInfo.original = IMGInfo.original(rect).clone();
 
 		//process image data
@@ -156,8 +150,6 @@ void Imageanalysis::ProcessPylonImage() {
 
 void Imageanalysis::generateManipulated() {
 	ImagePreProcessing();
-
-
 	CustomIDODDetection();
 	ChuteDetermination();
 }
@@ -172,6 +164,7 @@ void Imageanalysis::ChuteDetermination() {
 		//set initial upper and lower limits for the ID
 		lower = (currentProductSettings.targetID * (1 - (var.IDTolerance / 100))) / currentImageSettings.PixToMMRatio;
 		upper = (currentProductSettings.targetID * (1 + (var.IDTolerance / 100))) / currentImageSettings.PixToMMRatio;
+
 		if (var.IDGood && IMGInfo.ID - IMGInfo.IDVariance > lower && IMGInfo.ID + IMGInfo.IDVariance < upper) {
 				goto ODSETUP;
 		}
@@ -219,23 +212,22 @@ void Imageanalysis::ImagePreProcessing() {
 	//converts the colored image to grayscale (0-255 single color image)
 	cv::cvtColor(IMGInfo.original, IMGInfo.grayscale, CV_BGR2GRAY);
 
-	//blurs the image to remove sharp edges, helps canny processing method
-	cv::blur(IMGInfo.grayscale, IMGInfo.grayscale, cv::Size(3, 3));
-	cv::threshold(IMGInfo.grayscale, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
+	//cv::imshow("before blur", IMGInfo.grayscale);
+	//cv::resizeWindow("before blur", cv::Size(camWidth * 0.55, camHeight * 0.55));
+
+	cv::blur(IMGInfo.grayscale, IMGInfo.blurred, cv::Size(currentImageSettings.blurMapSize, currentImageSettings.blurMapSize));
+
+	cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize /*5*/, 50, 50);
+	
+	cv::threshold(IMGInfo.bilatFiltered, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
 	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
-	//cv::imshow("XXX", IMGInfo.binaryThreshold);
-	//cv::resizeWindow("XXX", cv::Size(2448 / 4, 2048 / 4));
-	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, 100 /*currentImageSettings.CannyThresholdA*/, currentImageSettings.CannyThresholdB, 3);
-	//cv::imshow("original", IMGInfo.canny);
-	int dilationSize = 1;
-	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2 * dilationSize + 1, 2 * dilationSize + 1), cv::Point(dilationSize, dilationSize));
+	
+	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 3, 3);
+	
+	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(currentImageSettings.dilation, currentImageSettings.dilation), cv::Point(-1, -1));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
-	//cv::imshow("after dilate", IMGInfo.canny);
-
 	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
-	//cv::imshow("after erode", IMGInfo.canny);
 }
-
 
 void Imageanalysis::CustomIDODDetection() {
 	/// Find contours using canny method
@@ -243,8 +235,9 @@ void Imageanalysis::CustomIDODDetection() {
 	vector<cv::Vec4i> hierarchy;
 	
 	cv::findContours(IMGInfo.canny, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
-	/// Draw contours
-	cv::Mat drawing = cv::Mat::zeros(IMGInfo.canny.size(), CV_8UC3);
+	
+	// Draw contours (IS THIS ACTUALLY DOING ANYTHING???)
+	//cv::Mat drawing = cv::Mat::zeros(IMGInfo.canny.size(), CV_8UC3);
 
 	vector<contourInfo> Circles(0);
 	contourInfo continfo;
@@ -271,6 +264,7 @@ void Imageanalysis::CustomIDODDetection() {
 			//otherwise store the contour in a new array for later use
 			otherPoints.resize(otherPoints.size() + 1);
 			otherPoints[otherPoints.size() - 1] = continfo.contour;
+
 		}
 	}
 
@@ -289,22 +283,24 @@ void Imageanalysis::CustomIDODDetection() {
 	for (int i = 0; i < int(concCircles.size()); i++)
 	{
 		float tolleranceOD = 0, tolleranceID = 0;
-		float ID = 0;
-		float OD = 0;
+		float ID = 0, OD = 0;
+
+		//takes average of width/height of enclosing rectangle
 		ID = (concCircles[i].IDrect.size.width + concCircles[i].IDrect.size.height) / 2;
 		tolleranceID = abs(ID - concCircles[i].IDrect.size.width);
 		OD = (concCircles[i].ODrect.size.width + concCircles[i].ODrect.size.height) / 2;
 		tolleranceOD = abs(OD - concCircles[i].ODrect.size.width);
-		if (concCircles[i].group.size() == 1 || concCircles[i].IDrect.size == concCircles[i].ODrect.size) {
-			cerr << "circle " << to_string(i + 1) << ": diameter = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
-		}
-		else {
-			cerr << "circle " << to_string(i + 1) << ": ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
-		}
+		//if (concCircles[i].group.size() == 1 || concCircles[i].IDrect.size == concCircles[i].ODrect.size) {
+		//	//cerr << "circle " << to_string(i + 1) << ": diameter = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
+		//	cout << "OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
+		//}
+		//else {
+		//	//cerr << "circle " << to_string(i + 1) << ": ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
+		//	cout << "ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
+		//}
 		for (int j = 0; j < int(concCircles[i].group.size()); j++)
 		{
-
-			//Drawsover the manipulated image yellow circles for where it found the ID/OD
+			//Draws over the manipulated image yellow circles for where it found the ID/OD
 			polylines(IMGInfo.manipulated, concCircles[i].group[j].contour, true, cv::Scalar(0, 255, 255), 1, 8, 0);
 		}
 		if (i == 0) {
@@ -328,11 +324,15 @@ void Imageanalysis::CustomIDODDetection() {
 	}
 
 	for (int i = 0; i < defects.size(); i++) {
+		IMGInfo.IMGDefects.defectCount++;
+		IMGInfo.IMGDefects.totalPointsCount += defects[i].size();
+		if (defects[i].size() > IMGInfo.IMGDefects.largestPointCount)
+			IMGInfo.IMGDefects.largestPointCount = defects[i].size();
+		IMGInfo.IMGDefects.largestDefectArea = IMGInfo.IMGDefects.largestPointCount * currentImageSettings.PixToMMRatio;
+		IMGInfo.IMGDefects.totalDefectArea = IMGInfo.IMGDefects.totalPointsCount * currentImageSettings.PixToMMRatio;
 		//Draws over the manipulated image the defects it found in red
 		polylines(IMGInfo.manipulated, defects[i], true, cv::Scalar(0, 0, 255), 1, 8, 0);
 	}
-
-
 }
 
 //checks that for every point inside a defect it is somewhere within the concentric circle
@@ -391,10 +391,10 @@ contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour, int S
 	double circleCheck = fabs(info.radius - height / 2); //gets the absolute value of the measured circle area difference
 	double circleCheck2 = fabs(info.radius - width / 2);
 
-	/*info.center = center;
+	//info.center = center;
 	info.contour = contour;
-	info.radius = radius;
-*/
+	//info.radius = radius;
+
 	//if the difference of the circle area is within the tollerance range then the contour is a circle
 	if (circleCheck < (info.radius / currentImageSettings.CircleTolerance) && circleCheck2 < (info.radius / currentImageSettings.CircleTolerance)) {
 		if (info.radius >= SmallestRadius)
@@ -405,10 +405,10 @@ contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour, int S
 }
 
 vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
-	int concGroupPos = 0;
 
+	int concGroupPos = 0;
 	vector<ConcCircles> concentricCircles(0);
-	//for every circle inside data array
+
 	for (int i = 0; i < int(circleInfo.size()) - 1; i++) {
 		//if the circle is of a unique group assign it to a new group
 		if (circleInfo[i].concGroup == 0) {
@@ -420,12 +420,11 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 		}
 		//for every second circle inside the data array
 		for (int j = i + 1; j < int(circleInfo.size()); j++) {
-			//if two circles have the same center point within a tollerance of +/- 2 pixels assign the circles to the same group
-			if ((fabs(circleInfo[i].center.x - circleInfo[j].center.x) < 20 && fabs(circleInfo[i].center.x - circleInfo[j].center.x) < 20) ||
+			//if two circles have the same center point within a tollerance of +/- 20 pixels assign the circles to the same group
+			if ((fabs(circleInfo[i].center.x - circleInfo[j].center.x) < 20 && fabs(circleInfo[i].center.y - circleInfo[j].center.y) < 20) ||		
 				(circleInfo[i].center.x == circleInfo[j].center.x && circleInfo[i].center.y == circleInfo[j].center.y)) {
 
-				circleInfo[j].concGroup = circleInfo[i].concGroup; //mark the circle to hage the same concentric grouping as what it is compared to
-																   //concentricCircles.resize(concentricCircles.size() + 1);
+				circleInfo[j].concGroup = circleInfo[i].concGroup; //mark the circle to have the same concentric grouping as what it is compared to
 				concentricCircles[concentricCircles.size() - 1].group.resize(concentricCircles[concentricCircles.size() - 1].group.size() + 1);
 				concentricCircles[concentricCircles.size() - 1].group[concentricCircles[concentricCircles.size() - 1].group.size() - 1] = circleInfo[j];
 			}
@@ -444,6 +443,7 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 	for (int i = 0; i < int(concentricCircles.size()); i++) {
 		double ID = (float)999999999;
 		double OD = 0;
+		//finds the largest OD and smallest ID (WOULDN'T AN AVERAGE OF THE ID's  OD's GIVE US THE MOST ACCURATE RESULT?)
 		for (int j = 0; j < int(concentricCircles[i].group.size()); j++) {
 			if (ID > (concentricCircles[i].group[j].radius * 2)) {
 				ID = (concentricCircles[i].group[j].radius * 2);
@@ -454,11 +454,8 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 				OD = (concentricCircles[i].group[j].radius * 2);
 				concentricCircles[i].ODrect = concentricCircles[i].group[j].rect;
 				concentricCircles[i].ODCenter = concentricCircles[i].group[j].center;
-
 			}
 		}
 	}
 	return concentricCircles;
 }
-
-

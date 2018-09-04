@@ -38,6 +38,11 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Button^  btnPixelTomm;
 	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::NumericUpDown^  nudBlurMapSize;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::NumericUpDown^  nudDilation;
+
 
 
 	private: System::Windows::Forms::HScrollBar^  hScrollBar4;
@@ -112,6 +117,10 @@ namespace GlassVisionSystemV105 {
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(ImageSettingsForm::typeid));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->nudDilation = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->nudBlurMapSize = (gcnew System::Windows::Forms::NumericUpDown());
 			this->groupBox5 = (gcnew System::Windows::Forms::GroupBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
@@ -140,6 +149,8 @@ namespace GlassVisionSystemV105 {
 			this->hScrollBar1 = (gcnew System::Windows::Forms::HScrollBar());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->panel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudDilation))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudBlurMapSize))->BeginInit();
 			this->groupBox5->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasuredOD))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudDesiredOD))->BeginInit();
@@ -156,6 +167,10 @@ namespace GlassVisionSystemV105 {
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->panel1->Controls->Add(this->label7);
+			this->panel1->Controls->Add(this->nudDilation);
+			this->panel1->Controls->Add(this->label6);
+			this->panel1->Controls->Add(this->nudBlurMapSize);
 			this->panel1->Controls->Add(this->groupBox5);
 			this->panel1->Controls->Add(this->groupBox4);
 			this->panel1->Controls->Add(this->btnReset);
@@ -173,6 +188,47 @@ namespace GlassVisionSystemV105 {
 			this->panel1->TabIndex = 0;
 			this->panel1->Tag = L"";
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &ImageSettingsForm::panel1_Paint);
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(237, 318);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(42, 13);
+			this->label7->TabIndex = 19;
+			this->label7->Text = L"Dilation";
+			// 
+			// nudDilation
+			// 
+			this->nudDilation->Location = System::Drawing::Point(237, 336);
+			this->nudDilation->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 20, 0, 0, 0 });
+			this->nudDilation->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudDilation->Name = L"nudDilation";
+			this->nudDilation->Size = System::Drawing::Size(59, 20);
+			this->nudDilation->TabIndex = 18;
+			this->nudDilation->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudDilation->ValueChanged += gcnew System::EventHandler(this, &ImageSettingsForm::numericUpDown1_ValueChanged);
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(322, 318);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(25, 13);
+			this->label6->TabIndex = 17;
+			this->label6->Text = L"Blur";
+			this->label6->Click += gcnew System::EventHandler(this, &ImageSettingsForm::label6_Click);
+			// 
+			// nudBlurMapSize
+			// 
+			this->nudBlurMapSize->Location = System::Drawing::Point(325, 336);
+			this->nudBlurMapSize->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 20, 0, 0, 0 });
+			this->nudBlurMapSize->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudBlurMapSize->Name = L"nudBlurMapSize";
+			this->nudBlurMapSize->Size = System::Drawing::Size(59, 20);
+			this->nudBlurMapSize->TabIndex = 16;
+			this->nudBlurMapSize->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nudBlurMapSize->ValueChanged += gcnew System::EventHandler(this, &ImageSettingsForm::nudBlurMapSize_ValueChanged);
 			// 
 			// groupBox5
 			// 
@@ -504,6 +560,8 @@ namespace GlassVisionSystemV105 {
 			this->Text = L"DebugForm";
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudDilation))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudBlurMapSize))->EndInit();
 			this->groupBox5->ResumeLayout(false);
 			this->groupBox5->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasuredOD))->EndInit();
@@ -667,6 +725,14 @@ private: System::Void nudMeasuredOD_ValueChanged(System::Object^  sender, System
 }
 private: System::Void nudDesiredOD_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	calculatePtoMMRatio();
+}
+private: System::Void label6_Click(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void nudBlurMapSize_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	currentImageSettings.blurMapSize = (int)nudBlurMapSize->Value;
+}
+private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	currentImageSettings.dilation = (int)nudDilation->Value;
 }
 };
 }

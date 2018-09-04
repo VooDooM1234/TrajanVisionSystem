@@ -7,11 +7,11 @@
 #include <opencv2/core/core.hpp>
 #pragma managed
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <stdio.h>
+#include <iostream>
 #include <windows.h>
-
-//#include <pylon/PylonGUI.h>
 #pragma unmanaged
 #include <pylon/PylonIncludes.h>
 #include <pylon/usb/PylonUsbIncludes.h>
@@ -61,12 +61,11 @@ typedef struct {
 	cv::Point2f center = { 0,0 }; //contour center point
 	float radius = 0; //contour estimated radius
 	bool isCircle = false; //true if contour is a circle
-	int concGroup = 0; //grouping of concentric circles within 2 pixels, 0 = group not assigned
+	int concGroup = 0; //grouping of concentric circles within 20 pixels, 0 = group not assigned
 	cv::RotatedRect rect; //minimum area rectangle of contour
+	int area; //number of pixels within contour
 
 } contourInfo;
-
-
 
 typedef struct {
 	int CannyThresholdA = 0, CannyThresholdB = 0;
@@ -75,6 +74,9 @@ typedef struct {
 	double DesiredOD = 1;
 	double PixToMMRatio = 1;
 
+	//debugging testing variables
+	int blurMapSize = 3;
+	int dilation = 5;
 }ImageSettings;
 
 extern ImageSettings currentImageSettings; //loaded values to specify current camera settings for image anaysis
@@ -125,14 +127,15 @@ extern std::vector<LogInfo> logList;
 typedef struct {
 	cv::VideoCapture ImageCapture;
 
-	cv::Mat original, grayscale, canny, binaryThreshold, manipulated;
+	cv::Mat original, grayscale, bilatFiltered, blurred, canny, binaryThreshold, manipulated;
 	double ID, OD, IDVariance, ODVariance;
-	std::vector<std::vector<cv::Point>> defects;
+	//std::vector<std::vector<cv::Point>> defects;
 	Chute chute = Tuscos;
 	int chutePriority = 10;
-	int defectCount, camNumber;
+	int /*defectCount,*/ camNumber;
 	std::string camName;
 	bool multiConcentricCircleDetected = false;
+	DefectParameters IMGDefects;
 
 	CBaslerUsbInstantCamera *camera;
 }ImageInformation;
