@@ -1,6 +1,9 @@
 #pragma once
 #include "Structs.h"
 #include "ImageDisplay.h"
+#include "SaveLoadSettings.h"
+#include <ctime>
+
 
 namespace GlassVisionSystemV105 {
 
@@ -792,6 +795,11 @@ namespace GlassVisionSystemV105 {
 					lblRunMode->ForeColor = Color::Red;
 					RunTimeTimer->Enabled = false;
 					BatchRunning = false;
+
+					SaveBatch(GetBatchInfo());
+					ResetLabels();
+					RunTimeTimer->Enabled = false;
+					timerCount = 0;
 				}
 			}
 			//if batch is not currently running
@@ -819,20 +827,53 @@ namespace GlassVisionSystemV105 {
 	}
 	private: System::Void lblID_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
+	private: BatchInfo GetBatchInfo() {
+		BatchInfo result;
+		//record chute count
+		result.ChuteCountA = sysStringtoStd(lblACount->Text);
+		result.ChuteCountB = sysStringtoStd(lblBCount->Text);
+		result.ChuteCountC = sysStringtoStd(lblCCount->Text);
+		result.ChuteCountD = sysStringtoStd(lblDCount->Text);
+		result.ChuteCountT = sysStringtoStd(lblTusCount->Text);
 
-			 private: void ResetLabels() {
-				 lblTotal->Text = "0";
-				 lblNumDefects->Text = "0";
-				 lblFalureRate->Text = "0.0%";
+		//record chute info
+		result.ChuteInformationA = sysStringtoStd(toolTip1->GetToolTip(gbA));
+		result.ChuteInformationB = sysStringtoStd(toolTip1->GetToolTip(gbB));
+		result.ChuteInformationC = sysStringtoStd(toolTip1->GetToolTip(gbC));
+		result.ChuteInformationD = sysStringtoStd(toolTip1->GetToolTip(gbD));
+		result.ChuteInformationT = sysStringtoStd(toolTip1->GetToolTip(gbTuscos));
 
-				 lblTusCount->Text = "0";
-				 lblACount->Text = "0";
-				 lblBCount->Text = "0";
-				 lblCCount->Text = "0";
-				 lblDCount->Text = "0";
+		//record time of saving
+		time_t _tm = time(NULL);
+		result.date = localtime(&_tm);
+
+		//record product info
+		result.PartNumber = sysStringtoStd(lblPN->Text);
+		result.Description = sysStringtoStd(lblDescription->Text);
+		result.ID = sysStringtoStd(lblID->Text);
+		result.OD = sysStringtoStd(lblOD->Text);
+
+		//record inspection stats
+		result.Inspections = sysStringtoStd(lblCCount->Text);
+		result.Rejections = sysStringtoStd(lblNumDefects->Text);
+		result.FailureRate = sysStringtoStd(lblFalureRate->Text);
+		result.RunTime = sysStringtoStd(lblRunTime->Text);
+		return result;
+	}
+
+	private: void ResetLabels() {
+		lblTotal->Text = "0";
+		lblNumDefects->Text = "0";
+		lblFalureRate->Text = "0.0%";
+
+		lblTusCount->Text = "0";
+		lblACount->Text = "0";
+		lblBCount->Text = "0";
+		lblCCount->Text = "0";
+		lblDCount->Text = "0";
 
 
-			 }
+	}
 	public: void PopulateInspection() {
 		lblTotal->Text = Convert::ToString(Convert::ToInt32(lblTotal->Text) + 1);
 		Chute Destination = Tuscos;
@@ -876,7 +917,7 @@ namespace GlassVisionSystemV105 {
 			failureRate = (Convert::ToInt32(lblTotal->Text) / Convert::ToInt32(lblNumDefects->Text));
 		}
 		catch (...) {
-			failureRate = 0; 
+			failureRate = 0;
 		}
 		lblFalureRate->Text = failureRate.ToString("F") + "%";
 	}
@@ -913,7 +954,7 @@ namespace GlassVisionSystemV105 {
 	}
 	private: System::Void lblRunTime_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
-private: System::Void lblNumDefects_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-};
+	private: System::Void lblNumDefects_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	};
 }

@@ -32,6 +32,7 @@ namespace GlassVisionSystemV105 {
 
 			dateTimePicker1->ShowUpDown = true;
 			logList = LoadLog();
+			batchHistory = LoadBatch();
 			this->dateTimePicker1->Value = this->dateTimePicker1->MaxDate;
 
 			//PopulateList();
@@ -51,8 +52,10 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker1;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
-	private: System::Windows::Forms::RadioButton^  radioButton2;
-	private: System::Windows::Forms::RadioButton^  radioButton1;
+	private: System::Windows::Forms::RadioButton^  rbLogs;
+
+	private: System::Windows::Forms::RadioButton^  rbBatch;
+
 	private: System::Windows::Forms::Button^  btnReturn;
 	private: System::Windows::Forms::GroupBox^  groupBox2;
 
@@ -84,8 +87,8 @@ namespace GlassVisionSystemV105 {
 			this->cbxMonthFilter = (gcnew System::Windows::Forms::CheckBox());
 			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
-			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
+			this->rbLogs = (gcnew System::Windows::Forms::RadioButton());
+			this->rbBatch = (gcnew System::Windows::Forms::RadioButton());
 			this->btnReturn = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
@@ -164,8 +167,8 @@ namespace GlassVisionSystemV105 {
 			// 
 			// groupBox1
 			// 
-			this->groupBox1->Controls->Add(this->radioButton2);
-			this->groupBox1->Controls->Add(this->radioButton1);
+			this->groupBox1->Controls->Add(this->rbLogs);
+			this->groupBox1->Controls->Add(this->rbBatch);
 			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->groupBox1->Location = System::Drawing::Point(3, 101);
@@ -175,30 +178,30 @@ namespace GlassVisionSystemV105 {
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"View";
 			// 
-			// radioButton2
+			// rbLogs
 			// 
-			this->radioButton2->AutoSize = true;
-			this->radioButton2->Location = System::Drawing::Point(96, 17);
-			this->radioButton2->Name = L"radioButton2";
-			this->radioButton2->Size = System::Drawing::Size(104, 20);
-			this->radioButton2->TabIndex = 1;
-			this->radioButton2->TabStop = true;
-			this->radioButton2->Text = L"System Logs";
-			this->radioButton2->UseVisualStyleBackColor = true;
-			this->radioButton2->CheckedChanged += gcnew System::EventHandler(this, &LogForm::radioButton2_CheckedChanged);
+			this->rbLogs->AutoSize = true;
+			this->rbLogs->Location = System::Drawing::Point(96, 17);
+			this->rbLogs->Name = L"rbLogs";
+			this->rbLogs->Size = System::Drawing::Size(104, 20);
+			this->rbLogs->TabIndex = 1;
+			this->rbLogs->TabStop = true;
+			this->rbLogs->Text = L"System Logs";
+			this->rbLogs->UseVisualStyleBackColor = true;
+			this->rbLogs->CheckedChanged += gcnew System::EventHandler(this, &LogForm::radioButton2_CheckedChanged);
 			// 
-			// radioButton1
+			// rbBatch
 			// 
-			this->radioButton1->AutoSize = true;
-			this->radioButton1->Checked = true;
-			this->radioButton1->Location = System::Drawing::Point(6, 17);
-			this->radioButton1->Name = L"radioButton1";
-			this->radioButton1->Size = System::Drawing::Size(84, 20);
-			this->radioButton1->TabIndex = 0;
-			this->radioButton1->TabStop = true;
-			this->radioButton1->Text = L"Batch Info";
-			this->radioButton1->UseVisualStyleBackColor = true;
-			this->radioButton1->CheckedChanged += gcnew System::EventHandler(this, &LogForm::radioButton1_CheckedChanged);
+			this->rbBatch->AutoSize = true;
+			this->rbBatch->Checked = true;
+			this->rbBatch->Location = System::Drawing::Point(6, 17);
+			this->rbBatch->Name = L"rbBatch";
+			this->rbBatch->Size = System::Drawing::Size(84, 20);
+			this->rbBatch->TabIndex = 0;
+			this->rbBatch->TabStop = true;
+			this->rbBatch->Text = L"Batch Info";
+			this->rbBatch->UseVisualStyleBackColor = true;
+			this->rbBatch->CheckedChanged += gcnew System::EventHandler(this, &LogForm::radioButton1_CheckedChanged);
 			// 
 			// btnReturn
 			// 
@@ -230,19 +233,42 @@ namespace GlassVisionSystemV105 {
 
 		}
 #pragma endregion
-	private: void PopulateList() {
-		lstItems->Items->Clear();
 
-		for(int i = 0; i < logList.size(); i++)
-		{
+		private: void AddItem(tm *time, std::string &displayString) {
 			DateTime^ dtDate;
-			if ((logList[i].date->tm_year + 1900 == dateTimePicker1->Value.Year && logList[i].date->tm_mon + 1 == dateTimePicker1->Value.Month)
+			if ((time->tm_year + 1900 == dateTimePicker1->Value.Year && time->tm_mon + 1 == dateTimePicker1->Value.Month)
 				|| cbxMonthFilter->Checked == false) {
-				dtDate = gcnew DateTime(logList[i].date->tm_year + 1900, logList[i].date->tm_mon + 1, logList[i].date->tm_mday);
+				dtDate = gcnew DateTime(time->tm_year + 1900, time->tm_mon + 1, time->tm_mday);
 				String^ s = dtDate->ToString("dddd - dd, MMMM, yyyy");
-				 logList[i].displayString = sysStringtoStd(s);
+				displayString = sysStringtoStd(s);
+				//if preview list does not contain the date already, add a new date
 				if (!lstItems->Items->Contains(s))
 					lstItems->Items->Add(s);
+			}
+		}
+	private: void PopulateList() {
+		lstItems->Items->Clear();
+		if (rbLogs->Checked == true) {
+			for (int i = 0; i < logList.size(); i++)
+			{
+				//DateTime^ dtDate;
+				//if ((logList[i].date->tm_year + 1900 == dateTimePicker1->Value.Year && logList[i].date->tm_mon + 1 == dateTimePicker1->Value.Month)
+				//	|| cbxMonthFilter->Checked == false) {
+				//	dtDate = gcnew DateTime(logList[i].date->tm_year + 1900, logList[i].date->tm_mon + 1, logList[i].date->tm_mday);
+				//	String^ s = dtDate->ToString("dddd - dd, MMMM, yyyy");
+				//	logList[i].displayString = sysStringtoStd(s);
+				//	//if preview list does not contain the date already, add a new date
+				//	if (!lstItems->Items->Contains(s))
+				//		lstItems->Items->Add(s);
+				//}
+				AddItem(logList[i].date, logList[i].displayString);
+			}
+		}
+		else {
+			for (int i = 0; i < batchHistory.size(); i++) {
+				std::string s;
+				AddItem(batchHistory[i].date, s);
+
 			}
 		}
 	}
@@ -251,18 +277,23 @@ namespace GlassVisionSystemV105 {
 	}
 	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
+
+			 //update selection list options if filters changed
 	private: System::Void radioButton2_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		PopulateList();
 	}
 	private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		PopulateList();
 	}
 	private: System::Void cbxMonthFilter_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 		PopulateList();
 	}
 
 	private: System::Void lstItems_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+	public: std::vector<LogInfo> LogForm::GetLogs();
 	private: System::Void btnReturn_Click(System::Object^  sender, System::EventArgs^  e) {
 		CurrentPannelA = InfoForm;
 		CurrentPannelB = cameraForm;
 	}
-};
+	};
 }

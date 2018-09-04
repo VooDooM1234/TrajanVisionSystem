@@ -71,13 +71,17 @@ Class GlassVisionSystemV105.LogPreviewForm: AutoLayout, AnsiClass, Class, Public
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
+    clearTimeFilter(): PrivateScope, Public, HideBySig
     UpdateDisplay(vector<LogInfo\,std::allocator<LogInfo> >*): PrivateScope, Public, HideBySig
 Class GlassVisionSystemV105.LogForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetLogs(vector<LogInfo\,std::allocator<LogInfo> >*): PrivateScope, Public, HideBySig
 Class GlassVisionSystemV105.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    GlassVisionSystemV105.LogForm logSelectionForm : Public
     GlassVisionSystemV105.LogPreviewForm LPForm : Public
     System.Collections.Generic.List`1[GlassVisionSystemV105.ChuteSettingsForm] lstChuteSettingForms : Public

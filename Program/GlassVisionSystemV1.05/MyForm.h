@@ -73,8 +73,8 @@ namespace GlassVisionSystemV105 {
 			 CameraForm ^ CamForm;
 			 ProductSettingsForm^ prodSettingForm;
 			 PasswordForm^ passForm;
-			 LogForm^ logSelectionForm;
-	public: LogPreviewForm ^ LPForm;
+	public:	 LogForm ^ logSelectionForm;
+	public:  LogPreviewForm ^ LPForm;
 
 
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;

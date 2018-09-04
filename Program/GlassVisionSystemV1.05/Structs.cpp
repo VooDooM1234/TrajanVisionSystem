@@ -9,6 +9,8 @@ ImageSettings currentImageSettings;
 std::vector<LogInfo> logList;
 LogInfo currentLog;
 
+std::vector<BatchInfo> batchHistory;
+
 
 std::string workingdir()
 {

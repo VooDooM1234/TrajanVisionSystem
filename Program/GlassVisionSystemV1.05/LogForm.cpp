@@ -4,7 +4,7 @@
 
 namespace GlassVisionSystemV105 {
 
-	System::Void LogForm::lstItems_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+	std::vector<LogInfo> LogForm::GetLogs() {
 		std::vector<LogInfo> DisplayLogs;
 		try {
 			for each (LogInfo var in logList)
@@ -14,16 +14,28 @@ namespace GlassVisionSystemV105 {
 					DisplayLogs.push_back(var);
 				}
 			}
-			//gets the main form
-			Form ^ mainform = this->Parent->FindForm();
-
-			LogPreviewForm^ LPForm;
-			LPForm = ((MyForm^)mainform)->LPForm;
-
-			LPForm->UpdateDisplay(DisplayLogs);
 		}
-		catch(...){
+		catch(...){}
+		return DisplayLogs;
+	}
 
+	System::Void LogForm::lstItems_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+		
+		if (rbLogs->Checked == true) {
+			std::vector<LogInfo> DisplayLogs;
+			try {
+				DisplayLogs = GetLogs();
+				//gets the main form
+				Form ^ mainform = this->Parent->FindForm();
+
+				LogPreviewForm^ LPForm;
+				LPForm = ((MyForm^)mainform)->LPForm;
+				LPForm->clearTimeFilter();
+				LPForm->UpdateDisplay(DisplayLogs);
+			}
+			catch (...) {
+
+			}
 		}
 	}
 }

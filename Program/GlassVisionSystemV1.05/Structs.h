@@ -123,6 +123,18 @@ extern LogInfo currentLog;
 extern std::vector<LogInfo> logList;
 
 typedef struct {
+	tm* date;
+	std::string PartNumber = "", Description = "";
+	std::string ID = "", OD = "";
+	std::string RunTime = "", Rejections = "", Inspections = "", FailureRate = "";
+	std::string ChuteCountT = "", ChuteCountA = "", ChuteCountB = "", ChuteCountC = "", ChuteCountD = "";
+	std::string ChuteInformationT = "", ChuteInformationA = "", ChuteInformationB = "", ChuteInformationC = "", ChuteInformationD = "";
+} BatchInfo;
+
+extern std::vector<BatchInfo> batchHistory;
+
+
+typedef struct {
 	cv::VideoCapture ImageCapture;
 
 	cv::Mat original, grayscale, canny, binaryThreshold, manipulated;

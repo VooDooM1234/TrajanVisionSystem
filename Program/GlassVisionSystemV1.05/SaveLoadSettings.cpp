@@ -15,12 +15,15 @@ void LoadImageSettingsFromFile(string filename) {
 	ImageSettings result;
 	string line;
 	ifstream myfile(filename);
+	//checks if file opened successfully
 	if (!myfile.is_open()) {
+		//if it did not open successfully, create/open folder directory
 		std::string directory = workingdir();
 		directory.append("ImageSettings\\");
 		mkdir(directory.c_str());
 		myfile.open(filename);
 		if (!myfile.is_open()) {
+			//create default settings file
 			ImageSettings temp;
 			temp.CannyThresholdA = 10;
 			temp.CannyThresholdB = 20;
@@ -31,7 +34,7 @@ void LoadImageSettingsFromFile(string filename) {
 
 			SaveImageSettings(temp, "CurrentSettings");
 			myfile.open("ImageSettings/CurrentSettings.txt");
-			
+
 		}
 	}
 	getline(myfile, line);
@@ -310,29 +313,10 @@ void SaveProductSettings(ProductSettings settings, std::string folderLocation) {
 
 }
 
-std::vector<LogInfo> LoadLog() {
-	std::vector<LogInfo> result;
-	string line;
-	ifstream myfile("LOG.log");
-	if (!myfile.is_open()) {
-			currentLog.result = "No System Logs Exist, Log File Cannot be found.";
-			SaveLog(currentLog);
-			return result;
-		}
-	
-while (!myfile.eof())
-{
-	//get line of single log and split it at first ;
-	getline(myfile, line,  ';');
-	if (line == "") {
-		break;
-	}
-	LogInfo newInfo;
-
-	istringstream f(line);
+tm getDateTimeFromline(string line) {
 	std::string s;
-	//time_t _tm = time(NULL);
 	tm logTime;
+	istringstream f(line);
 
 	getline(f, s, ',');
 	logTime.tm_year = stoi(s);
@@ -348,19 +332,60 @@ while (!myfile.eof())
 	logTime.tm_sec = stoi(s);
 	getline(f, s, ',');
 	logTime.tm_wday = stoi(s);
-	newInfo.date = new tm(logTime);
-
-	getline(myfile, line, ';');
-	newInfo.user = line;
-
-	getline(myfile, line, ';');
-	newInfo.execution = line;
-
-	getline(myfile, line, '\n');
-	newInfo.result = line;
-
-	result.push_back(newInfo);
+	return logTime;
 }
+
+std::vector<LogInfo> LoadLog() {
+	std::vector<LogInfo> result;
+	string line;
+	ifstream myfile("LOG.log");
+	if (!myfile.is_open()) {
+		currentLog.result = "No System Logs Exist, Log File Cannot be found.";
+		SaveLog(currentLog);
+		return result;
+	}
+
+	while (!myfile.eof())
+	{
+		//get line of single log and split it at first ;
+		getline(myfile, line, ';');
+		if (line == "") {
+			break;
+		}
+		LogInfo newInfo;
+
+		//istringstream f(line);
+		//std::string s;
+		//time_t _tm = time(NULL);
+		/*tm logTime;
+
+		getline(f, s, ',');
+		logTime.tm_year = stoi(s);
+		getline(f, s, ',');
+		logTime.tm_mon = stoi(s);
+		getline(f, s, ',');
+		logTime.tm_mday = stoi(s);
+		getline(f, s, ',');
+		logTime.tm_hour = stoi(s);
+		getline(f, s, ',');
+		logTime.tm_min = stoi(s);
+		getline(f, s, ',');
+		logTime.tm_sec = stoi(s);
+		getline(f, s, ',');
+		logTime.tm_wday = stoi(s);*/
+		newInfo.date = new tm(getDateTimeFromline(line));
+
+		getline(myfile, line, ';');
+		newInfo.user = line;
+
+		getline(myfile, line, ';');
+		newInfo.execution = line;
+
+		getline(myfile, line, '\n');
+		newInfo.result = line;
+
+		result.push_back(newInfo);
+	}
 	return result;
 }
 
@@ -407,3 +432,112 @@ void SaveLog(LogInfo log) {
 	file.close();
 }
 
+std::vector<BatchInfo> LoadBatch() {
+	std::vector<BatchInfo> result;
+	string line;
+	ifstream myfile("BATCH.log");
+	if (!myfile.is_open()) {
+		return result;
+	}
+
+	while (!myfile.eof())
+	{
+		BatchInfo newInfo;
+		getline(myfile, line, ';');
+		if (line == "") {
+			break;
+		}
+		//date of creation
+		newInfo.date = new tm(getDateTimeFromline(line));
+		//batch operation information
+		getline(myfile, line, ';');
+		newInfo.PartNumber = line;
+		getline(myfile, line, ';');
+		newInfo.Description = line;
+		getline(myfile, line, ';');
+		newInfo.ID = line;
+		getline(myfile, line, ';');
+		newInfo.OD = line;
+		getline(myfile, line, ';');
+		newInfo.RunTime = line;
+		getline(myfile, line, ';');
+		newInfo.Inspections = line;
+		getline(myfile, line, ';');
+		newInfo.Rejections = line;
+		getline(myfile, line, ';');
+		newInfo.FailureRate = line;
+		//batch chute count
+		getline(myfile, line, ';');
+		newInfo.ChuteCountT = line;
+		getline(myfile, line, ';');
+		newInfo.ChuteCountA = line;
+		getline(myfile, line, ';');
+		newInfo.ChuteCountB = line;
+		getline(myfile, line, ';');
+		newInfo.ChuteCountC = line;
+		getline(myfile, line, ';');
+		newInfo.ChuteCountD = line;
+
+		//chute specifications/information
+		getline(myfile, line, ';');
+		newInfo.ChuteInformationT = line;
+		getline(myfile, line, ';');
+		newInfo.ChuteInformationA = line;
+		getline(myfile, line, ';');
+		newInfo.ChuteInformationB = line;
+		getline(myfile, line, ';');
+		newInfo.ChuteInformationC = line;
+		getline(myfile, line, '\n');
+		newInfo.ChuteInformationD = line;
+		
+		result.push_back(newInfo);
+	}
+	return result;
+
+}
+
+void SaveBatch(BatchInfo batch) {
+	std::ofstream file;
+
+	// std::ios::app is the open mode "append", will not overwrite file, adds new line to end of file
+	file.open("BATCH.log", std::ios::app);
+
+	//logs date
+	std::string str = std::to_string(batch.date->tm_year);
+	str += "," + std::to_string(batch.date->tm_mon);
+	str += "," + std::to_string(batch.date->tm_mday);
+	str += "," + std::to_string(batch.date->tm_hour);
+	str += "," + std::to_string(batch.date->tm_min);
+	str += "," + std::to_string(batch.date->tm_sec);
+	str += "," + std::to_string(batch.date->tm_wday);
+
+	str = str + ";" + batch.PartNumber;
+	str = str + ";" + batch.Description;
+	str = str + ";" + batch.ID;
+	str = str + ";" + batch.OD;
+	str = str + ";" + batch.RunTime;
+	str = str + ";" + batch.Inspections;
+	str = str + ";" + batch.Rejections;
+	str = str + ";" + batch.FailureRate;
+
+	str = str + ";" + batch.ChuteCountT;
+	str = str + ";" + batch.ChuteCountA;
+	str = str + ";" + batch.ChuteCountB;
+	str = str + ";" + batch.ChuteCountC;
+	str = str + ";" + batch.ChuteCountD;
+
+	batch.ChuteInformationT.erase(std::remove(batch.ChuteInformationT.begin(), batch.ChuteInformationT.end(), '\n'), batch.ChuteInformationT.end());
+	str = str + ";" + batch.ChuteInformationT;
+	batch.ChuteInformationA.erase(std::remove(batch.ChuteInformationA.begin(), batch.ChuteInformationA.end(), '\n'), batch.ChuteInformationA.end());
+	str = str + ";" + batch.ChuteInformationA;
+	batch.ChuteInformationB.erase(std::remove(batch.ChuteInformationB.begin(), batch.ChuteInformationB.end(), '\n'), batch.ChuteInformationB.end());
+	str = str + ";" + batch.ChuteInformationB;
+	batch.ChuteInformationC.erase(std::remove(batch.ChuteInformationC.begin(), batch.ChuteInformationC.end(), '\n'), batch.ChuteInformationC.end());
+	str = str + ";" + batch.ChuteInformationC;
+	batch.ChuteInformationD.erase(std::remove(batch.ChuteInformationD.begin(), batch.ChuteInformationD.end(), '\n'), batch.ChuteInformationD.end());
+	str = str + ";" + batch.ChuteInformationD;
+
+	file << str << std::endl;
+	file.close();
+	batchHistory.push_back(batch);
+}
