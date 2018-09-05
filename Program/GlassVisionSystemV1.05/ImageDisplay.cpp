@@ -102,7 +102,6 @@ void Imageanalysis::ProcessImage()
 		
 		IMGInfo.ImageCapture >> IMGInfo.original;
 		IMGInfo.ImageCapture >> IMGInfo.original;
-
 	}
 	else {
 		IMGInfo.camera->ExposureTime.SetValue(currentImageSettings.ExposureTime);
@@ -243,7 +242,6 @@ void Imageanalysis::CustomIDODDetection() {
 	contourInfo continfo;
 	vector<vector<cv::Point>> otherPoints;
 
-
 	for (int i = 0; i < int(contours.size()); i++)
 	{
 		contourInfo continfo = IsContourCircle(contours[i], 20);
@@ -264,7 +262,6 @@ void Imageanalysis::CustomIDODDetection() {
 			//otherwise store the contour in a new array for later use
 			otherPoints.resize(otherPoints.size() + 1);
 			otherPoints[otherPoints.size() - 1] = continfo.contour;
-
 		}
 	}
 
@@ -323,13 +320,21 @@ void Imageanalysis::CustomIDODDetection() {
 		}
 	}
 
+	IMGInfo.IMGDefects.defectCount = 0;
+	IMGInfo.IMGDefects.largestDefectArea = 0;
+	IMGInfo.IMGDefects.largestDefectPerimeter = 0;
+	IMGInfo.IMGDefects.totalDefectArea = 0;
+	IMGInfo.IMGDefects.totalDefectPerimeter = 0;
+
 	for (int i = 0; i < defects.size(); i++) {
 		IMGInfo.IMGDefects.defectCount++;
-		IMGInfo.IMGDefects.totalPointsCount += defects[i].size();
-		if (defects[i].size() > IMGInfo.IMGDefects.largestPointCount)
-			IMGInfo.IMGDefects.largestPointCount = defects[i].size();
-		IMGInfo.IMGDefects.largestDefectArea = IMGInfo.IMGDefects.largestPointCount * currentImageSettings.PixToMMRatio;
-		IMGInfo.IMGDefects.totalDefectArea = IMGInfo.IMGDefects.totalPointsCount * currentImageSettings.PixToMMRatio;
+		IMGInfo.IMGDefects.totalDefectPerimeter += defects[i].size();
+		IMGInfo.IMGDefects.totalDefectArea += cv::contourArea(defects[i]);			/* * currentImageSettings.PixToMMRatio */
+		if (defects[i].size() > IMGInfo.IMGDefects.largestDefectPerimeter)
+			IMGInfo.IMGDefects.largestDefectPerimeter = defects[i].size();
+		if(cv::contourArea(defects[i]) > IMGInfo.IMGDefects.largestDefectArea)
+			IMGInfo.IMGDefects.largestDefectArea = cv::contourArea(defects[i]);		/* * currentImageSettings.PixToMMRatio */
+		
 		//Draws over the manipulated image the defects it found in red
 		polylines(IMGInfo.manipulated, defects[i], true, cv::Scalar(0, 0, 255), 1, 8, 0);
 	}

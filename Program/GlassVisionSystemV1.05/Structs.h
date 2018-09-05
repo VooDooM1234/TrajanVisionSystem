@@ -75,7 +75,7 @@ typedef struct {
 	double PixToMMRatio = 1;
 
 	//debugging testing variables
-	int blurMapSize = 3;
+	int blurMapSize = 12;
 	int dilation = 5;
 }ImageSettings;
 
@@ -84,7 +84,7 @@ extern ImageSettings currentImageSettings; //loaded values to specify current ca
 typedef struct {
 	int defectCount = 0;
 	double totalDefectArea = 0, largestDefectArea = 0;
-	int totalPointsCount = 0, largestPointCount = 0;
+	int totalDefectPerimeter = 0, largestDefectPerimeter = 0;
 }DefectParameters;
 
 typedef struct {

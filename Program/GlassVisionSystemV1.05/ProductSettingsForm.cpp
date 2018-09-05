@@ -51,8 +51,8 @@ namespace GlassVisionSystemV105 {
 				tempParameters.defectCount = Int32::Parse(defectDataGrid->Rows[i]->Cells[0]->Value->ToString());
 				tempParameters.totalDefectArea = float::Parse(defectDataGrid->Rows[i]->Cells[1]->Value->ToString());
 				tempParameters.largestDefectArea = float::Parse(defectDataGrid->Rows[i]->Cells[2]->Value->ToString());
-				tempParameters.totalPointsCount = int::Parse(defectDataGrid->Rows[i]->Cells[3]->Value->ToString());
-				tempParameters.largestPointCount = int::Parse(defectDataGrid->Rows[i]->Cells[4]->Value->ToString());
+				tempParameters.totalDefectPerimeter = int::Parse(defectDataGrid->Rows[i]->Cells[3]->Value->ToString());
+				tempParameters.largestDefectPerimeter = int::Parse(defectDataGrid->Rows[i]->Cells[4]->Value->ToString());
 				savedSettings.listOfDefects.push_back(tempParameters);
 			}
 
@@ -81,8 +81,8 @@ namespace GlassVisionSystemV105 {
 			dgvDefects->Rows[i]->Cells[0]->Value = var.defectCount;
 			dgvDefects->Rows[i]->Cells[1]->Value = var.totalDefectArea;
 			dgvDefects->Rows[i]->Cells[2]->Value = var.largestDefectArea;
-			dgvDefects->Rows[i]->Cells[3]->Value = var.totalPointsCount;
-			dgvDefects->Rows[i]->Cells[4]->Value = var.largestPointCount;
+			dgvDefects->Rows[i]->Cells[3]->Value = var.totalDefectPerimeter;
+			dgvDefects->Rows[i]->Cells[4]->Value = var.largestDefectPerimeter;
 			i++;
 		}
 		//gets mainform 

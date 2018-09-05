@@ -180,10 +180,10 @@ ProductSettings LoadProductSettings(string filename) {
 		result.listOfDefects[a].largestDefectArea = atof(line.c_str());
 
 		getline(myfile, line);
-		result.listOfDefects[a].totalPointsCount = atoi(line.c_str());
+		result.listOfDefects[a].totalDefectPerimeter = atoi(line.c_str());
 
 		getline(myfile, line);
-		result.listOfDefects[a].largestPointCount = atoi(line.c_str());
+		result.listOfDefects[a].largestDefectPerimeter = atoi(line.c_str());
 
 		a++;
 	}
@@ -302,8 +302,8 @@ void SaveProductSettings(ProductSettings settings, std::string folderLocation) {
 		myfile << settings.listOfDefects[i].defectCount << std::endl;
 		myfile << settings.listOfDefects[i].totalDefectArea << std::endl;
 		myfile << settings.listOfDefects[i].largestDefectArea << std::endl;
-		myfile << settings.listOfDefects[i].totalPointsCount << std::endl;
-		myfile << settings.listOfDefects[i].largestPointCount;
+		myfile << settings.listOfDefects[i].totalDefectPerimeter << std::endl;
+		myfile << settings.listOfDefects[i].largestDefectPerimeter;
 		if (i != settings.listOfDefects.size() - 1) {
 			myfile << std::endl;
 		}
