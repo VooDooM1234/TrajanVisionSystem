@@ -160,12 +160,13 @@ void Imageanalysis::ChuteDetermination() {
 		priority++;
 		double lower = 0;
 		double upper = 0;
+		bool withinRange = true;
 		//set initial upper and lower limits for the ID
 		lower = (currentProductSettings.targetID * (1 - (var.IDTolerance / 100))) / currentImageSettings.PixToMMRatio;
 		upper = (currentProductSettings.targetID * (1 + (var.IDTolerance / 100))) / currentImageSettings.PixToMMRatio;
 
 		if (var.IDGood && IMGInfo.ID - IMGInfo.IDVariance > lower && IMGInfo.ID + IMGInfo.IDVariance < upper) {
-				goto ODSETUP;
+			goto ODSETUP;
 		}
 		else if (var.IDLower && IMGInfo.ID - IMGInfo.IDVariance <= lower) {
 			goto CHUTEDETERMINATION;
@@ -186,20 +187,51 @@ void Imageanalysis::ChuteDetermination() {
 		upper = (currentProductSettings.targetOD * (1 + (var.ODTolerance / 100))) / currentImageSettings.PixToMMRatio;
 
 		if (var.ODGood && IMGInfo.OD - IMGInfo.ODVariance > lower && IMGInfo.OD + IMGInfo.ODVariance < upper) {
-				goto CHUTEDETERMINATION;
+			goto DEFECTSETUP;
 		}
 		else if (var.ODLower && IMGInfo.OD - IMGInfo.ODVariance <= lower) {
-				goto CHUTEDETERMINATION;
+			goto CHUTEDETERMINATION;
 		}
 		else if (var.ODHigher && IMGInfo.OD + IMGInfo.ODVariance >= upper) {
-				goto CHUTEDETERMINATION;
+			goto CHUTEDETERMINATION;
 		}
 		else if (!var.ODGood && !var.ODLower && !var.ODHigher) {
+			goto DEFECTSETUP;
+		}
+		else {
+			continue;
+		}
+
+	DEFECTSETUP:
+		//sets withinRange=false if every property of a single defect exceeds that of a baseline defect entry
+		for each (DefectParameters defects in currentProductSettings.listOfDefects) {
+			if (IMGInfo.IMGDefects.defectCount < defects.defectCount)
+				continue;
+			if (IMGInfo.IMGDefects.largestDefectArea < defects.largestDefectArea)
+				continue;
+			if (IMGInfo.IMGDefects.totalDefectArea < defects.totalDefectArea)
+				continue;
+			if (IMGInfo.IMGDefects.largestDefectPerimeter < defects.largestDefectPerimeter)
+				continue;
+			if (IMGInfo.IMGDefects.totalDefectPerimeter < defects.totalDefectPerimeter)
+				continue;
+			withinRange = false;
+			break;
+		}
+		
+		if (var.noDefects && IMGInfo.IMGDefects.defectCount == 0) {
+			goto CHUTEDETERMINATION;
+		}
+		else if (var.defectsWithinRange && withinRange) {
+			goto CHUTEDETERMINATION;
+		}
+		else if (var.defectsOutOfRange && !withinRange) {
 			goto CHUTEDETERMINATION;
 		}
 		else {
 			continue;
 		}
+
 		CHUTEDETERMINATION:
 		IMGInfo.chutePriority = priority;
 		IMGInfo.chute = var.chutetype;
@@ -295,19 +327,19 @@ void Imageanalysis::CustomIDODDetection() {
 		//	//cerr << "circle " << to_string(i + 1) << ": ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
 		//	cout << "ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
 		//}
-		for (int j = 0; j < int(concCircles[i].group.size()); j++)
-		{
-			//Draws over the manipulated image yellow circles for where it found the ID/OD
-			polylines(IMGInfo.manipulated, concCircles[i].group[j].contour, true, cv::Scalar(0, 255, 255), 1, 8, 0);
-		}
+		//for (int j = 0; j < int(concCircles[i].group.size()); j++)
+		//{
+		//	//Draws over the manipulated image yellow circles for where it found the ID/OD
+		//	polylines(IMGInfo.manipulated, concCircles[i].group[j].contour, true, cv::Scalar(0, 255, 255), 1, 8, 0);
+		//}
 		if (i == 0) {
 			IMGInfo.ID = ID;
 			IMGInfo.OD = OD;
 			IMGInfo.IDVariance = tolleranceID;
 			IMGInfo.ODVariance = tolleranceOD;
 			IMGInfo.multiConcentricCircleDetected = false;
-			cv::circle(IMGInfo.manipulated, concCircles[0].IDCenter, ID / 2, cv::Scalar(255,255,255), 1, 8, 0);
-			cv::circle(IMGInfo.manipulated, concCircles[0].ODCenter, OD / 2, cv::Scalar(255, 255, 255), 1, 8, 0);
+			cv::circle(IMGInfo.manipulated, concCircles[0].IDCenter, ID / 2, cv::Scalar(0,255,255), 1, 8, 0);
+			cv::circle(IMGInfo.manipulated, concCircles[0].ODCenter, OD / 2, cv::Scalar(0, 255, 255), 1, 8, 0);
 
 		}
 		else
@@ -344,8 +376,7 @@ void Imageanalysis::CustomIDODDetection() {
 vector<vector<cv::Point>> Imageanalysis::DefectCheck(vector<ConcCircles> concCircles, vector<vector<cv::Point>> defects) {
 	vector<vector<cv::Point>> result(0);
 
-	for (int i = 0; i < int(concCircles.size()); i++)
-	{
+	for (int i = 0; i < int(concCircles.size()); i++) {
 		for (int j = 0; j < int(defects.size()); j++) {
 			for (int k = 0; k < int(defects[j].size()); k++) {
 				if (pointInEllipse(defects[j][k], concCircles[i].ODrect) == true) {
@@ -448,7 +479,7 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 	for (int i = 0; i < int(concentricCircles.size()); i++) {
 		double ID = (float)999999999;
 		double OD = 0;
-		//finds the largest OD and smallest ID (WOULDN'T AN AVERAGE OF THE ID's  OD's GIVE US THE MOST ACCURATE RESULT?)
+		//finds the largest OD and smallest ID
 		for (int j = 0; j < int(concentricCircles[i].group.size()); j++) {
 			if (ID > (concentricCircles[i].group[j].radius * 2)) {
 				ID = (concentricCircles[i].group[j].radius * 2);

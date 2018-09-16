@@ -56,11 +56,6 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::GroupBox^  groupBox2;
 	public: System::Windows::Forms::DataGridView^  dgvDefects;
 
-
-
-
-
-
 	private: System::Windows::Forms::Button^  btnAutoPopulate;
 	private: System::Windows::Forms::Button^  btnLoad;
 	private: System::Windows::Forms::Label^  label5;

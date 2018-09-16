@@ -12,6 +12,5 @@ void Main(array<String^>^ args) {
 	Application::SetCompatibleTextRenderingDefault(false);
 	GlassVisionSystemV105::MyForm form;
 	Application::Run(%form);
-
 }
 

@@ -767,3 +767,73 @@
 118,8,6,1,33,35,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
 118,8,6,1,33,44,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
 118,8,6,1,33,55,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,11,44,47,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,11,44,47,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,11,45,13,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,11,46,24,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,11,46,37,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,11,46,48,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,12,18,1,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,12,18,1,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,12,18,21,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,12,31,53,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,12,31,53,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,12,48,23,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,12,48,23,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,12,49,37,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,12,49,37,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,12,52,27,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,12,52,27,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,12,53,29,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,12,59,49,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,12,59,49,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,13,1,29,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,13,1,37,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,13,1,56,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,13,3,14,4;Owner;Owner Attempting to Save PartNumber: 987654321;Part Number already Exists, Owner Decided to override existing settings
+118,8,6,13,3,14,4;Owner;Owner Attempting to Save PartNumber: 987654321;Backing up Previous recipe '987654321', backup file location: RecipeBackup/987654321---Thu_Sep__6_13-03-14_2018.txt
+118,8,6,13,3,24,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,13,6,37,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,13,6,48,4;Owner;Owner Attempting to Save PartNumber: 987654321;Part Number already Exists, Owner Decided to override existing settings
+118,8,6,13,6,48,4;Owner;Owner Attempting to Save PartNumber: 987654321;Backing up Previous recipe '987654321', backup file location: RecipeBackup/987654321---Thu_Sep__6_13-06-48_2018.txt
+118,8,6,13,7,11,4;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,13,7,37,4;Owner;Owner Attempting to Save PartNumber: 987654321;Part Number already Exists, Owner Decided to override existing settings
+118,8,6,13,7,37,4;Owner;Owner Attempting to Save PartNumber: 987654321;Backing up Previous recipe '987654321', backup file location: RecipeBackup/987654321---Thu_Sep__6_13-07-37_2018.txt
+118,8,6,20,5,29,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,20,5,29,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,20,5,40,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,20,6,58,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,20,8,11,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,20,9,2,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,20,10,25,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,6,20,16,50,4;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,6,20,16,50,4;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,6,20,17,3,4;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,16,22,6,26,0;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,16,22,6,26,0;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,16,22,8,16,0;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,16,22,9,53,0;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,16,22,13,47,0;Owner;Owner Attempting to Save PartNumber: Test;No existing Part Number Found, A New Recipe has been created, Saving to: ProductSettings/Test.txt
+118,8,16,22,14,6,0;Owner;Owner Attempting to Save PartNumber: Test;Part Number already Exists, Owner Decided to override existing settings
+118,8,16,22,14,6,0;Owner;Owner Attempting to Save PartNumber: Test;Backing up Previous recipe 'Test', backup file location: RecipeBackup/Test---Sun_Sep_16_22-14-06_2018.txt
+118,8,16,22,15,15,0;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,28,26,1;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,17,1,28,26,1;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,17,1,28,34,1;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,29,15,1;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,31,6,1;Owner;Owner Attempting to Save PartNumber: Test;Part Number already Exists, Owner Decided to override existing settings
+118,8,17,1,31,6,1;Owner;Owner Attempting to Save PartNumber: Test;Backing up Previous recipe 'Test', backup file location: RecipeBackup/Test---Mon_Sep_17_01-31-06_2018.txt
+118,8,17,1,31,34,1;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,34,45,1;Owner;System Launched by Owner;Failed Loading CamB: Failed to open device '\\?\usb#vid_2676&pid_ba02&mi_00#6&3a62cfe4&0&0000#{79bfeeca-947f-11e1-bc58-001b2163ef96}' for XML file download. Error: 'Device is exclusively opened by another client.'
+118,8,17,1,34,45,1;Owner;System Launched by Owner;Opening Camera: CamB On Port Number: '1'  using OpenCV Method Failed
+118,8,17,1,34,51,1;Owner;Owner Attempted to access Camera Settings Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,35,5,1;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,35,43,1;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,35,57,1;Owner;Owner Attempting to Save PartNumber: Test;Part Number already Exists, Owner Decided to override existing settings
+118,8,17,1,35,57,1;Owner;Owner Attempting to Save PartNumber: Test;Backing up Previous recipe 'Test', backup file location: RecipeBackup/Test---Mon_Sep_17_01-35-57_2018.txt
+118,8,17,1,36,16,1;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,36,25,1;Owner;Owner Attempting to Save PartNumber: Test;Part Number already Exists, Owner Decided to override existing settings
+118,8,17,1,36,25,1;Owner;Owner Attempting to Save PartNumber: Test;Backing up Previous recipe 'Test', backup file location: RecipeBackup/Test---Mon_Sep_17_01-36-25_2018.txt
+118,8,17,1,36,37,1;Owner;Owner Attempted to access recipe creation/Modification Interface;Correct Password Was Entered on attempt #1, Proceeding to display UI for Owner
+118,8,17,1,37,5,1;Owner;Owner Attempting to Save PartNumber: Test;Part Number already Exists, Owner Decided to override existing settings
+118,8,17,1,37,5,1;Owner;Owner Attempting to Save PartNumber: Test;Backing up Previous recipe 'Test', backup file location: RecipeBackup/Test---Mon_Sep_17_01-37-05_2018.txt
