@@ -41,7 +41,8 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::GroupBox^  groupBox8;
 	private: System::Windows::Forms::RadioButton^  rbCamModeManipulated;
 	private: System::Windows::Forms::RadioButton^  rbCamModeCanny;
-	private: System::Windows::Forms::RadioButton^  rbCamModeBW;
+	private: System::Windows::Forms::RadioButton^  rbCamModeTH;
+
 	private: System::Windows::Forms::RadioButton^  rbCamModeOriginal;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::RadioButton^  rbCamAll;
@@ -153,7 +154,7 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 			this->groupBox8 = (gcnew System::Windows::Forms::GroupBox());
 			this->rbCamModeManipulated = (gcnew System::Windows::Forms::RadioButton());
 			this->rbCamModeCanny = (gcnew System::Windows::Forms::RadioButton());
-			this->rbCamModeBW = (gcnew System::Windows::Forms::RadioButton());
+			this->rbCamModeTH = (gcnew System::Windows::Forms::RadioButton());
 			this->rbCamModeOriginal = (gcnew System::Windows::Forms::RadioButton());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->rbCamAll = (gcnew System::Windows::Forms::RadioButton());
@@ -211,7 +212,7 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 			// 
 			this->groupBox8->Controls->Add(this->rbCamModeManipulated);
 			this->groupBox8->Controls->Add(this->rbCamModeCanny);
-			this->groupBox8->Controls->Add(this->rbCamModeBW);
+			this->groupBox8->Controls->Add(this->rbCamModeTH);
 			this->groupBox8->Controls->Add(this->rbCamModeOriginal);
 			this->groupBox8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -228,7 +229,7 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 			this->rbCamModeManipulated->Checked = true;
 			this->rbCamModeManipulated->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->rbCamModeManipulated->Location = System::Drawing::Point(92, 38);
+			this->rbCamModeManipulated->Location = System::Drawing::Point(98, 38);
 			this->rbCamModeManipulated->Name = L"rbCamModeManipulated";
 			this->rbCamModeManipulated->Size = System::Drawing::Size(100, 20);
 			this->rbCamModeManipulated->TabIndex = 0;
@@ -241,7 +242,7 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 			this->rbCamModeCanny->AutoSize = true;
 			this->rbCamModeCanny->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->rbCamModeCanny->Location = System::Drawing::Point(92, 15);
+			this->rbCamModeCanny->Location = System::Drawing::Point(98, 15);
 			this->rbCamModeCanny->Name = L"rbCamModeCanny";
 			this->rbCamModeCanny->Size = System::Drawing::Size(64, 20);
 			this->rbCamModeCanny->TabIndex = 0;
@@ -249,17 +250,17 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 			this->rbCamModeCanny->UseVisualStyleBackColor = true;
 			this->rbCamModeCanny->CheckedChanged += gcnew System::EventHandler(this, &CameraForm::rbCamModeCanny_CheckedChanged);
 			// 
-			// rbCamModeBW
+			// rbCamModeTH
 			// 
-			this->rbCamModeBW->AutoSize = true;
-			this->rbCamModeBW->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->rbCamModeTH->AutoSize = true;
+			this->rbCamModeTH->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->rbCamModeBW->Location = System::Drawing::Point(14, 38);
-			this->rbCamModeBW->Name = L"rbCamModeBW";
-			this->rbCamModeBW->Size = System::Drawing::Size(57, 20);
-			this->rbCamModeBW->TabIndex = 0;
-			this->rbCamModeBW->Text = L"B&&W";
-			this->rbCamModeBW->UseVisualStyleBackColor = true;
+			this->rbCamModeTH->Location = System::Drawing::Point(14, 38);
+			this->rbCamModeTH->Name = L"rbCamModeTH";
+			this->rbCamModeTH->Size = System::Drawing::Size(87, 20);
+			this->rbCamModeTH->TabIndex = 0;
+			this->rbCamModeTH->Text = L"Threshold";
+			this->rbCamModeTH->UseVisualStyleBackColor = true;
 			// 
 			// rbCamModeOriginal
 			// 
@@ -850,8 +851,8 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 			//DisplayImage = CamInfo.canny;
 			cv::cvtColor(CamInfo.canny, DisplayImage, CV_GRAY2RGB);
 		}
-		else if (rbCamModeBW->Checked == true) {
-			cv::cvtColor(CamInfo.grayscale, DisplayImage, CV_GRAY2RGB);
+		else if (rbCamModeTH->Checked == true) {
+			cv::cvtColor(CamInfo.binaryThreshold, DisplayImage, CV_GRAY2RGB);
 		}
 		else {
 			DisplayImage = CamInfo.original;

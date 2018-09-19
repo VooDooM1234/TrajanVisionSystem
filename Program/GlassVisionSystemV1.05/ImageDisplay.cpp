@@ -135,15 +135,6 @@ void Imageanalysis::ProcessPylonImage() {
 	if (PtrGrabResult->GrabSucceeded()) {
 		PylonToCVFormatConverter.Convert(PylonImage, PtrGrabResult);
 		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer()).clone();
-		/*memcpy(IMGInfo.original.ptr(), PylonImage.GetBuffer(), camWidth*camHeight);*/
-		// edit: cvImage stores it's rows aligned on a 4byte boundary
-		// so if the source data isn't aligned you will have to do
-		/*uint8_t *pImageBuffer = (uint8_t *)PylonImage.GetBuffer();
-		for (int i = 0; i < camHeight; i++) {
-			for (int j = 0; j < camWidth; j++) {
-				IMGInfo.original.at<uchar>(i, j) = (uint32_t)pImageBuffer[i*camWidth + j];
-			}
-		}*/
 	}
 }
 
@@ -243,21 +234,29 @@ void Imageanalysis::ImagePreProcessing() {
 	//converts the colored image to grayscale (0-255 single color image)
 	cv::cvtColor(IMGInfo.original, IMGInfo.grayscale, CV_BGR2GRAY);
 
-	//cv::imshow("before blur", IMGInfo.grayscale);
-	//cv::resizeWindow("before blur", cv::Size(camWidth * 0.55, camHeight * 0.55));
-
 	cv::blur(IMGInfo.grayscale, IMGInfo.blurred, cv::Size(currentImageSettings.blurMapSize, currentImageSettings.blurMapSize));
 
-	cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize /*5*/, 50, 50);
+	//cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize, 50, 50);
 	
-	cv::threshold(IMGInfo.bilatFiltered, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
-	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
+	//cv::threshold(IMGInfo.bilatFiltered, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
+	//cv::inRange(IMGInfo.blurred, cv::Scalar(currentImageSettings.CannyThresholdA), cv::Scalar(currentImageSettings.upperThreshold), IMGInfo.binaryThreshold);
+	cv::threshold(IMGInfo.blurred, IMGInfo.tozero, currentImageSettings.CannyThresholdA, 255, cv::THRESH_TOZERO);
+	cv::threshold(IMGInfo.tozero, IMGInfo.tozeroinv, currentImageSettings.upperThreshold, 255, cv::THRESH_TOZERO_INV);
+	cv::normalize(IMGInfo.tozeroinv, IMGInfo.normalized, 0, 255, cv::NORM_MINMAX);
+	cv::inRange(IMGInfo.normalized, cv::Scalar(currentImageSettings.CannyThresholdA), cv::Scalar(currentImageSettings.upperThreshold), IMGInfo.binaryThreshold);
+
+	cv::imshow("tozero", IMGInfo.tozero);
+	cv::imshow("tozeroinv", IMGInfo.tozeroinv);
+	cv::imshow("normalized", IMGInfo.normalized);
 	
-	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 3, 3);
+	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 2, 3);
 	
 	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(currentImageSettings.dilation, currentImageSettings.dilation), cv::Point(-1, -1));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
 	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
+
+	//cv::imshow("before blur", IMGInfo.grayscale);
+	//cv::resizeWindow("before blur", cv::Size(camWidth * 0.55, camHeight * 0.55));
 }
 
 void Imageanalysis::CustomIDODDetection() {
@@ -266,9 +265,6 @@ void Imageanalysis::CustomIDODDetection() {
 	vector<cv::Vec4i> hierarchy;
 	
 	cv::findContours(IMGInfo.canny, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
-	
-	// Draw contours (IS THIS ACTUALLY DOING ANYTHING???)
-	//cv::Mat drawing = cv::Mat::zeros(IMGInfo.canny.size(), CV_8UC3);
 
 	vector<contourInfo> Circles(0);
 	contourInfo continfo;

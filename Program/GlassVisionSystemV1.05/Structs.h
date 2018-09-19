@@ -77,6 +77,7 @@ typedef struct {
 	//debugging testing variables
 	int blurMapSize = 12;
 	int dilation = 5;
+	int upperThreshold = 200;
 }ImageSettings;
 
 extern ImageSettings currentImageSettings; //loaded values to specify current camera settings for image anaysis
@@ -140,7 +141,7 @@ extern std::vector<BatchInfo> batchHistory;
 typedef struct {
 	cv::VideoCapture ImageCapture;
 
-	cv::Mat original, grayscale, bilatFiltered, blurred, canny, binaryThreshold, manipulated;
+	cv::Mat original, grayscale, bilatFiltered, blurred, canny, binaryThreshold, normalized, tozero, tozeroinv, manipulated;
 	double ID, OD, IDVariance, ODVariance;
 	//std::vector<std::vector<cv::Point>> defects;
 	Chute chute = Tuscos;
