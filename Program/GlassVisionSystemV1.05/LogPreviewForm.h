@@ -41,6 +41,11 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::RichTextBox^  tbxDisplay;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::ComboBox^  cbxTimeSelection;
+	private: System::Windows::Forms::Button^  BtnPrint;
+	private: System::Windows::Forms::PrintDialog^  printDialog1;
+	private: System::Drawing::Printing::PrintDocument^  printDocument1;
+	private: System::Windows::Forms::PrintPreviewDialog^  printPreviewDialog1;
+
 	protected:
 
 
@@ -57,16 +62,22 @@ namespace GlassVisionSystemV105 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(LogPreviewForm::typeid));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->BtnPrint = (gcnew System::Windows::Forms::Button());
 			this->cbxTimeSelection = (gcnew System::Windows::Forms::ComboBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->tbxDisplay = (gcnew System::Windows::Forms::RichTextBox());
+			this->printDialog1 = (gcnew System::Windows::Forms::PrintDialog());
+			this->printDocument1 = (gcnew System::Drawing::Printing::PrintDocument());
+			this->printPreviewDialog1 = (gcnew System::Windows::Forms::PrintPreviewDialog());
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->panel1->Controls->Add(this->BtnPrint);
 			this->panel1->Controls->Add(this->cbxTimeSelection);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Controls->Add(this->tbxDisplay);
@@ -75,6 +86,16 @@ namespace GlassVisionSystemV105 {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(650, 500);
 			this->panel1->TabIndex = 0;
+			// 
+			// BtnPrint
+			// 
+			this->BtnPrint->Location = System::Drawing::Point(468, 38);
+			this->BtnPrint->Name = L"BtnPrint";
+			this->BtnPrint->Size = System::Drawing::Size(75, 23);
+			this->BtnPrint->TabIndex = 3;
+			this->BtnPrint->Text = L"Print";
+			this->BtnPrint->UseVisualStyleBackColor = true;
+			this->BtnPrint->Click += gcnew System::EventHandler(this, &LogPreviewForm::BtnPrint_Click);
 			// 
 			// cbxTimeSelection
 			// 
@@ -101,12 +122,33 @@ namespace GlassVisionSystemV105 {
 			// 
 			// tbxDisplay
 			// 
-			this->tbxDisplay->Location = System::Drawing::Point(3, 88);
+			this->tbxDisplay->Location = System::Drawing::Point(3, 81);
 			this->tbxDisplay->Name = L"tbxDisplay";
 			this->tbxDisplay->ReadOnly = true;
 			this->tbxDisplay->Size = System::Drawing::Size(640, 405);
 			this->tbxDisplay->TabIndex = 0;
 			this->tbxDisplay->Text = L"";
+			// 
+			// printDialog1
+			// 
+			this->printDialog1->AllowSelection = true;
+			this->printDialog1->Document = this->printDocument1;
+			this->printDialog1->UseEXDialog = true;
+			// 
+			// printDocument1
+			// 
+			this->printDocument1->PrintPage += gcnew System::Drawing::Printing::PrintPageEventHandler(this, &LogPreviewForm::printDocument1_PrintPage);
+			// 
+			// printPreviewDialog1
+			// 
+			this->printPreviewDialog1->AutoScrollMargin = System::Drawing::Size(0, 0);
+			this->printPreviewDialog1->AutoScrollMinSize = System::Drawing::Size(0, 0);
+			this->printPreviewDialog1->ClientSize = System::Drawing::Size(400, 300);
+			this->printPreviewDialog1->Document = this->printDocument1;
+			this->printPreviewDialog1->Enabled = true;
+			this->printPreviewDialog1->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"printPreviewDialog1.Icon")));
+			this->printPreviewDialog1->Name = L"printPreviewDialog1";
+			this->printPreviewDialog1->Visible = false;
 			// 
 			// LogPreviewForm
 			// 
@@ -136,8 +178,8 @@ namespace GlassVisionSystemV105 {
 		//clear display text
 		tbxDisplay->Clear();
 
-		tm* lastTime;
-		String^ timeString;
+		tm* lastTime = new tm();
+		String^ timeString = "";
 
 		tbxDisplay->SelectionAlignment = HorizontalAlignment::Center;
 		String ^date = gcnew String(info[0].displayString.c_str());
@@ -188,7 +230,7 @@ namespace GlassVisionSystemV105 {
 				tbxDisplay->SelectedText = "-------------------------------------\n";
 				tbxDisplay->SelectedText = "--Chute D Selection Information: \n" + msclr::interop::marshal_as<String^>(var.ChuteInformationD) + "\n";
 			}
-			
+
 
 		}
 	}
@@ -197,7 +239,7 @@ namespace GlassVisionSystemV105 {
 		//clear display text
 		tbxDisplay->Clear();
 
-		tm* lastTime;
+		tm* lastTime = new tm();
 		std::string lastUser = "";
 		String^ timeString;
 
@@ -275,5 +317,16 @@ namespace GlassVisionSystemV105 {
 
 		}
 	}
-	};
+	private: System::Void BtnPrint_Click(System::Object^  sender, System::EventArgs^  e) {
+		//printDialog1->
+		printDialog1->ShowDialog();
+		printPreviewDialog1->ShowDialog();
+	}
+
+	
+
+	private: System::Void printDocument1_PrintPage(System::Object^  sender, System::Drawing::Printing::PrintPageEventArgs^  e) {
+		e->Graphics->DrawString(tbxDisplay->Text, tbxDisplay->Font, Brushes::Black, (float)10, (float)20);
+	}
+};
 }

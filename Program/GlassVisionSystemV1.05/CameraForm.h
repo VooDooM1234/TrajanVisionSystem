@@ -861,13 +861,10 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 		bitmap = ConvertMatToBitmap(DisplayImage);
 		System::Drawing::RectangleF rect((float)0, (float)0, (float)PicBox->Width, (float)PicBox->Height);
 		System::Drawing::Graphics^ graphics = PicBox->CreateGraphics();
-		//cv::imshow("Original", CamInfo.original);
 		if (bitmap == nullptr || (!CamInfo.ImageCapture.isOpened() && !CamInfo.camera->IsOpen())) {
-			//pictureBox1->Text = "test";
-			//System::String message = new System::String( "error";
+		
 			graphics->Clear(System::Drawing::Color::Gray);
 			graphics->DrawString("Camera Is Not Connected!", gcnew System::Drawing::Font("Arial", 24, FontStyle::Bold), SystemBrushes::WindowText, rect/*new Point(100, 250)*/);
-			//graphics->DrawString(;
 		}
 		else
 		{
@@ -878,8 +875,7 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 
 
 	private: Void ImageShow() {
-		//System::Drawing::Bitmap^ bitmap;
-		//System::Drawing::Graphics^ graphic = pictureBox1->CreateGraphics();
+		
 		try {
 			if (rbCamA->Checked == true) {
 				DrawImage(CameraA.IMGInfo, pictureBox1);
@@ -904,8 +900,7 @@ private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 		try {
 			if (CameraA.IMGInfo.ImageCapture.isOpened() || CameraA.IMGInfo.camera->IsOpen()) {
-				//CameraA.ProcessImage();
-				//Images = processing.IMGmain();
+			
 				if (CameraA.IMGInfo.multiConcentricCircleDetected) {
 					LBLIDCamA->Text = "ERROR";
 					LBLODCamA->Text = "ERROR";

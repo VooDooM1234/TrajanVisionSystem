@@ -39,14 +39,18 @@ namespace GlassVisionSystemV105 {
 		if (rbLogs->Checked == true) {
 			std::vector<LogInfo> DisplayLogs;
 			try {
-				DisplayLogs = GetLogs();
-				//gets the main form
-				Form ^ mainform = this->Parent->FindForm();
+				if (lstItems->SelectedItem != nullptr) {
 
-				LogPreviewForm^ LPForm;
-				LPForm = ((MyForm^)mainform)->LPForm;
-				LPForm->clearTimeFilter();
-				LPForm->UpdateLogDisplay(DisplayLogs);
+					DisplayLogs = GetLogs();
+					//gets the main form
+					Form ^ mainform = this->Parent->FindForm();
+
+					//gets the log preview form
+					LogPreviewForm^ LPForm;
+					LPForm = ((MyForm^)mainform)->LPForm;
+					LPForm->clearTimeFilter();
+					LPForm->UpdateLogDisplay(DisplayLogs);
+				}
 			}
 			catch (...) {
 
@@ -55,14 +59,17 @@ namespace GlassVisionSystemV105 {
 		else {
 			std::vector<BatchInfo> batches;
 			try {
-				batches = GetBatches();
-				//gets the main form
-				Form ^ mainform = this->Parent->FindForm();
+				if (lstItems->SelectedItem != nullptr) {
+					batches = GetBatches();
+					//gets the main form
+					Form ^ mainform = this->Parent->FindForm();
 
-				LogPreviewForm^ LPForm;
-				LPForm = ((MyForm^)mainform)->LPForm;
-				LPForm->clearTimeFilter();
-				LPForm->UpdateBatchDisplay(batches);
+					//gets the log preview form
+					LogPreviewForm^ LPForm;
+					LPForm = ((MyForm^)mainform)->LPForm;
+					LPForm->clearTimeFilter();
+					LPForm->UpdateBatchDisplay(batches);
+				}
 			}
 			catch (...) {
 

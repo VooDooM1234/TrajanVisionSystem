@@ -611,31 +611,6 @@ namespace GlassVisionSystemV105 {
 					this->toolTip1->SetToolTip((Control^)var, "");
 				}
 			}
-			/*this->toolTip1->SetToolTip(this->gbTuscos, "");
-			this->toolTip1->SetToolTip(this->gbA, "");
-			this->toolTip1->SetToolTip(this->gbB, "");
-			this->toolTip1->SetToolTip(this->gbC, "");
-			this->toolTip1->SetToolTip(this->gbD, "");
-			for each (Object^ var in gbTuscos->Controls)
-			{
-				this->toolTip1->SetToolTip((Control^)var, "");
-			}
-			for each (Object^ var in gbA->Controls)
-			{
-				this->toolTip1->SetToolTip((Control^)var, "");
-			}
-			for each (Object^ var in gbB->Controls)
-			{
-				this->toolTip1->SetToolTip((Control^)var, "");
-			}
-			for each (Object^ var in gbC->Controls)
-			{
-				this->toolTip1->SetToolTip((Control^)var, "");
-			}
-			for each (Object^ var in gbD->Controls)
-			{
-				this->toolTip1->SetToolTip((Control^)var, "");
-			}*/
 		}
 		void updateToolTips() {
 			List<String^> ToolTips;
@@ -758,13 +733,6 @@ namespace GlassVisionSystemV105 {
 			lblDescription->Text = gcnew String(currentProductSettings.Description.c_str());
 			lblID->Text = currentProductSettings.targetID.ToString();
 			lblOD->Text = currentProductSettings.targetOD.ToString();
-
-			//updateToolTips();
-			//String^ tuscosToolTip = gcnew String("Chute Settings Info:" + Environment::NewLine);
-			//tuscosToolTip += gcnew String(currentProductSettings..c_str());
-			//this->toolTip1->SetToolTip(this->groupBox1, tuscosToolTip);
-
-
 		}
 
 	private: System::Void tmrtooltip_Tick(System::Object^  sender, System::EventArgs^  e) {
@@ -835,7 +803,8 @@ namespace GlassVisionSystemV105 {
 
 		//record time of saving
 		time_t _tm = time(NULL);
-		result.date = localtime(&_tm);
+		localtime_s(result.date, &_tm);
+		//result.date = localtime(&_tm);
 
 		//record product info
 		result.PartNumber = sysStringtoStd(lblPN->Text);
@@ -903,7 +872,7 @@ namespace GlassVisionSystemV105 {
 
 		float failureRate = 0;
 		try {
-			failureRate = (Convert::ToInt32(lblTotal->Text) / Convert::ToInt32(lblNumDefects->Text));
+			failureRate = (float)((Convert::ToInt32(lblTotal->Text) / Convert::ToInt32(lblNumDefects->Text)));
 		}
 		catch (...) {
 			failureRate = 0;

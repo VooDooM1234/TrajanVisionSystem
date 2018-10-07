@@ -63,7 +63,7 @@ namespace GlassVisionSystemV105 {
 
 	private: System::Windows::Forms::ListBox^  lstItems;
 
-	private: System::Windows::Forms::Button^  button1;
+
 	private: System::Windows::Forms::CheckBox^  cbxMonthFilter;
 	protected:
 
@@ -81,7 +81,6 @@ namespace GlassVisionSystemV105 {
 		void InitializeComponent(void)
 		{
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->lstItems = (gcnew System::Windows::Forms::ListBox());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->cbxMonthFilter = (gcnew System::Windows::Forms::CheckBox());
@@ -98,7 +97,6 @@ namespace GlassVisionSystemV105 {
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			this->panel1->Controls->Add(this->button1);
 			this->panel1->Controls->Add(this->lstItems);
 			this->panel1->Controls->Add(this->groupBox2);
 			this->panel1->Controls->Add(this->groupBox1);
@@ -108,15 +106,6 @@ namespace GlassVisionSystemV105 {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(420, 500);
 			this->panel1->TabIndex = 0;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(331, 115);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 7;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// lstItems
 			// 
@@ -251,23 +240,12 @@ namespace GlassVisionSystemV105 {
 		if (rbLogs->Checked == true) {
 			for (int i = 0; i < logList.size(); i++)
 			{
-				//DateTime^ dtDate;
-				//if ((logList[i].date->tm_year + 1900 == dateTimePicker1->Value.Year && logList[i].date->tm_mon + 1 == dateTimePicker1->Value.Month)
-				//	|| cbxMonthFilter->Checked == false) {
-				//	dtDate = gcnew DateTime(logList[i].date->tm_year + 1900, logList[i].date->tm_mon + 1, logList[i].date->tm_mday);
-				//	String^ s = dtDate->ToString("dddd - dd, MMMM, yyyy");
-				//	logList[i].displayString = sysStringtoStd(s);
-				//	//if preview list does not contain the date already, add a new date
-				//	if (!lstItems->Items->Contains(s))
-				//		lstItems->Items->Add(s);
-				//}
 				AddItem(logList[i].date, logList[i].displayString);
 			}
 		}
 		else {
 			for (int i = 0; i < batchHistory.size(); i++) {
 				AddItem(batchHistory[i].date, batchHistory[i].displayString);
-
 			}
 		}
 	}

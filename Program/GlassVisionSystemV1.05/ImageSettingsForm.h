@@ -638,7 +638,7 @@ namespace GlassVisionSystemV105 {
 			PCT = currentImageSettings.CircleTolerance;
 			ExpTime = currentImageSettings.ExposureTime/1000;
 			MeasPixel = currentImageSettings.MeasuredPixels;
-			DesOD = currentImageSettings.DesiredOD;
+			DesOD = (int)currentImageSettings.DesiredOD;
 			updateDisplayNumbers();
 		}
 
@@ -656,7 +656,8 @@ namespace GlassVisionSystemV105 {
 		SaveImageSettings(tempSettings, "CurrentSettings");
 
 		time_t _tm = time(NULL);
-		struct tm * curtime = localtime(&_tm);
+		struct tm * curtime = new struct tm();// = localtime(&_tm);
+		localtime_s(curtime, &_tm);
 		std::string Currentdate = asctime(curtime);
 		Currentdate = Currentdate.substr(0, Currentdate.size() - 1);
 		SaveImageSettings(tempSettings, Currentdate);
@@ -692,7 +693,7 @@ namespace GlassVisionSystemV105 {
 			currentImageSettings.CircleTolerance = PCT;
 			currentImageSettings.ExposureTime = ExpTime * 1000;
 
-			currentImageSettings.MeasuredPixels = MeasPixel;
+			currentImageSettings.MeasuredPixels = (int)MeasPixel;
 			currentImageSettings.DesiredOD = DesOD;
 			currentImageSettings.PixToMMRatio = DesOD/ MeasPixel;
 

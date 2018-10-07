@@ -150,6 +150,7 @@ typedef struct {
 	std::string camName;
 	bool multiConcentricCircleDetected = false;
 	DefectParameters IMGDefects;
+	
 
 	CBaslerUsbInstantCamera *camera;
 }ImageInformation;

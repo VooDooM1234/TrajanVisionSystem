@@ -20,7 +20,7 @@ void LoadImageSettingsFromFile(string filename) {
 		//if it did not open successfully, create/open folder directory
 		std::string directory = workingdir();
 		directory.append("ImageSettings\\");
-		mkdir(directory.c_str());
+		_mkdir(directory.c_str());
 		myfile.open(filename);
 		if (!myfile.is_open()) {
 			//create default settings file
@@ -73,7 +73,7 @@ void SaveImageSettings(ImageSettings settings, string filename) {
 	{
 		std::string directory = workingdir();
 		directory.append(fileLocation);
-		mkdir(directory.c_str());
+		_mkdir(directory.c_str());
 		myfile.open(fileLocation);
 	}
 	myfile << settings.CannyThresholdA << std::endl;
@@ -92,7 +92,7 @@ ProductSettings LoadProductSettings(string filename) {
 	if (!myfile.is_open()) {
 		std::string directory = workingdir();
 		directory.append("ProductSettings\\");
-		mkdir(directory.c_str());
+		_mkdir(directory.c_str());
 		myfile.open(filename);
 		if (!myfile.is_open()) {
 			currentLog.result = "No File Selected/Failed Loading Settings";
@@ -205,11 +205,13 @@ void SaveProductSettings(ProductSettings settings, std::string folderLocation) {
 	std::string fileName;
 	if (folderLocation != "ProductSettings") {
 		time_t _tm = time(NULL);
-		tm* time = localtime(&_tm);
+		tm* time = new tm();
+		localtime_s(time, &_tm);
+
 		std::string currentTime = asctime(time);
 		currentTime = currentTime.substr(0, currentTime.size() - 1);
 		fileLocation = folderLocation + "/" + settings.partNumber + "---" + currentTime + ".txt";
-		fileName = settings.partNumber + "---" + asctime(time) + ".txt";
+		fileName = settings.partNumber + "---" + currentTime + ".txt";
 	}
 	else {
 		fileLocation = folderLocation + "/" + settings.partNumber + ".txt";
@@ -256,7 +258,7 @@ void SaveProductSettings(ProductSettings settings, std::string folderLocation) {
 	{
 		std::string directory = workingdir();
 		directory.append(folderLocation + "\\");
-		mkdir(directory.c_str());
+		_mkdir(directory.c_str());
 		file.close();
 		newLog.result = "Error locating folder directory, Creating Folder Location";
 		SaveLog(newLog);
@@ -354,25 +356,6 @@ std::vector<LogInfo> LoadLog() {
 		}
 		LogInfo newInfo;
 
-		//istringstream f(line);
-		//std::string s;
-		//time_t _tm = time(NULL);
-		/*tm logTime;
-
-		getline(f, s, ',');
-		logTime.tm_year = stoi(s);
-		getline(f, s, ',');
-		logTime.tm_mon = stoi(s);
-		getline(f, s, ',');
-		logTime.tm_mday = stoi(s);
-		getline(f, s, ',');
-		logTime.tm_hour = stoi(s);
-		getline(f, s, ',');
-		logTime.tm_min = stoi(s);
-		getline(f, s, ',');
-		logTime.tm_sec = stoi(s);
-		getline(f, s, ',');
-		logTime.tm_wday = stoi(s);*/
 		newInfo.date = new tm(getDateTimeFromline(line));
 
 		getline(myfile, line, ';');
@@ -408,7 +391,8 @@ void SaveLog(LogInfo log) {
 		else
 			break;
 	}
-	log.date = localtime(&_tm);
+	localtime_s(log.date, &_tm);
+	//log.date = localtime(&_tm);
 
 	std::ofstream file;
 

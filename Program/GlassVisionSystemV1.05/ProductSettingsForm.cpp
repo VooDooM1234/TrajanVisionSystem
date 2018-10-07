@@ -46,7 +46,7 @@ namespace GlassVisionSystemV105 {
 				DefectParameters tempParameters;
 				for (int j = 0; j < defectDataGrid->Rows[i]->Cells->Count; j++) {
 					if (defectDataGrid->Rows[i]->Cells[j]->Value == nullptr)
-						defectDataGrid->Rows[i]->Cells[j]->Value = 0;
+						defectDataGrid->Rows[i]->Cells[j]->Value = (Object^)0;
 				}
 				tempParameters.defectCount = Int32::Parse(defectDataGrid->Rows[i]->Cells[0]->Value->ToString());
 				tempParameters.totalDefectArea = float::Parse(defectDataGrid->Rows[i]->Cells[1]->Value->ToString());

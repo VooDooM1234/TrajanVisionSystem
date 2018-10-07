@@ -35,12 +35,10 @@ void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
 	IMGInfo.camName = camName;
 
 	if (!IMGInfo.ImageCapture.isOpened()) { //Show Error if Failed to Open
-		cerr << "Failed to open Camera A\n" << endl;
+		cerr << "Failed to open Camera " << IMGInfo.camName << endl;
 		currentLog.result = "Opening Camera: " + camName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method Failed";
 		SaveLog(currentLog);
 
-		//if attempt failed try to open via Pylon Method
-		//Imageanalysis::PylonInitialization(camNumber, camName);
 	}
 	else {
 
@@ -51,8 +49,6 @@ void Imageanalysis::OpenCVCamInitialization(int camNumber, string camName) {
 		camHeight = int(IMGInfo.ImageCapture.get(cv::CAP_PROP_FRAME_HEIGHT));
 		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_WIDTH, camWidth);
 		IMGInfo.ImageCapture.set(CV_CAP_PROP_FRAME_HEIGHT, camHeight);
-
-		//Imageanalysis::PylonInitialization(camNumber, camName);
 
 		currentLog.result = "Opening Camera: " + camName + " On Port Number: '" + std::to_string(IMGInfo.camNumber) + "'  using OpenCV Method worked Successfully";
 		SaveLog(currentLog);
@@ -85,8 +81,8 @@ void Imageanalysis::PylonInitialization(int camNumber, string camName) {
 		IMGInfo.camera->ExposureTime.SetValue(currentImageSettings.ExposureTime);
 		IMGInfo.camera->AcquisitionFrameRate.SetValue(60);
 
-		camWidth = IMGInfo.camera->Width();
-		camHeight = IMGInfo.camera->Height();
+		camWidth = (int)IMGInfo.camera->Width();
+		camHeight = (int)IMGInfo.camera->Height();
 	}
 	catch (const GenericException &e) {
 		currentLog.result = "Failed Loading " + camName + ": " + std::string(e.GetDescription());
@@ -111,7 +107,7 @@ void Imageanalysis::ProcessImage()
 	try
 	{
 		//crops and scals original image to fit form window - rect(x, y, width, height)
-		cv::Rect rect(camWidth * 0.125, camHeight * 0.125, camWidth * 0.75, camHeight * 0.75);
+		cv::Rect rect((int)(camWidth * 0.125),(int)( camHeight * 0.125),(int)(camWidth * 0.75),(int)(camHeight * 0.75));
 		IMGInfo.original = IMGInfo.original(rect).clone();
 
 		//process image data
@@ -136,15 +132,6 @@ void Imageanalysis::ProcessPylonImage() {
 	if (PtrGrabResult->GrabSucceeded()) {
 		PylonToCVFormatConverter.Convert(PylonImage, PtrGrabResult);
 		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer()).clone();
-		/*memcpy(IMGInfo.original.ptr(), PylonImage.GetBuffer(), camWidth*camHeight);*/
-		// edit: cvImage stores it's rows aligned on a 4byte boundary
-		// so if the source data isn't aligned you will have to do
-		/*uint8_t *pImageBuffer = (uint8_t *)PylonImage.GetBuffer();
-		for (int i = 0; i < camHeight; i++) {
-			for (int j = 0; j < camWidth; j++) {
-				IMGInfo.original.at<uchar>(i, j) = (uint32_t)pImageBuffer[i*camWidth + j];
-			}
-		}*/
 	}
 }
 
@@ -209,23 +196,13 @@ void Imageanalysis::ChuteDetermination() {
 }
 
 void Imageanalysis::ImagePreProcessing() {
-	//converts the colored image to grayscale (0-255 single color image)
 	cv::cvtColor(IMGInfo.original, IMGInfo.grayscale, CV_BGR2GRAY);
 
-	//cv::imshow("before blur", IMGInfo.grayscale);
-	//cv::resizeWindow("before blur", cv::Size(camWidth * 0.55, camHeight * 0.55));
 
 	cv::blur(IMGInfo.grayscale, IMGInfo.blurred, cv::Size(currentImageSettings.blurMapSize, currentImageSettings.blurMapSize));
 
-	//cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize /*5*/, 50, 50);
 	
 	cv::threshold(IMGInfo.blurred, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
-	//cv::imshow("Binary Filter", IMGInfo.binaryThreshold);
-	//cv::imshow("Original", IMGInfo.original);
-
-	//cv::resizeWindow("Binary Filter", cv::Size(camWidth * .85, camHeight * 0.85));
-
-	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
 	
 	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 3, 3);
 	
@@ -295,14 +272,7 @@ void Imageanalysis::CustomIDODDetection() {
 		tolleranceID = abs(ID - concCircles[i].IDrect.size.width);
 		OD = (concCircles[i].ODrect.size.width + concCircles[i].ODrect.size.height) / 2;
 		tolleranceOD = abs(OD - concCircles[i].ODrect.size.width);
-		//if (concCircles[i].group.size() == 1 || concCircles[i].IDrect.size == concCircles[i].ODrect.size) {
-		//	//cerr << "circle " << to_string(i + 1) << ": diameter = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
-		//	cout << "OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
-		//}
-		//else {
-		//	//cerr << "circle " << to_string(i + 1) << ": ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
-		//	cout << "ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
-		//}
+
 		for (int j = 0; j < int(concCircles[i].group.size()); j++)
 		{
 			//Draws over the manipulated image yellow circles for where it found the ID/OD
@@ -314,8 +284,8 @@ void Imageanalysis::CustomIDODDetection() {
 			IMGInfo.IDVariance = tolleranceID;
 			IMGInfo.ODVariance = tolleranceOD;
 			IMGInfo.multiConcentricCircleDetected = false;
-			cv::circle(IMGInfo.manipulated, concCircles[0].IDCenter, ID / 2, cv::Scalar(255,255,255), 1, 8, 0);
-			cv::circle(IMGInfo.manipulated, concCircles[0].ODCenter, OD / 2, cv::Scalar(255, 255, 255), 1, 8, 0);
+			cv::circle(IMGInfo.manipulated, concCircles[0].IDCenter, (int)ID / 2, cv::Scalar(255,255,255), 1, 8, 0);
+			cv::circle(IMGInfo.manipulated, concCircles[0].ODCenter, (int)OD / 2, cv::Scalar(255, 255, 255), 1, 8, 0);
 
 		}
 		else
@@ -328,17 +298,17 @@ void Imageanalysis::CustomIDODDetection() {
 		}
 	}
 
+	//calculate defecct properties
 	for (int i = 0; i < defects.size(); i++) {
 		IMGInfo.IMGDefects.defectCount++;
-		IMGInfo.IMGDefects.totalPointsCount += defects[i].size();
-		if (defects[i].size() > IMGInfo.IMGDefects.largestPointCount)
-			IMGInfo.IMGDefects.largestPointCount = defects[i].size();
-		IMGInfo.IMGDefects.largestDefectArea = IMGInfo.IMGDefects.largestPointCount * currentImageSettings.PixToMMRatio;
-		IMGInfo.IMGDefects.totalDefectArea = IMGInfo.IMGDefects.totalPointsCount * currentImageSettings.PixToMMRatio;
+		IMGInfo.IMGDefects.totalDefectPerimeter += (int)defects[i].size();
+		if (defects[i].size() > IMGInfo.IMGDefects.largestDefectPerimeter)
+			IMGInfo.IMGDefects.largestDefectPerimeter =(int)defects[i].size();
+		IMGInfo.IMGDefects.largestDefectArea = IMGInfo.IMGDefects.largestDefectPerimeter * currentImageSettings.PixToMMRatio;
+		IMGInfo.IMGDefects.totalDefectArea = IMGInfo.IMGDefects.totalDefectPerimeter * currentImageSettings.PixToMMRatio;
 		//Draws over the manipulated image the defects it found in red
 		polylines(IMGInfo.manipulated, defects[i], true, cv::Scalar(0, 0, 255), 1, 8, 0);
 	}
-	cv::imshow("manipulated", IMGInfo.manipulated);
 
 }
 
@@ -390,17 +360,12 @@ contourInfo Imageanalysis::IsContourCircle(std::vector<cv::Point> contour, int S
 	if (height < SmallestRadius || width < SmallestRadius)
 		return info;
 
-	//cv::Point2f center;
-	//float radius = 0;
-	//minEnclosingCircle(contour, center, radius); //enclose the individual contour lines within a circle
 	minEnclosingCircle(contour, info.center,  info.radius); //enclose the individual contour lines within a circle
 
 	double circleCheck = fabs(info.radius - height / 2); //gets the absolute value of the measured circle area difference
 	double circleCheck2 = fabs(info.radius - width / 2);
 
-	//info.center = center;
 	info.contour = contour;
-	//info.radius = radius;
 
 	//if the difference of the circle area is within the tollerance range then the contour is a circle
 	if (circleCheck < (info.radius / currentImageSettings.CircleTolerance) && circleCheck2 < (info.radius / currentImageSettings.CircleTolerance)) {
