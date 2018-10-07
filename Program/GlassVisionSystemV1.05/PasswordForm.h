@@ -123,6 +123,7 @@ namespace GlassVisionSystemV105 {
 			if (tbxPassword->Text == "159357") {
 
 				currentLog.result = "Correct Password Was Entered on attempt #" + std::to_string(attempt) + ", Proceeding to display UI for {USER}";
+				tbxPassword->Text = "";
 				this->DialogResult = Windows::Forms::DialogResult::Yes;
 				attempt = 0;
 				SaveLog(currentLog);

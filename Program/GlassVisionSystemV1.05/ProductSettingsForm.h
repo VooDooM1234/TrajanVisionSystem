@@ -381,6 +381,7 @@ namespace GlassVisionSystemV105 {
 			this->btnAutoPopulate->TabIndex = 12;
 			this->btnAutoPopulate->Text = L"Auto Populate Defect Entry";
 			this->btnAutoPopulate->UseVisualStyleBackColor = true;
+			this->btnAutoPopulate->Click += gcnew System::EventHandler(this, &ProductSettingsForm::btnAutoPopulate_Click);
 			// 
 			// btnLoad
 			// 
@@ -472,5 +473,11 @@ namespace GlassVisionSystemV105 {
 		blank.listOfChuteSpecs.resize(5);
 		populateSettings(blank);
 	}
-	};
+
+			 //populate defect table
+	private: System::Void btnAutoPopulate_Click(System::Object^  sender, System::EventArgs^  e) {
+		
+
+	}
+};
 }

@@ -217,9 +217,14 @@ void Imageanalysis::ImagePreProcessing() {
 
 	cv::blur(IMGInfo.grayscale, IMGInfo.blurred, cv::Size(currentImageSettings.blurMapSize, currentImageSettings.blurMapSize));
 
-	cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize /*5*/, 50, 50);
+	//cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize /*5*/, 50, 50);
 	
-	cv::threshold(IMGInfo.bilatFiltered, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
+	cv::threshold(IMGInfo.blurred, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
+	//cv::imshow("Binary Filter", IMGInfo.binaryThreshold);
+	//cv::imshow("Original", IMGInfo.original);
+
+	//cv::resizeWindow("Binary Filter", cv::Size(camWidth * .85, camHeight * 0.85));
+
 	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
 	
 	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 3, 3);
@@ -333,6 +338,8 @@ void Imageanalysis::CustomIDODDetection() {
 		//Draws over the manipulated image the defects it found in red
 		polylines(IMGInfo.manipulated, defects[i], true, cv::Scalar(0, 0, 255), 1, 8, 0);
 	}
+	cv::imshow("manipulated", IMGInfo.manipulated);
+
 }
 
 //checks that for every point inside a defect it is somewhere within the concentric circle
