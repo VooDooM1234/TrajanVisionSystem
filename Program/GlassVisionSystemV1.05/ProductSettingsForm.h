@@ -3,7 +3,6 @@
 #include <msclr\marshal_cppstd.h>
 #include "ChuteSettingsForm.h"
 #include "SaveLoadSettings.h"
-#include "ImageDisplay.h"
 //#include "MyForm.h"
 
 namespace GlassVisionSystemV105 {
@@ -56,6 +55,11 @@ namespace GlassVisionSystemV105 {
 	private: System::Windows::Forms::GroupBox^  groupBox2;
 	public: System::Windows::Forms::DataGridView^  dgvDefects;
 
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col1DefectCnt;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col2TtlArea;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col3LargestArea;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col4TotalPoints;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col5LargestPtCnt;
 	private: System::Windows::Forms::Button^  btnAutoPopulate;
 	private: System::Windows::Forms::Button^  btnLoad;
 	private: System::Windows::Forms::Label^  label5;
@@ -64,11 +68,6 @@ namespace GlassVisionSystemV105 {
 	public: System::Windows::Forms::NumericUpDown^  nudOD;
 	public: System::Windows::Forms::NumericUpDown^  nudID;
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col1DefectCnt;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col2TtlArea;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col3LargestArea;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col4TotalPoints;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Col5LargestPtCnt;
 	public:
 
 
@@ -103,14 +102,14 @@ namespace GlassVisionSystemV105 {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->dgvDefects = (gcnew System::Windows::Forms::DataGridView());
-			this->btnAutoPopulate = (gcnew System::Windows::Forms::Button());
-			this->btnLoad = (gcnew System::Windows::Forms::Button());
-			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->Col1DefectCnt = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Col2TtlArea = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Col3LargestArea = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Col4TotalPoints = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Col5LargestPtCnt = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->btnAutoPopulate = (gcnew System::Windows::Forms::Button());
+			this->btnLoad = (gcnew System::Windows::Forms::Button());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudNumChutes))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
@@ -342,6 +341,36 @@ namespace GlassVisionSystemV105 {
 			this->dgvDefects->TabIndex = 11;
 			this->dgvDefects->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &ProductSettingsForm::dataGridView1_CellContentClick);
 			// 
+			// Col1DefectCnt
+			// 
+			this->Col1DefectCnt->HeaderText = L"Defect Count";
+			this->Col1DefectCnt->Name = L"Col1DefectCnt";
+			this->Col1DefectCnt->Width = 75;
+			// 
+			// Col2TtlArea
+			// 
+			this->Col2TtlArea->HeaderText = L"Total Defect Area";
+			this->Col2TtlArea->Name = L"Col2TtlArea";
+			this->Col2TtlArea->Width = 75;
+			// 
+			// Col3LargestArea
+			// 
+			this->Col3LargestArea->HeaderText = L"Largest Defect Area";
+			this->Col3LargestArea->Name = L"Col3LargestArea";
+			this->Col3LargestArea->Width = 75;
+			// 
+			// Col4TotalPoints
+			// 
+			this->Col4TotalPoints->HeaderText = L"Total Point Count";
+			this->Col4TotalPoints->Name = L"Col4TotalPoints";
+			this->Col4TotalPoints->Width = 75;
+			// 
+			// Col5LargestPtCnt
+			// 
+			this->Col5LargestPtCnt->HeaderText = L"Latgest Point Count";
+			this->Col5LargestPtCnt->Name = L"Col5LargestPtCnt";
+			this->Col5LargestPtCnt->Width = 75;
+			// 
 			// btnAutoPopulate
 			// 
 			this->btnAutoPopulate->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -369,36 +398,6 @@ namespace GlassVisionSystemV105 {
 			// openFileDialog1
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
-			// 
-			// Col1DefectCnt
-			// 
-			this->Col1DefectCnt->HeaderText = L"Defect Count";
-			this->Col1DefectCnt->Name = L"Col1DefectCnt";
-			this->Col1DefectCnt->Width = 75;
-			// 
-			// Col2TtlArea
-			// 
-			this->Col2TtlArea->HeaderText = L"Total Defect Area (px)";
-			this->Col2TtlArea->Name = L"Col2TtlArea";
-			this->Col2TtlArea->Width = 75;
-			// 
-			// Col3LargestArea
-			// 
-			this->Col3LargestArea->HeaderText = L"Largest Defect Area (px)";
-			this->Col3LargestArea->Name = L"Col3LargestArea";
-			this->Col3LargestArea->Width = 75;
-			// 
-			// Col4TotalPoints
-			// 
-			this->Col4TotalPoints->HeaderText = L"Total Defect Perimeter (px)";
-			this->Col4TotalPoints->Name = L"Col4TotalPoints";
-			this->Col4TotalPoints->Width = 75;
-			// 
-			// Col5LargestPtCnt
-			// 
-			this->Col5LargestPtCnt->HeaderText = L"Largest Defect Perimeter (px)";
-			this->Col5LargestPtCnt->Name = L"Col5LargestPtCnt";
-			this->Col5LargestPtCnt->Width = 75;
 			// 
 			// ProductSettingsForm
 			// 
@@ -452,6 +451,7 @@ namespace GlassVisionSystemV105 {
 	private: System::Void BtnMainMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 		CurrentPannelA = InfoForm;
 		CurrentPannelB = cameraForm;
+
 	}
 
 	private: void SaveProduct();
@@ -473,13 +473,11 @@ namespace GlassVisionSystemV105 {
 		blank.listOfChuteSpecs.resize(5);
 		populateSettings(blank);
 	}
+
+			 //populate defect table
 	private: System::Void btnAutoPopulate_Click(System::Object^  sender, System::EventArgs^  e) {
-		dgvDefects->Rows->Add(
-			CameraA.IMGInfo.IMGDefects.defectCount,
-			CameraA.IMGInfo.IMGDefects.totalDefectArea,
-			CameraA.IMGInfo.IMGDefects.largestDefectArea,
-			CameraA.IMGInfo.IMGDefects.totalDefectPerimeter,
-			CameraA.IMGInfo.IMGDefects.largestDefectPerimeter);
+		
+
 	}
 };
 }

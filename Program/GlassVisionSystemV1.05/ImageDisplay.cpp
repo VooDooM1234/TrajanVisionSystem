@@ -102,6 +102,7 @@ void Imageanalysis::ProcessImage()
 		
 		IMGInfo.ImageCapture >> IMGInfo.original;
 		IMGInfo.ImageCapture >> IMGInfo.original;
+
 	}
 	else {
 		IMGInfo.camera->ExposureTime.SetValue(currentImageSettings.ExposureTime);
@@ -135,6 +136,15 @@ void Imageanalysis::ProcessPylonImage() {
 	if (PtrGrabResult->GrabSucceeded()) {
 		PylonToCVFormatConverter.Convert(PylonImage, PtrGrabResult);
 		IMGInfo.original = cv::Mat(PtrGrabResult->GetHeight(), PtrGrabResult->GetWidth(), CV_8UC3, (uint8_t *)PylonImage.GetBuffer()).clone();
+		/*memcpy(IMGInfo.original.ptr(), PylonImage.GetBuffer(), camWidth*camHeight);*/
+		// edit: cvImage stores it's rows aligned on a 4byte boundary
+		// so if the source data isn't aligned you will have to do
+		/*uint8_t *pImageBuffer = (uint8_t *)PylonImage.GetBuffer();
+		for (int i = 0; i < camHeight; i++) {
+			for (int j = 0; j < camWidth; j++) {
+				IMGInfo.original.at<uchar>(i, j) = (uint32_t)pImageBuffer[i*camWidth + j];
+			}
+		}*/
 	}
 }
 
@@ -151,13 +161,12 @@ void Imageanalysis::ChuteDetermination() {
 		priority++;
 		double lower = 0;
 		double upper = 0;
-		bool withinRange = true;
 		//set initial upper and lower limits for the ID
 		lower = (currentProductSettings.targetID * (1 - (var.IDTolerance / 100))) / currentImageSettings.PixToMMRatio;
 		upper = (currentProductSettings.targetID * (1 + (var.IDTolerance / 100))) / currentImageSettings.PixToMMRatio;
 
 		if (var.IDGood && IMGInfo.ID - IMGInfo.IDVariance > lower && IMGInfo.ID + IMGInfo.IDVariance < upper) {
-			goto ODSETUP;
+				goto ODSETUP;
 		}
 		else if (var.IDLower && IMGInfo.ID - IMGInfo.IDVariance <= lower) {
 			goto CHUTEDETERMINATION;
@@ -178,51 +187,20 @@ void Imageanalysis::ChuteDetermination() {
 		upper = (currentProductSettings.targetOD * (1 + (var.ODTolerance / 100))) / currentImageSettings.PixToMMRatio;
 
 		if (var.ODGood && IMGInfo.OD - IMGInfo.ODVariance > lower && IMGInfo.OD + IMGInfo.ODVariance < upper) {
-			goto DEFECTSETUP;
+				goto CHUTEDETERMINATION;
 		}
 		else if (var.ODLower && IMGInfo.OD - IMGInfo.ODVariance <= lower) {
-			goto CHUTEDETERMINATION;
+				goto CHUTEDETERMINATION;
 		}
 		else if (var.ODHigher && IMGInfo.OD + IMGInfo.ODVariance >= upper) {
-			goto CHUTEDETERMINATION;
+				goto CHUTEDETERMINATION;
 		}
 		else if (!var.ODGood && !var.ODLower && !var.ODHigher) {
-			goto DEFECTSETUP;
-		}
-		else {
-			continue;
-		}
-
-	DEFECTSETUP:
-		//sets withinRange=false if every property of a single defect exceeds that of a baseline defect entry
-		for each (DefectParameters defects in currentProductSettings.listOfDefects) {
-			if (IMGInfo.IMGDefects.defectCount < defects.defectCount)
-				continue;
-			if (IMGInfo.IMGDefects.largestDefectArea < defects.largestDefectArea)
-				continue;
-			if (IMGInfo.IMGDefects.totalDefectArea < defects.totalDefectArea)
-				continue;
-			if (IMGInfo.IMGDefects.largestDefectPerimeter < defects.largestDefectPerimeter)
-				continue;
-			if (IMGInfo.IMGDefects.totalDefectPerimeter < defects.totalDefectPerimeter)
-				continue;
-			withinRange = false;
-			break;
-		}
-		
-		if (var.noDefects && IMGInfo.IMGDefects.defectCount == 0) {
-			goto CHUTEDETERMINATION;
-		}
-		else if (var.defectsWithinRange && withinRange) {
-			goto CHUTEDETERMINATION;
-		}
-		else if (var.defectsOutOfRange && !withinRange) {
 			goto CHUTEDETERMINATION;
 		}
 		else {
 			continue;
 		}
-
 		CHUTEDETERMINATION:
 		IMGInfo.chutePriority = priority;
 		IMGInfo.chute = var.chutetype;
@@ -234,29 +212,26 @@ void Imageanalysis::ImagePreProcessing() {
 	//converts the colored image to grayscale (0-255 single color image)
 	cv::cvtColor(IMGInfo.original, IMGInfo.grayscale, CV_BGR2GRAY);
 
+	//cv::imshow("before blur", IMGInfo.grayscale);
+	//cv::resizeWindow("before blur", cv::Size(camWidth * 0.55, camHeight * 0.55));
+
 	cv::blur(IMGInfo.grayscale, IMGInfo.blurred, cv::Size(currentImageSettings.blurMapSize, currentImageSettings.blurMapSize));
 
-	//cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize, 50, 50);
+	//cv::bilateralFilter(IMGInfo.grayscale, IMGInfo.bilatFiltered, currentImageSettings.blurMapSize /*5*/, 50, 50);
 	
-	//cv::threshold(IMGInfo.bilatFiltered, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
-	//cv::inRange(IMGInfo.blurred, cv::Scalar(currentImageSettings.CannyThresholdA), cv::Scalar(currentImageSettings.upperThreshold), IMGInfo.binaryThreshold);
-	cv::threshold(IMGInfo.blurred, IMGInfo.tozero, currentImageSettings.CannyThresholdA, 255, cv::THRESH_TOZERO);
-	cv::threshold(IMGInfo.tozero, IMGInfo.tozeroinv, currentImageSettings.upperThreshold, 255, cv::THRESH_TOZERO_INV);
-	cv::normalize(IMGInfo.tozeroinv, IMGInfo.normalized, 0, 255, cv::NORM_MINMAX);
-	cv::inRange(IMGInfo.normalized, cv::Scalar(currentImageSettings.CannyThresholdA), cv::Scalar(currentImageSettings.upperThreshold), IMGInfo.binaryThreshold);
+	cv::threshold(IMGInfo.blurred, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
+	//cv::imshow("Binary Filter", IMGInfo.binaryThreshold);
+	//cv::imshow("Original", IMGInfo.original);
 
-	cv::imshow("tozero", IMGInfo.tozero);
-	cv::imshow("tozeroinv", IMGInfo.tozeroinv);
-	cv::imshow("normalized", IMGInfo.normalized);
+	//cv::resizeWindow("Binary Filter", cv::Size(camWidth * .85, camHeight * 0.85));
+
+	//cv::inRange(IMGInfo.grayscale, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, IMGInfo.binaryThreshold);
 	
-	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 2, 3);
+	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 3, 3);
 	
 	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(currentImageSettings.dilation, currentImageSettings.dilation), cv::Point(-1, -1));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
 	cv::erode(IMGInfo.canny, IMGInfo.canny, element);
-
-	//cv::imshow("before blur", IMGInfo.grayscale);
-	//cv::resizeWindow("before blur", cv::Size(camWidth * 0.55, camHeight * 0.55));
 }
 
 void Imageanalysis::CustomIDODDetection() {
@@ -265,10 +240,14 @@ void Imageanalysis::CustomIDODDetection() {
 	vector<cv::Vec4i> hierarchy;
 	
 	cv::findContours(IMGInfo.canny, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+	
+	// Draw contours (IS THIS ACTUALLY DOING ANYTHING???)
+	//cv::Mat drawing = cv::Mat::zeros(IMGInfo.canny.size(), CV_8UC3);
 
 	vector<contourInfo> Circles(0);
 	contourInfo continfo;
 	vector<vector<cv::Point>> otherPoints;
+
 
 	for (int i = 0; i < int(contours.size()); i++)
 	{
@@ -290,6 +269,7 @@ void Imageanalysis::CustomIDODDetection() {
 			//otherwise store the contour in a new array for later use
 			otherPoints.resize(otherPoints.size() + 1);
 			otherPoints[otherPoints.size() - 1] = continfo.contour;
+
 		}
 	}
 
@@ -323,19 +303,19 @@ void Imageanalysis::CustomIDODDetection() {
 		//	//cerr << "circle " << to_string(i + 1) << ": ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
 		//	cout << "ID = " << to_string(ID) << "(+/-: " << to_string(tolleranceID) << "), OD = " << to_string(OD) << "(+/-: " << to_string(tolleranceOD) << ")" << endl;
 		//}
-		//for (int j = 0; j < int(concCircles[i].group.size()); j++)
-		//{
-		//	//Draws over the manipulated image yellow circles for where it found the ID/OD
-		//	polylines(IMGInfo.manipulated, concCircles[i].group[j].contour, true, cv::Scalar(0, 255, 255), 1, 8, 0);
-		//}
+		for (int j = 0; j < int(concCircles[i].group.size()); j++)
+		{
+			//Draws over the manipulated image yellow circles for where it found the ID/OD
+			polylines(IMGInfo.manipulated, concCircles[i].group[j].contour, true, cv::Scalar(0, 255, 255), 1, 8, 0);
+		}
 		if (i == 0) {
 			IMGInfo.ID = ID;
 			IMGInfo.OD = OD;
 			IMGInfo.IDVariance = tolleranceID;
 			IMGInfo.ODVariance = tolleranceOD;
 			IMGInfo.multiConcentricCircleDetected = false;
-			cv::circle(IMGInfo.manipulated, concCircles[0].IDCenter, ID / 2, cv::Scalar(0,255,255), 1, 8, 0);
-			cv::circle(IMGInfo.manipulated, concCircles[0].ODCenter, OD / 2, cv::Scalar(0, 255, 255), 1, 8, 0);
+			cv::circle(IMGInfo.manipulated, concCircles[0].IDCenter, ID / 2, cv::Scalar(255,255,255), 1, 8, 0);
+			cv::circle(IMGInfo.manipulated, concCircles[0].ODCenter, OD / 2, cv::Scalar(255, 255, 255), 1, 8, 0);
 
 		}
 		else
@@ -348,31 +328,26 @@ void Imageanalysis::CustomIDODDetection() {
 		}
 	}
 
-	IMGInfo.IMGDefects.defectCount = 0;
-	IMGInfo.IMGDefects.largestDefectArea = 0;
-	IMGInfo.IMGDefects.largestDefectPerimeter = 0;
-	IMGInfo.IMGDefects.totalDefectArea = 0;
-	IMGInfo.IMGDefects.totalDefectPerimeter = 0;
-
 	for (int i = 0; i < defects.size(); i++) {
 		IMGInfo.IMGDefects.defectCount++;
-		IMGInfo.IMGDefects.totalDefectPerimeter += defects[i].size();
-		IMGInfo.IMGDefects.totalDefectArea += cv::contourArea(defects[i]);			/* * currentImageSettings.PixToMMRatio */
-		if (defects[i].size() > IMGInfo.IMGDefects.largestDefectPerimeter)
-			IMGInfo.IMGDefects.largestDefectPerimeter = defects[i].size();
-		if(cv::contourArea(defects[i]) > IMGInfo.IMGDefects.largestDefectArea)
-			IMGInfo.IMGDefects.largestDefectArea = cv::contourArea(defects[i]);		/* * currentImageSettings.PixToMMRatio */
-		
+		IMGInfo.IMGDefects.totalPointsCount += defects[i].size();
+		if (defects[i].size() > IMGInfo.IMGDefects.largestPointCount)
+			IMGInfo.IMGDefects.largestPointCount = defects[i].size();
+		IMGInfo.IMGDefects.largestDefectArea = IMGInfo.IMGDefects.largestPointCount * currentImageSettings.PixToMMRatio;
+		IMGInfo.IMGDefects.totalDefectArea = IMGInfo.IMGDefects.totalPointsCount * currentImageSettings.PixToMMRatio;
 		//Draws over the manipulated image the defects it found in red
 		polylines(IMGInfo.manipulated, defects[i], true, cv::Scalar(0, 0, 255), 1, 8, 0);
 	}
+	cv::imshow("manipulated", IMGInfo.manipulated);
+
 }
 
 //checks that for every point inside a defect it is somewhere within the concentric circle
 vector<vector<cv::Point>> Imageanalysis::DefectCheck(vector<ConcCircles> concCircles, vector<vector<cv::Point>> defects) {
 	vector<vector<cv::Point>> result(0);
 
-	for (int i = 0; i < int(concCircles.size()); i++) {
+	for (int i = 0; i < int(concCircles.size()); i++)
+	{
 		for (int j = 0; j < int(defects.size()); j++) {
 			for (int k = 0; k < int(defects[j].size()); k++) {
 				if (pointInEllipse(defects[j][k], concCircles[i].ODrect) == true) {
@@ -475,7 +450,7 @@ vector<ConcCircles> Imageanalysis::SortCircles(vector<contourInfo> circleInfo) {
 	for (int i = 0; i < int(concentricCircles.size()); i++) {
 		double ID = (float)999999999;
 		double OD = 0;
-		//finds the largest OD and smallest ID
+		//finds the largest OD and smallest ID (WOULDN'T AN AVERAGE OF THE ID's  OD's GIVE US THE MOST ACCURATE RESULT?)
 		for (int j = 0; j < int(concentricCircles[i].group.size()); j++) {
 			if (ID > (concentricCircles[i].group[j].radius * 2)) {
 				ID = (concentricCircles[i].group[j].radius * 2);
