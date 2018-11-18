@@ -803,6 +803,7 @@ namespace GlassVisionSystemV105 {
 
 		//record time of saving
 		time_t _tm = time(NULL);
+		result.date = new tm();
 		localtime_s(result.date, &_tm);
 		//result.date = localtime(&_tm);
 

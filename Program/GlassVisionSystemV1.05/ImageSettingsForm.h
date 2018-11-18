@@ -513,6 +513,7 @@ namespace GlassVisionSystemV105 {
 			this->numCannyTolB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->numCannyTolB->Location = System::Drawing::Point(107, 35);
+			this->numCannyTolB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 300, 0, 0, 0 });
 			this->numCannyTolB->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numCannyTolB->Name = L"numCannyTolB";
 			this->numCannyTolB->Size = System::Drawing::Size(65, 22);
@@ -524,6 +525,7 @@ namespace GlassVisionSystemV105 {
 			// 
 			this->hScrollBar2->Dock = System::Windows::Forms::DockStyle::Top;
 			this->hScrollBar2->Location = System::Drawing::Point(3, 18);
+			this->hScrollBar2->Maximum = 300;
 			this->hScrollBar2->Minimum = 1;
 			this->hScrollBar2->Name = L"hScrollBar2";
 			this->hScrollBar2->Size = System::Drawing::Size(172, 16);

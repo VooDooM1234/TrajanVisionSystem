@@ -1,6 +1,21 @@
-﻿  SaveLoadSettings.cpp
-d:\visual studio\trajangvs\program\glassvisionsystemv1.05\saveloadsettings.cpp(211): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+﻿  ImageDisplay.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(663): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  InformationForm.cpp
+  LogForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(663): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  LogPreviewForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(663): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  MyForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(663): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  ProductSettingsForm.cpp
+d:\visual studio\trajangvs\program\glassvisionsystemv1.05\imagesettingsform.h(663): warning C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(116): note: see declaration of 'asctime'
+  Generating Code...
+  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
   CameraForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
 LogPreviewForm.obj : warning LNK4248: unresolved typeref token (01000049) for 'CvCapture'; image may not run
 LogPreviewForm.obj : warning LNK4248: unresolved typeref token (0100004A) for 'cv.IVideoCapture'; image may not run

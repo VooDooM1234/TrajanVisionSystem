@@ -391,6 +391,7 @@ void SaveLog(LogInfo log) {
 		else
 			break;
 	}
+	log.date = new tm();
 	localtime_s(log.date, &_tm);
 	//log.date = localtime(&_tm);
 

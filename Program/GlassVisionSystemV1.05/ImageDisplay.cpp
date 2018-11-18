@@ -107,8 +107,8 @@ void Imageanalysis::ProcessImage()
 	try
 	{
 		//crops and scals original image to fit form window - rect(x, y, width, height)
-		cv::Rect rect((int)(camWidth * 0.125),(int)( camHeight * 0.125),(int)(camWidth * 0.75),(int)(camHeight * 0.75));
-		IMGInfo.original = IMGInfo.original(rect).clone();
+		/*cv::Rect rect((int)(camWidth * 0.125),(int)( camHeight * 0.125),(int)(camWidth * 0.75),(int)(camHeight * 0.75));
+		IMGInfo.original = IMGInfo.original(rect).clone();*/
 
 		//process image data
 		Imageanalysis::generateManipulated();
@@ -204,7 +204,7 @@ void Imageanalysis::ImagePreProcessing() {
 	
 	cv::threshold(IMGInfo.blurred, IMGInfo.binaryThreshold, currentImageSettings.CannyThresholdA, 255, cv::THRESH_BINARY);
 	
-	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdA * 3, 3);
+	cv::Canny(IMGInfo.binaryThreshold, IMGInfo.canny, currentImageSettings.CannyThresholdA, currentImageSettings.CannyThresholdB, 3);
 	
 	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(currentImageSettings.dilation, currentImageSettings.dilation), cv::Point(-1, -1));
 	cv::dilate(IMGInfo.canny, IMGInfo.canny, element);
